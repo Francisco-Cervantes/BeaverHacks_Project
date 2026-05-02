@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BeaverEats - Smart Student Meal Planning</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Main Container -->
+    <div id="app">
+        <!-- Navigation Header -->
+        <nav class="navbar" id="navbar">
+            <div class="nav-container">
+                <div class="nav-brand">
+                    <h2><i class="fas fa-utensils"></i> BeaverEats</h2>
+                </div>
+                <ul class="nav-menu" id="nav-menu">
+                    <li class="nav-item">
+                        <a href="#home" class="nav-link active" data-page="home">
+                            <i class="fas fa-home"></i> Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#chat" class="nav-link" data-page="chat">
+                            <i class="fas fa-comments"></i> Chat
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#meals" class="nav-link" data-page="meals">
+                            <i class="fas fa-hamburger"></i> Meals
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#profile" class="nav-link" data-page="profile">
+                            <i class="fas fa-user"></i> Profile
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#meal-plan" class="nav-link" data-page="meal-plan">
+                            <i class="fas fa-calendar-alt"></i> Meal Plan
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#recipes" class="nav-link" data-page="recipes">
+                            <i class="fas fa-book"></i> Recipes
+                        </a>
+                    </li>
+                </ul>
+                <div class="nav-toggle" id="nav-toggle">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+                <div class="user-actions">
+                    <span id="user-info" class="hidden">
+                        <i class="fas fa-map-marker-alt"></i> 
+                        <span id="user-zip">97331</span>
+                    </span>
+                    <button id="auth-btn" class="btn btn-primary">Sign In</button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content Container -->
+        <main class="main-content">
+            <!-- Sign In Page -->
+            <div id="sign-in-page" class="page active">
+                <div class="auth-container">
+                    <div class="auth-card">
+                        <h2><i class="fas fa-utensils"></i> Welcome to BeaverEats</h2>
+                        <p class="auth-subtitle">Smart meal planning for busy students</p>
+                        
+                        <form id="sign-in-form" class="auth-form">
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" id="password" name="password" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-full">Sign In</button>
+                        </form>
+                        
+                        <div class="auth-divider">
+                            <span>or</span>
+                        </div>
+                        
+                        <button id="guest-continue" class="btn btn-secondary btn-full">
+                            Continue as Guest
+                        </button>
+                        
+                        <p class="auth-note">
+                            <strong>Note:</strong> Meal planning and personalized features require an account
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Home Page -->
+            <div id="home-page" class="page">
+                <div class="hero-section">
+                    <div class="hero-content">
+                        <h1>Smart Meal Planning for Students</h1>
+                        <p>Find affordable groceries, discover budget-friendly recipes, and plan your meals efficiently</p>
+                        <div class="hero-stats">
+                            <div class="stat">
+                                <i class="fas fa-dollar-sign"></i>
+                                <span>Save up to 40% on groceries</span>
+                            </div>
+                            <div class="stat">
+                                <i class="fas fa-clock"></i>
+                                <span>Quick 15-minute recipes</span>
+                            </div>
+                            <div class="stat">
+                                <i class="fas fa-shopping-cart"></i>
+                                <span>Smart shopping lists</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <section class="about-section">
+                        <h2>About BeaverEats</h2>
+                        <div class="features-grid">
+                            <div class="feature-card">
+                                <i class="fas fa-brain"></i>
+                                <h3>AI-Powered Recommendations</h3>
+                                <p>Get personalized meal suggestions based on your preferences, budget, and dietary needs</p>
+                            </div>
+                            <div class="feature-card">
+                                <i class="fas fa-map-marked-alt"></i>
+                                <h3>Local Store Prices</h3>
+                                <p>Compare prices from nearby grocery stores to find the best deals</p>
+                            </div>
+                            <div class="feature-card">
+                                <i class="fas fa-utensils"></i>
+                                <h3>Student-Friendly Recipes</h3>
+                                <p>Simple recipes with minimal equipment and maximum nutrition</p>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <!-- Other pages will be loaded here -->
+            <div id="chat-page" class="page hidden"></div>
+            <div id="meals-page" class="page hidden"></div>
+            <div id="profile-page" class="page hidden"></div>
+            <div id="meal-plan-page" class="page hidden"></div>
+            <div id="recipes-page" class="page hidden"></div>
+            <div id="individual-meal-page" class="page hidden"></div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/auth.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/navigation.js"></script>
+    <script src="js/profile.js"></script>
+    <script src="js/meal-plan.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
