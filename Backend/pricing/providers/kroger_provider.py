@@ -26,17 +26,18 @@ class KrogerPricingProvider(PricingProvider):
     KNOWN_CERTIFICATION_LOCATION = "01400943"
 
     def __init__(self, client_id: Optional[str] = None, client_secret: Optional[str] = None):
-        self.client_id = (client_id or os.getenv("KROGER_CLIENT_ID")).strip()
-        self.client_secret = (client_secret or os.getenv("KROGER_CLIENT_SECRET")).strip()
+        self.client_id = (client_id or os.getenv("KROGER_CLIENT_ID") or "").strip()
+        self.client_secret = (client_secret or os.getenv("KROGER_CLIENT_SECRET") or "").strip()
         self.access_token: Optional[str] = None
         self.location_id: Optional[str] = None
+        self.store_coords: Optional[tuple] = None
 
         if not self.client_id or not self.client_secret:
             raise ValueError("KROGER_CLIENT_ID and KROGER_CLIENT_SECRET environment variables required")
 
     def _get_access_token(self) -> str:
         """Get OAuth access token using client credentials flow."""
-        if self.access_token:
+        if self.access_token is not None:
             return self.access_token
 
         url = f"{self.BASE_URL}/v1/connect/oauth2/token"
@@ -69,8 +70,9 @@ class KrogerPricingProvider(PricingProvider):
             response.raise_for_status()
 
             token_data = response.json()
-            self.access_token = token_data["access_token"]
-            return self.access_token
+            access_token = str(token_data["access_token"])
+            self.access_token = access_token
+            return access_token
         except requests.exceptions.HTTPError as e:
             error_msg = f"OAuth Error: {e.response.status_code} - {e.response.text}"
             print(f"DEBUG: Response Status: {e.response.status_code}")
@@ -87,10 +89,13 @@ class KrogerPricingProvider(PricingProvider):
 
         locations = self._get_nearby_locations(zip_code)
         if locations:
-            self.location_id = locations[0]["locationId"]
+            location = locations[0]
+            self.location_id = location["locationId"]
+            self.store_coords = self._extract_location_coords(location)
             return
 
         self.location_id = self.KNOWN_CERTIFICATION_LOCATION
+        self.store_coords = None
         print(f"✓ No nearby Kroger location found for {zip_code}. Using certification fallback location: {self.location_id}")
 
     def _get_nearby_locations(self, zip_code: str) -> list:
@@ -108,6 +113,18 @@ class KrogerPricingProvider(PricingProvider):
 
         data = response.json()
         return data.get("data", [])
+
+    def _extract_location_coords(self, location: dict) -> Optional[tuple]:
+        geo = location.get("geoCode") or location.get("address", {})
+        latitude = geo.get("latitude") or geo.get("lat")
+        longitude = geo.get("longitude") or geo.get("lon") or geo.get("lng")
+        if latitude is None or longitude is None:
+            return None
+
+        try:
+            return float(latitude), float(longitude)
+        except (TypeError, ValueError):
+            return None
 
     def get_price(self, ingredient_name: str) -> float:
         """Get price for an ingredient from Kroger API."""

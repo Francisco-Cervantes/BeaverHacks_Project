@@ -10,6 +10,8 @@ class AlbertsonsPricingProvider(PricingProvider):
         self.base_provider = base_provider
         self.multiplier = 1.11
         self.location_id: Optional[str] = None
+        self.store_coords: Optional[tuple] = None
+        self.default_distance_miles = 6.5
         self.estimated_prices = {
             "chicken breast": 4.29,
             "rice": 1.29,
@@ -22,6 +24,7 @@ class AlbertsonsPricingProvider(PricingProvider):
     def set_location(self, zip_code: str) -> None:
         """Set location for Albertsons pricing estimates."""
         self.location_id = zip_code
+        self.store_coords = None
 
     def get_price(self, ingredient_name: str) -> float:
         """Get an estimated Albertsons price for an ingredient."""

@@ -9,6 +9,8 @@ class WincoPricingProvider(PricingProvider):
     def __init__(self, base_provider: Optional[PricingProvider] = None):
         self.base_provider = base_provider
         self.multiplier = 0.88
+        self.store_coords: Optional[tuple] = None
+        self.default_distance_miles = 10.0
         self.estimated_prices = {
             "chicken breast": 2.99,  # per lb
             "rice": 0.99,            # per lb
@@ -26,3 +28,6 @@ class WincoPricingProvider(PricingProvider):
         if ingredient_name not in self.estimated_prices:
             raise ValueError(f"No estimated price for {ingredient_name} at WinCo")
         return self.estimated_prices[ingredient_name]
+
+    def set_location(self, zip_code: str) -> None:
+        self.store_coords = None

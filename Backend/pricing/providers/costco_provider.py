@@ -9,6 +9,8 @@ class CostcoPricingProvider(PricingProvider):
     def __init__(self, base_provider: Optional[PricingProvider] = None):
         self.base_provider = base_provider
         self.multiplier = 0.95
+        self.store_coords: Optional[tuple] = None
+        self.default_distance_miles = 12.0
         self.estimated_prices = {
             "chicken breast": 4.99,  # per lb
             "rice": 1.49,            # per lb
@@ -26,3 +28,6 @@ class CostcoPricingProvider(PricingProvider):
         if ingredient_name not in self.estimated_prices:
             raise ValueError(f"No estimated price for {ingredient_name} at Costco")
         return self.estimated_prices[ingredient_name]
+
+    def set_location(self, zip_code: str) -> None:
+        self.store_coords = None

@@ -9,6 +9,8 @@ class GroceryOutletPricingProvider(PricingProvider):
     def __init__(self, base_provider: Optional[PricingProvider] = None):
         self.base_provider = base_provider
         self.multiplier = 0.85
+        self.store_coords: Optional[tuple] = None
+        self.default_distance_miles = 11.0
         self.estimated_prices = {
             "chicken breast": 2.49,
             "rice": 0.89,
@@ -17,6 +19,9 @@ class GroceryOutletPricingProvider(PricingProvider):
             "onion": 0.79,
             "canned tomatoes": 1.19,
         }
+
+    def set_location(self, zip_code: str) -> None:
+        self.store_coords = None
 
     def get_price(self, ingredient_name: str) -> float:
         if self.base_provider is not None:

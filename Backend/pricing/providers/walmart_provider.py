@@ -9,6 +9,8 @@ class WalmartPricingProvider(PricingProvider):
     def __init__(self, base_provider: Optional[PricingProvider] = None):
         self.base_provider = base_provider
         self.multiplier = 0.98
+        self.store_coords: Optional[tuple] = None
+        self.default_distance_miles = 9.0
         self.estimated_prices = {
             "chicken breast": 3.79,
             "rice": 1.19,
@@ -25,3 +27,6 @@ class WalmartPricingProvider(PricingProvider):
         if ingredient_name not in self.estimated_prices:
             raise ValueError(f"No estimated price for {ingredient_name} at Walmart")
         return self.estimated_prices[ingredient_name]
+
+    def set_location(self, zip_code: str) -> None:
+        self.store_coords = None

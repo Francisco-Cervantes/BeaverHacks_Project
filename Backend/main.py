@@ -57,15 +57,45 @@ async def total_cost(meals_data: List[Dict[str, Any]]):
 
 
 @app.get("/stores")
-async def stores(zip_code: str = "97201"):
+async def stores(zip_code: str):
     return {"stores": get_store_options(zip_code)}
 
 
 @app.post("/store-prices")
-async def store_prices(store_name: str, shopping_list: Dict[str, float], zip_code: str = "97201"):
-    return get_prices_for_store(store_name, shopping_list, zip_code)
+async def store_prices(
+    store_name: str,
+    shopping_list: Dict[str, float],
+    zip_code: str,
+    max_distance_miles: float = None,
+    gas_price: float = None,
+    vehicle_mpg: float = 25.0,
+    avg_speed_mph: float = 25.0,
+):
+    return get_prices_for_store(
+        store_name,
+        shopping_list,
+        zip_code,
+        max_distance_miles=max_distance_miles,
+        gas_price=gas_price,
+        vehicle_mpg=vehicle_mpg,
+        avg_speed_mph=avg_speed_mph,
+    )
 
 
 @app.post("/compare-stores")
-async def compare_stores(meals: List[Meal], zip_code: str = "97201"):
-    return compare_store_costs(meals, zip_code)
+async def compare_stores(
+    meals: List[Meal],
+    zip_code: str,
+    max_distance_miles: float = None,
+    gas_price: float = None,
+    vehicle_mpg: float = 25.0,
+    avg_speed_mph: float = 25.0,
+):
+    return compare_store_costs(
+        meals,
+        zip_code,
+        max_distance_miles=max_distance_miles,
+        gas_price=gas_price,
+        vehicle_mpg=vehicle_mpg,
+        avg_speed_mph=avg_speed_mph,
+    )
