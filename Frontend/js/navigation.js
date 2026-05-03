@@ -383,7 +383,10 @@ class NavigationManager {
     createRecipeCard(meal) {
         const cost = this.estimateMealCost(meal);
         const isLoggedIn = window.authManager?.getIsLoggedIn() || false;
-        
+        const favorites = JSON.parse(localStorage.getItem('recipe_favorites') || '[]');
+        const isFav = favorites.includes(meal.name);
+        const mealJson = JSON.stringify(JSON.stringify(meal));
+
         return `
             <div class="recipe-card" data-meal="${meal.name}">
                 <div class="recipe-image">
@@ -413,11 +416,13 @@ class NavigationManager {
                     </div>
                 </div>
                 <div class="recipe-actions">
-                    <button class="make-it-btn btn btn-primary" data-meal="${meal.name}">
+                    <button class="make-it-btn btn btn-primary" data-meal-json="${mealJson.replace(/"/g, '&quot;')}">
                         <i class="fas fa-play"></i> Make It
                     </button>
-                    <button class="add-to-plan-btn btn ${isLoggedIn ? 'btn-success' : 'btn-disabled'}" 
-                            data-meal="${meal.name}" ${!isLoggedIn ? 'disabled' : ''}>
+                    <button class="chat-fav-btn ${isFav ? 'active' : ''}" data-meal="${meal.name.replace(/"/g, '&quot;')}" title="${isFav ? 'Remove from favourites' : 'Save to favourites'}">
+                        <i class="fas fa-heart"></i>
+                    </button>
+                    <button class="add-to-plan-btn btn btn-success" data-meal="${meal.name.replace(/"/g, '&quot;')}" title="Add to meal plan">
                         <i class="fas fa-plus"></i>
                     </button>
                 </div>
@@ -443,20 +448,45 @@ class NavigationManager {
     }
 
     setupRecipeCardListeners() {
-        // Make It buttons
+        // Make It buttons — open recipe detail in Recipe tab
         document.querySelectorAll('.make-it-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
-                const mealName = e.target.closest('.make-it-btn').getAttribute('data-meal');
-                this.goToMealDetail(mealName);
+                const raw = e.target.closest('.make-it-btn').getAttribute('data-meal-json');
+                try {
+                    const meal = JSON.parse(raw);
+                    this.openRecipe(meal);
+                } catch (_) {}
             });
         });
 
-        // Add to Plan buttons
+        // Heart / favourite buttons — always available
+        document.querySelectorAll('.chat-fav-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const b = e.target.closest('.chat-fav-btn');
+                const mealName = b.getAttribute('data-meal');
+                const favs = JSON.parse(localStorage.getItem('recipe_favorites') || '[]');
+                const idx = favs.indexOf(mealName);
+                if (idx === -1) {
+                    favs.push(mealName);
+                    b.classList.add('active');
+                    b.title = 'Remove from favourites';
+                    window.authManager?.showSuccessMessage(`${mealName} saved to favourites!`);
+                } else {
+                    favs.splice(idx, 1);
+                    b.classList.remove('active');
+                    b.title = 'Save to favourites';
+                    window.authManager?.showInfoMessage(`${mealName} removed from favourites`);
+                }
+                localStorage.setItem('recipe_favorites', JSON.stringify(favs));
+            });
+        });
+
+        // Add to plan buttons — open slot picker modal
         document.querySelectorAll('.add-to-plan-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const mealName = e.target.closest('.add-to-plan-btn').getAttribute('data-meal');
                 if (window.authManager?.getIsLoggedIn()) {
-                    this.showMealPlanDropdown(e.target, mealName);
+                    this.showChatMealPlanPicker(mealName);
                 } else {
                     this.showLoginPrompt();
                 }
@@ -464,34 +494,59 @@ class NavigationManager {
         });
     }
 
-    goToMealDetail(mealName) {
-        localStorage.setItem('currentMeal', mealName);
-        this.navigateTo('individual-meal');
-    }
+    showChatMealPlanPicker(mealName) {
+        // Remove any existing picker
+        document.getElementById('chat-plan-picker')?.remove();
 
-    showMealPlanDropdown(button, mealName) {
-        const dropdown = document.getElementById('meal-plan-dropdown');
-        const rect = button.getBoundingClientRect();
-        
-        dropdown.style.display = 'block';
-        dropdown.style.left = `${rect.left}px`;
-        dropdown.style.top = `${rect.bottom + 10}px`;
-        
-        // Store meal name for when option is selected
-        dropdown.setAttribute('data-meal', mealName);
-        
-        // Set up meal option listeners
-        document.querySelectorAll('.meal-option-btn').forEach(btn => {
-            btn.onclick = (e) => {
-                const mealType = e.target.closest('.meal-option-btn').getAttribute('data-meal');
-                this.addToMealPlan(mealName, mealType);
-                dropdown.style.display = 'none';
-            };
+        const today = new Date();
+        const DAY_NAMES   = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+        const MONTH_NAMES = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        const MEAL_TYPES  = ['breakfast', 'lunch', 'dinner'];
+
+        const days = Array.from({ length: 7 }, (_, i) => {
+            const d = new Date(today);
+            d.setDate(today.getDate() + i);
+            return d;
         });
-        
-        document.querySelector('.close-dropdown').onclick = () => {
-            dropdown.style.display = 'none';
-        };
+
+        const modal = document.createElement('div');
+        modal.id = 'chat-plan-picker';
+        modal.className = 'meal-picker-modal';
+        modal.innerHTML = `
+            <div class="meal-picker-backdrop"></div>
+            <div class="meal-picker-dialog">
+                <div class="meal-picker-header">
+                    <h3><i class="fas fa-calendar-plus"></i> Add "${mealName}" to Meal Plan</h3>
+                    <button class="meal-picker-close"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="meal-picker-list">
+                    ${days.map((day, i) => {
+                        const dateKey = day.toISOString().split('T')[0];
+                        const label = i === 0 ? 'Today' : i === 1 ? 'Tomorrow' : `${DAY_NAMES[day.getDay()]}, ${MONTH_NAMES[day.getMonth()]} ${day.getDate()}`;
+                        return MEAL_TYPES.map(type => `
+                            <button class="meal-picker-item" data-date="${dateKey}" data-type="${type}">
+                                <span class="meal-picker-name">${label}</span>
+                                <span class="meal-picker-meta">
+                                    <i class="fas fa-${type === 'breakfast' ? 'sun' : type === 'lunch' ? 'cloud-sun' : 'moon'}"></i>
+                                    ${type.charAt(0).toUpperCase() + type.slice(1)}
+                                </span>
+                            </button>
+                        `).join('');
+                    }).join('')}
+                </div>
+            </div>
+        `;
+        document.body.appendChild(modal);
+
+        modal.querySelector('.meal-picker-close').addEventListener('click', () => modal.remove());
+        modal.querySelector('.meal-picker-backdrop').addEventListener('click', () => modal.remove());
+        modal.querySelectorAll('.meal-picker-item').forEach(btn => {
+            btn.addEventListener('click', () => {
+                this.saveMealToSlot(btn.dataset.date, btn.dataset.type, mealName);
+                modal.remove();
+                window.authManager?.showSuccessMessage(`${mealName} added to ${btn.dataset.type}!`);
+            });
+        });
     }
 
     addToMealPlan(mealName, mealType) {
@@ -633,48 +688,18 @@ class NavigationManager {
         });
     }
 
-    loadInitialRecipes() {
-        // Display some sample recipes so users can see the interface working
-        const sampleRecipes = [
-            {
-                name: "Quick Pasta with Tomato Sauce",
-                cook_time_minutes: 15,
-                ingredients: [
-                    { ingredient_name: "pasta", quantity: 2 },
-                    { ingredient_name: "tomato sauce", quantity: 1 },
-                    { ingredient_name: "onion", quantity: 0.5 }
-                ]
-            },
-            {
-                name: "Scrambled Eggs & Toast",
-                cook_time_minutes: 10,
-                ingredients: [
-                    { ingredient_name: "eggs", quantity: 3 },
-                    { ingredient_name: "bread", quantity: 2 },
-                    { ingredient_name: "butter", quantity: 1 }
-                ]
-            },
-            {
-                name: "Rice Bowl with Vegetables",
-                cook_time_minutes: 20,
-                ingredients: [
-                    { ingredient_name: "rice", quantity: 1 },
-                    { ingredient_name: "mixed vegetables", quantity: 1 },
-                    { ingredient_name: "soy sauce", quantity: 0.5 }
-                ]
-            },
-            {
-                name: "Simple Chicken Sandwich",
-                cook_time_minutes: 12,
-                ingredients: [
-                    { ingredient_name: "chicken breast", quantity: 1 },
-                    { ingredient_name: "bread", quantity: 2 },
-                    { ingredient_name: "lettuce", quantity: 1 }
-                ]
-            }
-        ];
-        
-        this.displayRecipeResults(sampleRecipes);
+    async loadInitialRecipes() {
+        try {
+            const meals = await window.apiManager.getMeals();
+            this.displayRecipeResults(meals.slice(0, 6));
+        } catch (e) {
+            // Fallback to a minimal set so UI is never blank
+            this.displayRecipeResults([
+                { name: "Pasta with Tomato Sauce", cook_time_minutes: 15, equipment_required: ["stove"], ingredients: [{ ingredient_name: "pasta", quantity: 2 }, { ingredient_name: "tomato sauce", quantity: 1 }, { ingredient_name: "onion", quantity: 0.5 }] },
+                { name: "Scrambled Eggs & Toast",  cook_time_minutes: 10, equipment_required: ["stove"], ingredients: [{ ingredient_name: "eggs", quantity: 3 }, { ingredient_name: "bread", quantity: 2 }, { ingredient_name: "butter", quantity: 1 }] },
+                { name: "Rice Bowl with Vegetables", cook_time_minutes: 20, equipment_required: ["stove"], ingredients: [{ ingredient_name: "rice", quantity: 1 }, { ingredient_name: "mixed vegetables", quantity: 1 }, { ingredient_name: "soy sauce", quantity: 0.5 }] }
+            ]);
+        }
     }
 
     loadMealsPage() {
@@ -733,8 +758,8 @@ class NavigationManager {
                         <i class="fas fa-calendar-alt"></i>
                         <h2>Your Meal Plan</h2>
                         <p>Sign in to view and manage your personalized weekly meal plan with breakfast, lunch, and dinner for every day.</p>
-                        <button class="btn btn-primary" onclick="window.navigationManager.navigateTo('home')">
-                            <i class="fas fa-sign-in-alt"></i> Sign In
+                        <button class="btn btn-primary" style="justify-content:center;" onclick="window.authManager.showSignInPage()">
+                            Sign In
                         </button>
                     </div>
                 </div>

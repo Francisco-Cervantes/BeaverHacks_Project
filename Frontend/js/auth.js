@@ -75,10 +75,49 @@ class AuthManager {
 
     handleAuthButton() {
         if (this.isLoggedIn) {
-            this.signOut();
+            this.confirmSignOut();
         } else {
             this.showSignInPage();
         }
+    }
+
+    confirmSignOut() {
+        // Remove any existing dialog
+        document.getElementById('signout-confirm-dialog')?.remove();
+
+        const dialog = document.createElement('div');
+        dialog.id = 'signout-confirm-dialog';
+        dialog.style.cssText = `
+            position:fixed;inset:0;z-index:99999;display:flex;
+            align-items:center;justify-content:center;
+            background:rgba(0,0,0,0.5);
+        `;
+        dialog.innerHTML = `
+            <div style="
+                background:white;border-radius:16px;padding:36px 32px;
+                max-width:380px;width:90%;text-align:center;
+                box-shadow:0 8px 40px rgba(0,0,0,0.2);
+            ">
+                <i class="fas fa-sign-out-alt" style="font-size:40px;color:#dc3545;margin-bottom:16px;display:block;"></i>
+                <h3 style="margin:0 0 12px;color:#1a1a1a;font-size:20px;">Sign Out?</h3>
+                <p style="color:#666;margin:0 0 28px;line-height:1.5;">
+                    Are you sure you want to sign out? Your chat history will be cleared.
+                </p>
+                <div style="display:flex;gap:12px;justify-content:center;">
+                    <button id="signout-no"  style="flex:1;padding:12px;border:2px solid #e0e0e0;background:white;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;">No, stay signed in</button>
+                    <button id="signout-yes" style="flex:1;padding:12px;border:none;background:#dc3545;color:white;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;">Yes, sign out</button>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(dialog);
+
+        dialog.querySelector('#signout-no').addEventListener('click', () => dialog.remove());
+        dialog.querySelector('#signout-yes').addEventListener('click', () => {
+            dialog.remove();
+            this.signOut();
+        });
+        // Close on backdrop click
+        dialog.addEventListener('click', e => { if (e.target === dialog) dialog.remove(); });
     }
 
     async handleSignIn(e) {
@@ -133,6 +172,21 @@ class AuthManager {
         this.isLoggedIn = false;
         this.clearUserStorage();
         this.updateAuthUI();
+
+        // Reset chat page so next visit starts fresh
+        const chatPage = document.getElementById('chat-page');
+        if (chatPage) {
+            chatPage.removeAttribute('data-loaded');
+            chatPage.innerHTML = '';
+        }
+
+        // Reset meals page tabs (meal plan is auth-gated)
+        const mealsPage = document.getElementById('meals-page');
+        if (mealsPage) {
+            mealsPage.removeAttribute('data-tab-shell');
+            mealsPage.innerHTML = '';
+        }
+
         this.showSignInPage();
         this.showInfoMessage('You\'ve been signed out');
     }

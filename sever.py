@@ -83,6 +83,59 @@ def register():
     return jsonify({"success": True})
 
 
+# ---------------------------------------------------------
+# SAVE PROFILE ENDPOINT
+# ---------------------------------------------------------
+@app.post("/save-profile")
+def save_profile():
+    data = request.json
+    username = data.get("username", "").strip()
+
+    if not username:
+        return jsonify({"success": False, "error": "Username required"}), 400
+
+    try:
+        with open("logged_in.json", "r") as f:
+            users = json.load(f)
+    except FileNotFoundError:
+        return jsonify({"success": False, "error": "User database missing"}), 500
+
+    if username not in users:
+        return jsonify({"success": False, "error": "User not found"}), 404
+
+    # Map frontend fields into the stored user record
+    if "zipCode" in data:
+        users[username]["zip"] = data["zipCode"]
+    if "dailyCalories" in data:
+        users[username]["keywords"]["calorie_target"] = int(data["dailyCalories"] or 2000)
+    if "dietaryRestrictions" in data:
+        restrictions = data["dietaryRestrictions"]
+        if "vegan" in restrictions:
+            users[username]["keywords"]["diet"] = "vegan"
+        elif "vegetarian" in restrictions:
+            users[username]["keywords"]["diet"] = "vegetarian"
+        else:
+            users[username]["keywords"]["diet"] = "normal"
+    if "weeklyBudget" in data:
+        users[username]["weekly_budget"] = data["weeklyBudget"]
+    if "mealBudget" in data:
+        users[username]["meal_budget"] = data["mealBudget"]
+    if "equipment" in data:
+        users[username]["equipment"] = data["equipment"]
+    if "cookingSkill" in data:
+        users[username]["cooking_skill"] = data["cookingSkill"]
+    if "maxCookTime" in data:
+        users[username]["max_cook_time"] = data["maxCookTime"]
+    if "allergies" in data:
+        users[username]["allergies"] = data["allergies"]
+    if "name" in data:
+        users[username]["display_name"] = data["name"]
+
+    with open("logged_in.json", "w") as f:
+        json.dump(users, f, indent=4)
+
+    return jsonify({"success": True})
+
 
 # ---------------------------------------------------------
 @app.post("/chat")
