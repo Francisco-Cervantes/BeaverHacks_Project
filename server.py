@@ -40,6 +40,61 @@ def format_keywords(profile: dict) -> str:
 
 
 # ---------------------------------------------------------
+# REGISTER
+# ---------------------------------------------------------
+@app.post("/register")
+def register():
+    data = request.json
+    username = (data.get("username") or "").strip()
+    password = data.get("password", "")
+
+    if not username or len(password) < 6:
+        return jsonify({"success": False, "error": "Username required and password must be at least 6 characters"}), 400
+
+    try:
+        with open("logged_in.json", "r") as f:
+            users = json.load(f)
+    except FileNotFoundError:
+        users = {}
+
+    if username in users:
+        return jsonify({"success": False, "error": "Username already taken"}), 400
+
+    keywords = data.get("keywords", {})
+    if not isinstance(keywords, dict):
+        keywords = {}
+
+    users[username] = {
+        "password":      password,
+        "email":         data.get("email", ""),
+        "phone":         data.get("phone", ""),
+        "zip":           data.get("zip", "00000"),
+        "radius":        int(data.get("radius", 10)),
+        "keywords": {
+            "diet":           keywords.get("diet", "none"),
+            "dieting":        bool(keywords.get("dieting", False)),
+            "calorie_target": keywords.get("calorie_target", 2000),
+            "protein_goal":   keywords.get("protein_goal"),
+            "fat_goal":       keywords.get("fat_goal"),
+            "carb_goal":      keywords.get("carb_goal"),
+        },
+        "allergies":     data.get("allergies", []),
+        "equipment":     data.get("equipment", []),
+        "cooking_skill": data.get("cooking_skill", "beginner"),
+        "max_cook_time": int(data.get("max_cook_time", 30)),
+        "weekly_budget": float(data.get("weekly_budget", 100)),
+        "meal_budget":   float(data.get("meal_budget", 15)),
+        "display_name":  data.get("display_name", username),
+        "guest_mode":    False
+    }
+
+    with open("logged_in.json", "w") as f:
+        json.dump(users, f, indent=2)
+
+    return jsonify({"success": True})
+
+
+# ---------------------------------------------------------
 # LOGIN
 # ---------------------------------------------------------
 @app.post("/login")

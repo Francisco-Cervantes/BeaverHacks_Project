@@ -1,37 +1,66 @@
 {
-    "francisco123": {
-        "password": "francisco123",
-        "zip": "97330",
-        "radius": 10,
-        "keywords": {
-            "diet": "normal",
-            "dieting": "no",
-            "calorie_target": 1000,
-            "protein_goal": "normal"
-        },
-        "guest_mode": false
+  "francisco123": {
+    "password": "francisco123",
+    "zip": "97330",
+    "radius": 10,
+    "keywords": {
+      "diet": "normal",
+      "dieting": "no",
+      "calorie_target": 1000,
+      "protein_goal": "normal"
     },
-    "sarah89": {
-        "password": "sarah89",
-        "zip": "90210",
-        "radius": 5,
-        "keywords": {
-            "diet": "vegan",
-            "organic": "only"
-        },
-        "guest_mode": false
+    "guest_mode": false
+  },
+  "sarah89": {
+    "password": "sarah89",
+    "zip": "90210",
+    "radius": 5,
+    "keywords": {
+      "diet": "vegan",
+      "organic": "only"
     },
-    "francisco2003": {
-        "password": "francisco2003",
-        "zip": "97331",
-        "radius": 20,
-        "keywords": {
-            "diet": "high protein",
-            "dieting": "no",
-            "calorie_target": 1000,
-            "protein_goal": "high",
-            "mealprep": "yes"
-        },
-        "guest_mode": false
-    }
+    "guest_mode": false
+  },
+  "francisco2003": {
+    "password": "francisco2003",
+    "zip": "97331",
+    "radius": 20,
+    "keywords": {
+      "diet": "high protein",
+      "dieting": "no",
+      "calorie_target": 1000,
+      "protein_goal": "high",
+      "mealprep": "yes"
+    },
+    "guest_mode": false
+  },
+  "Abraham": {
+    "password": "Mcnary",
+    "email": "Abraham@example.com",
+    "phone": "",
+    "zip": "97331",
+    "radius": 10,
+    "keywords": {
+      "diet": "none",
+      "dieting": false,
+      "calorie_target": 2000,
+      "protein_goal": null,
+      "fat_goal": null,
+      "carb_goal": null
+    },
+    "allergies": [
+      "none"
+    ],
+    "equipment": [
+      "stove",
+      "oven",
+      "microwave"
+    ],
+    "cooking_skill": "beginner",
+    "max_cook_time": 15,
+    "weekly_budget": 150.0,
+    "meal_budget": 4.0,
+    "display_name": "Abraham",
+    "guest_mode": false
+  }
 }

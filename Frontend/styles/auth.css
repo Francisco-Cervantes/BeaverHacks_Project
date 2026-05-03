@@ -93,3 +93,164 @@
         padding: 30px 20px;
     }
 }
+
+/* ============================================================
+   REGISTRATION WIZARD
+   ============================================================ */
+
+/* Expand card during multi-step registration */
+#register-section ~ * .auth-card,
+.auth-card:has(#register-section:not(.hidden)) {
+    max-width: 480px;
+}
+
+/* Step indicator row */
+.reg-step-indicators {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 6px;
+}
+
+.reg-step-dot {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #e0e0e0;
+    color: #999;
+    font-weight: 700;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background 0.3s, color 0.3s;
+}
+
+.reg-step-dot.active {
+    background: #76b900;
+    color: white;
+}
+
+.reg-step-dot.done {
+    background: #4a8c00;
+    color: white;
+}
+
+.reg-step-dot.done::after {
+    content: '✓';
+}
+
+.reg-step-dot.done > span {
+    display: none;
+}
+
+.reg-step-connector {
+    flex: 1;
+    height: 3px;
+    background: #e0e0e0;
+    margin: 0 4px;
+    max-width: 40px;
+}
+
+/* Step label row */
+.reg-step-titles {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: #999;
+    margin-bottom: 20px;
+    padding: 0 4px;
+}
+
+.reg-panel-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 16px;
+    text-align: left;
+}
+
+/* Checkbox grid */
+.reg-checkboxes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 6px;
+}
+
+.reg-check {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #444;
+    cursor: pointer;
+    padding: 6px 8px;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.reg-check:hover {
+    background: #f8fff0;
+    border-color: #76b900;
+}
+
+.reg-check input[type="checkbox"] {
+    width: auto;
+    padding: 0;
+    border: none;
+    accent-color: #76b900;
+}
+
+/* Form elements inside reg panels */
+#register-section .form-group {
+    margin-bottom: 14px;
+    text-align: left;
+}
+
+#register-section .form-group label {
+    display: block;
+    margin-bottom: 4px;
+    font-weight: 500;
+    color: #333;
+    font-size: 14px;
+}
+
+#register-section input[type="text"],
+#register-section input[type="email"],
+#register-section input[type="password"],
+#register-section input[type="tel"],
+#register-section input[type="number"],
+#register-section select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 15px;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+}
+
+#register-section input:focus,
+#register-section select:focus {
+    outline: none;
+    border-color: #76b900;
+}
+
+/* Back / Next button row */
+.reg-nav-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 6px;
+}
+
+.reg-nav-buttons .btn-secondary {
+    flex: 0 0 auto;
+    padding: 12px 20px;
+}
+
+.reg-nav-buttons .btn-primary {
+    flex: 1;
+}

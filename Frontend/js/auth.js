@@ -11,7 +11,6 @@ class AuthManager {
         const authBtn = document.getElementById('auth-btn');
         const signInForm = document.getElementById('sign-in-form');
         const guestContinue = document.getElementById('guest-continue');
-        const registerForm = document.getElementById('register-form');
         const showRegister = document.getElementById('show-register');
         const showLogin = document.getElementById('show-login');
 
@@ -27,14 +26,11 @@ class AuthManager {
             guestContinue.addEventListener('click', () => this.continueAsGuest());
         }
 
-        if (registerForm) {
-            registerForm.addEventListener('submit', (e) => this.handleRegister(e));
-        }
-
         if (showRegister) {
             showRegister.addEventListener('click', () => {
                 document.getElementById('login-section').classList.add('hidden');
                 document.getElementById('register-section').classList.remove('hidden');
+                this.resetRegForm();
             });
         }
 
@@ -52,24 +48,153 @@ class AuthManager {
         this.showInitialPage();
     }
 
-    async handleRegister(e) {
-        e.preventDefault();
-        const username = document.getElementById('reg-username').value.trim();
-        const password = document.getElementById('reg-password').value;
-        const zip = document.getElementById('zip-input')?.value || '97331';
-        const radius = parseInt(document.getElementById('mile-range')?.value || '10');
+    // ── Registration wizard ──────────────────────────────────
 
-        if (!username || password.length < 6) {
-            this.showError('Username required and password must be at least 6 characters');
-            return;
+    resetRegForm() {
+        // Reset all panels back to step 1
+        for (let i = 1; i <= 4; i++) {
+            const panel = document.getElementById(`reg-panel-${i}`);
+            const dot   = document.getElementById(`reg-dot-${i}`);
+            if (panel) panel.classList.toggle('hidden', i !== 1);
+            if (dot) {
+                dot.classList.remove('active', 'done');
+                if (i === 1) dot.classList.add('active');
+            }
         }
+        // Clear inputs
+        ['reg-username','reg-email','reg-password','reg-confirm-password','reg-phone',
+         'reg-zip','reg-weekly-budget','reg-meal-budget','reg-diet','reg-calorie-target',
+         'reg-protein','reg-fat','reg-carbs','reg-cooking-skill','reg-max-cook-time']
+            .forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+        document.querySelectorAll('input[name="reg-allergy"], input[name="reg-equipment"]')
+            .forEach(cb => { cb.checked = false; });
+        const btn = document.getElementById('reg-submit-btn');
+        if (btn) { btn.disabled = false; btn.textContent = 'Create Account'; }
+    }
+
+    regNext(step) {
+        if (!this.regValidate(step)) return;
+        document.getElementById(`reg-panel-${step}`).classList.add('hidden');
+        document.getElementById(`reg-panel-${step + 1}`).classList.remove('hidden');
+        const cur  = document.getElementById(`reg-dot-${step}`);
+        const next = document.getElementById(`reg-dot-${step + 1}`);
+        if (cur)  { cur.classList.remove('active'); cur.classList.add('done'); }
+        if (next) next.classList.add('active');
+    }
+
+    regBack(step) {
+        document.getElementById(`reg-panel-${step}`).classList.add('hidden');
+        document.getElementById(`reg-panel-${step - 1}`).classList.remove('hidden');
+        const cur  = document.getElementById(`reg-dot-${step}`);
+        const prev = document.getElementById(`reg-dot-${step - 1}`);
+        if (cur)  cur.classList.remove('active');
+        if (prev) { prev.classList.remove('done'); prev.classList.add('active'); }
+    }
+
+    regValidate(step) {
+        if (step === 1) {
+            const username = document.getElementById('reg-username').value.trim();
+            const email    = document.getElementById('reg-email').value.trim();
+            const password = document.getElementById('reg-password').value;
+            const confirm  = document.getElementById('reg-confirm-password').value;
+            if (!username)                          { this.showError('Username is required'); return false; }
+            if (!email || !email.includes('@'))     { this.showError('A valid email is required'); return false; }
+            if (password.length < 6)                { this.showError('Password must be at least 6 characters'); return false; }
+            if (password !== confirm)               { this.showError('Passwords do not match'); return false; }
+        }
+        if (step === 2) {
+            const zip    = document.getElementById('reg-zip').value.trim();
+            const weekly = document.getElementById('reg-weekly-budget').value;
+            const meal   = document.getElementById('reg-meal-budget').value;
+            if (!zip || zip.length !== 5 || !/^\d+$/.test(zip)) { this.showError('A valid 5-digit ZIP code is required'); return false; }
+            if (!weekly) { this.showError('Weekly budget is required'); return false; }
+            if (!meal)   { this.showError('Per-meal budget is required'); return false; }
+        }
+        if (step === 3) {
+            const diet     = document.getElementById('reg-diet').value;
+            const allergies = document.querySelectorAll('input[name="reg-allergy"]:checked');
+            const calories = document.getElementById('reg-calorie-target').value;
+            if (!diet)              { this.showError('Please select a diet type'); return false; }
+            if (!allergies.length)  { this.showError('Please select at least one allergy option (or "None")'); return false; }
+            if (!calories)          { this.showError('Daily calorie target is required'); return false; }
+        }
+        if (step === 4) {
+            const equipment = document.querySelectorAll('input[name="reg-equipment"]:checked');
+            const skill     = document.getElementById('reg-cooking-skill').value;
+            const time      = document.getElementById('reg-max-cook-time').value;
+            if (!equipment.length) { this.showError('Please select at least one piece of equipment'); return false; }
+            if (!skill)            { this.showError('Please select your cooking skill level'); return false; }
+            if (!time)             { this.showError('Please select your max cook time'); return false; }
+        }
+        return true;
+    }
+
+    async regSubmit() {
+        if (!this.regValidate(4)) return;
+
+        const username     = document.getElementById('reg-username').value.trim();
+        const email        = document.getElementById('reg-email').value.trim();
+        const password     = document.getElementById('reg-password').value;
+        const phone        = document.getElementById('reg-phone').value.trim();
+        const zip          = document.getElementById('reg-zip').value.trim();
+        const radius       = parseInt(document.getElementById('reg-radius').value);
+        const weeklyBudget = parseFloat(document.getElementById('reg-weekly-budget').value);
+        const mealBudget   = parseFloat(document.getElementById('reg-meal-budget').value);
+        const diet         = document.getElementById('reg-diet').value;
+        const allergies    = [...document.querySelectorAll('input[name="reg-allergy"]:checked')].map(el => el.value);
+        const calories     = parseInt(document.getElementById('reg-calorie-target').value);
+        const protein      = document.getElementById('reg-protein').value;
+        const fat          = document.getElementById('reg-fat').value;
+        const carbs        = document.getElementById('reg-carbs').value;
+        const equipment    = [...document.querySelectorAll('input[name="reg-equipment"]:checked')].map(el => el.value);
+        const cookingSkill = document.getElementById('reg-cooking-skill').value;
+        const maxCookTime  = parseInt(document.getElementById('reg-max-cook-time').value);
+
+        const btn = document.getElementById('reg-submit-btn');
+        btn.disabled = true;
+        btn.textContent = 'Creating Account…';
 
         try {
-            await window.apiManager.registerUser(username, password, zip, radius);
-            const user = { id: username, email: username, name: username, zipCode: zip, dietaryRestrictions: [], dailyCalories: 2000 };
+            const profileData = {
+                password,
+                email,
+                phone,
+                zip,
+                radius,
+                weekly_budget: weeklyBudget,
+                meal_budget:   mealBudget,
+                keywords: {
+                    diet,
+                    dieting:        diet !== 'none' && diet !== '',
+                    calorie_target: calories,
+                    protein_goal:   protein ? parseInt(protein) : null,
+                    fat_goal:       fat     ? parseInt(fat)     : null,
+                    carb_goal:      carbs   ? parseInt(carbs)   : null
+                },
+                allergies,
+                equipment,
+                cooking_skill:  cookingSkill,
+                max_cook_time:  maxCookTime,
+                display_name:   username,
+                guest_mode:     false
+            };
+
+            await window.apiManager.registerUser(username, profileData);
+
+            const user = {
+                id:                  username,
+                email,
+                name:                username,
+                zipCode:             zip,
+                dietaryRestrictions: allergies,
+                dailyCalories:       calories
+            };
             this.signIn(user);
+            this.showSuccessMessage(`Welcome, ${username}! Your account has been created.`);
         } catch (error) {
-            this.showError(error.message || 'Registration failed');
+            btn.disabled = false;
+            btn.textContent = 'Create Account';
+            this.showError(error.message || 'Registration failed. Please try again.');
         }
     }
 
