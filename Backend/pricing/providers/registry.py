@@ -1,5 +1,6 @@
 from typing import List, Optional
 from pricing.providers.base import PricingProvider
+from pricing.providers.albertsons_provider import AlbertsonsPricingProvider
 from pricing.providers.costco_provider import CostcoPricingProvider
 from pricing.providers.grocery_outlet_provider import GroceryOutletPricingProvider
 from pricing.providers.kroger_provider import KrogerPricingProvider
@@ -16,6 +17,7 @@ SUPPORTED_STORE_NAMES = [
     "Grocery Outlet",
     "Safeway",
     "Walmart",
+    "Albertsons",
 ]
 
 
@@ -39,6 +41,8 @@ def build_store_provider(store_name: str, base_provider: Optional[PricingProvide
         return SafewayPricingProvider(base)
     if store_name == "Walmart":
         return WalmartPricingProvider(base)
+    if store_name == "Albertsons":
+        return AlbertsonsPricingProvider(base)
 
     raise ValueError(f"Unsupported store provider: {store_name}")
 

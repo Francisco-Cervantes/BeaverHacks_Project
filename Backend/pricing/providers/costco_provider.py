@@ -2,7 +2,7 @@ from typing import Optional
 from pricing.providers.base import PricingProvider
 
 class CostcoPricingProvider(PricingProvider):
-    """Costco pricing using estimated prices or Kroger-based multipliers."""
+    """Costco pricing using estimated multipliers off Kroger anchor pricing."""
 
     STORE_NAME = "Costco"
 

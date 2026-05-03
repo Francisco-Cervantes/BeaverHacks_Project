@@ -2,7 +2,7 @@ from typing import Optional
 from pricing.providers.base import PricingProvider
 
 class SafewayPricingProvider(PricingProvider):
-    """Safeway pricing using estimated prices (no public API available)."""
+    """Safeway pricing using estimated multipliers off Kroger anchor pricing."""
 
     STORE_NAME = "Safeway"
 

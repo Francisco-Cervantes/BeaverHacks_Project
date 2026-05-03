@@ -2,13 +2,13 @@ from typing import Optional
 from pricing.providers.base import PricingProvider
 
 class WincoPricingProvider(PricingProvider):
-    """WinCo pricing using estimated prices (no public API available)."""
+    """WinCo pricing using estimated multipliers off Kroger anchor pricing."""
 
     STORE_NAME = "WinCo"
 
     def __init__(self, base_provider: Optional[PricingProvider] = None):
         self.base_provider = base_provider
-        self.multiplier = 0.90
+        self.multiplier = 0.88
         self.estimated_prices = {
             "chicken breast": 2.99,  # per lb
             "rice": 0.99,            # per lb
