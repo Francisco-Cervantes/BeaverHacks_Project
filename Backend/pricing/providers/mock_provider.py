@@ -1,4 +1,4 @@
-from pricing.provider import PricingProvider
+from pricing.providers.base import PricingProvider
 
 class MockPricingProvider(PricingProvider):
     def __init__(self):

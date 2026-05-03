@@ -1,6 +1,16 @@
 from fastapi import FastAPI
-from services import get_all_meals, get_available_meals, get_meal_costs, get_shopping_list, get_total_cost
-from pricing.mock_provider import MockPricingProvider
+from services import (
+    get_all_meals,
+    get_available_meals,
+    get_meal_costs,
+    get_shopping_list,
+    get_total_cost,
+    get_store_options,
+    get_prices_for_store,
+    compare_store_costs,
+)
+from pricing.providers.mock_provider import MockPricingProvider
+from models.meal import Meal
 from typing import Dict, Any, List
 
 app = FastAPI()
@@ -44,3 +54,18 @@ async def total_cost(meals_data: List[Dict[str, Any]]):
     meals = get_all_meals()  # For now
     cost = get_total_cost(meals, pricing_provider)
     return {"total_cost": cost}
+
+
+@app.get("/stores")
+async def stores(zip_code: str = "97201"):
+    return {"stores": get_store_options(zip_code)}
+
+
+@app.post("/store-prices")
+async def store_prices(store_name: str, shopping_list: Dict[str, float], zip_code: str = "97201"):
+    return get_prices_for_store(store_name, shopping_list, zip_code)
+
+
+@app.post("/compare-stores")
+async def compare_stores(meals: List[Meal], zip_code: str = "97201"):
+    return compare_store_costs(meals, zip_code)

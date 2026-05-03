@@ -1,6 +1,6 @@
 from models.meal import Meal
 from typing import List, Dict, Any
-from pricing.provider import PricingProvider
+from pricing.providers.base import PricingProvider
 from models.pricing import calculate_meal_cost
 
 def filter_by_equipment(meals: List[Meal], available_equipment: List[str]) -> List[Meal]:
