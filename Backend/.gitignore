@@ -1,0 +1,21 @@
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Virtual environment
+venv/
+env/
+__pycache__/
+
+# IDE
+.vscode/
+.idea/
+*.pyc
+*.pyo
+*.egg-info/
+
+# OS
+.DS_Store
+*.swp
+*.swo
