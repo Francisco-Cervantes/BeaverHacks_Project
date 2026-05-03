@@ -1,12 +1,9 @@
 {
-  "python.terminal.useEnvFile": true,
-  "python.terminal.envFile": "${workspaceFolder}/Backend/.env",
-  "[python]": {
-    "editor.defaultFormatter": "ms-python.python",
-    "editor.formatOnSave": true
-  }
-}
-
-{
+    "python.terminal.useEnvFile": true,
+    "python.terminal.envFile": "${workspaceFolder}/Backend/.env",
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.python",
+        "editor.formatOnSave": true
+    },
     "python-envs.defaultEnvManager": "ms-python.python:system"
 }

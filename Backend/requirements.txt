@@ -3,6 +3,9 @@ uvicorn[standard]==0.24.0
 pydantic
 requests
 python-dotenv
+flask
+flask-cors
+openai
 passlib[bcrypt]
 PyJWT
 email-validator

@@ -1,8 +1,11 @@
 import os
+from pathlib import Path
 from dotenv import load_dotenv
 from openai import OpenAI
 
-load_dotenv()
+# Load .env from Backend/ regardless of where the script is run from
+_env_path = Path(__file__).parent / "Backend" / ".env"
+load_dotenv(dotenv_path=_env_path)
 
 client = OpenAI(
     base_url="https://integrate.api.nvidia.com/v1",

@@ -1,5 +1,6 @@
 {
     "francisco123": {
+        "password": "francisco123",
         "zip": "97330",
         "radius": 10,
         "keywords": {
@@ -11,6 +12,7 @@
         "guest_mode": false
     },
     "sarah89": {
+        "password": "sarah89",
         "zip": "90210",
         "radius": 5,
         "keywords": {
@@ -20,6 +22,7 @@
         "guest_mode": false
     },
     "francisco2003": {
+        "password": "francisco2003",
         "zip": "97331",
         "radius": 20,
         "keywords": {

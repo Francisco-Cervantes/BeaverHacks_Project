@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NomNomNomotron - Smart Meal Planning for Busy Lives</title>
+    <link rel="stylesheet" href="styles/base.css">
+    <link rel="stylesheet" href="styles/navbar.css">
+    <link rel="stylesheet" href="styles/auth.css">
+    <link rel="stylesheet" href="styles/home.css">
+    <link rel="stylesheet" href="styles/chat.css">
+    <link rel="stylesheet" href="styles/meals.css">
+    <link rel="stylesheet" href="styles/profile.css">
+    <link rel="stylesheet" href="styles/recipe.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Main Container -->
+    <div id="app">
+        <!-- Navigation Header -->
+        <nav class="navbar" id="navbar">
+            <div class="nav-container">
+                <div class="nav-brand">
+                    <h2><i class="fas fa-robot"></i> NomNomNomotron</h2>
+                </div>
+                <ul class="nav-menu" id="nav-menu">
+                    <li class="nav-item">
+                        <a href="#home" class="nav-link active" data-page="home">
+                            <i class="fas fa-home"></i> Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#chat" class="nav-link" data-page="chat">
+                            <i class="fas fa-robot"></i> AI Chat
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#meals" class="nav-link" data-page="meals">
+                            <i class="fas fa-hamburger"></i> Meals
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#profile" class="nav-link" data-page="profile">
+                            <i class="fas fa-user"></i> Profile
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#recipes" class="nav-link" data-page="recipes">
+                            <i class="fas fa-book"></i> Recipe
+                        </a>
+                    </li>
+                </ul>
+                <div class="nav-toggle" id="nav-toggle">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+                <div class="user-actions">
+                    <div class="location-inputs">
+                        <div class="input-group">
+                            <label for="zip-input" class="input-label">ZIP Code</label>
+                            <input type="text" id="zip-input" placeholder="ZIP" value="97331" maxlength="5" style="width: 70px; padding: 6px; margin-right: 8px; border: 2px solid #e0e0e0; border-radius: 4px; font-size: 12px;">
+                        </div>
+                        <div class="input-group">
+                            <label for="mile-range" class="input-label">Mile Range</label>
+                            <select id="mile-range" style="width: 80px; padding: 6px; margin-right: 15px; border: 2px solid #e0e0e0; border-radius: 4px; font-size: 12px;">
+                                <option value="5">5 mi</option>
+                                <option value="10" selected>10 mi</option>
+                                <option value="15">15 mi</option>
+                                <option value="25">25 mi</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="language-selector">
+                        <div class="input-group">
+                            <label for="language-select" class="input-label">Language</label>
+                            <select id="language-select" style="padding: 6px; margin-right: 15px; border: 2px solid #e0e0e0; border-radius: 4px; font-size: 12px;">
+                                <option value="en">🇺🇸 EN</option>
+                                <option value="es">🇪🇸 ES</option>
+                                <option value="zh">🇨🇳 中文</option>
+                                <option value="zh-hk">🇭🇰 粵語</option>
+                                <option value="vi">🇻🇳 VI</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="auth-buttons">
+                        <span id="user-info" class="hidden">
+                        <i class="fas fa-user-circle"></i> 
+                        <span id="user-name">Welcome</span>
+                    </span>
+                    <button id="auth-btn" class="btn btn-primary">Sign In</button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content Container -->
+        <main class="main-content">
+            <!-- Sign In Page -->
+            <div id="sign-in-page" class="page active">
+                <div class="auth-container">
+                    <div class="auth-card">
+                        <h2><i class="fas fa-robot"></i> Welcome to NomNomNomotron</h2>
+                        <p class="auth-subtitle">AI-powered meal planning for busy families and students</p>
+                        
+                        <!-- Login Section -->
+                        <div id="login-section">
+                            <form id="sign-in-form" class="auth-form">
+                                <div class="form-group">
+                                    <label for="email">Username or Email</label>
+                                    <input type="text" id="email" name="email" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">Password</label>
+                                    <input type="password" id="password" name="password" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-full">Sign In</button>
+                            </form>
+
+                            <div class="auth-divider"><span>or</span></div>
+
+                            <button id="guest-continue" class="btn btn-secondary btn-full">Continue as Guest</button>
+
+                            <p style="text-align:center; margin-top:16px; font-size:14px; color:#666;">
+                                Don't have an account?
+                                <a href="#" id="show-register" style="color:#76b900; font-weight:600;">Create one</a>
+                            </p>
+                        </div>
+
+                        <!-- Register Section (multi-step wizard) -->
+                        <div id="register-section" class="hidden">
+
+                            <!-- Step progress dots -->
+                            <div class="reg-step-indicators">
+                                <div class="reg-step-dot active" id="reg-dot-1"><span>1</span></div>
+                                <div class="reg-step-connector"></div>
+                                <div class="reg-step-dot" id="reg-dot-2"><span>2</span></div>
+                                <div class="reg-step-connector"></div>
+                                <div class="reg-step-dot" id="reg-dot-3"><span>3</span></div>
+                                <div class="reg-step-connector"></div>
+                                <div class="reg-step-dot" id="reg-dot-4"><span>4</span></div>
+                            </div>
+                            <div class="reg-step-titles">
+                                <span>Account</span><span>Location</span><span>Diet &amp; Nutrition</span><span>Cooking</span>
+                            </div>
+
+                            <!-- Step 1: Account Info -->
+                            <div class="reg-panel" id="reg-panel-1">
+                                <p class="reg-panel-title">Create Your Account</p>
+                                <div class="form-group">
+                                    <label>Username *</label>
+                                    <input type="text" id="reg-username" placeholder="Choose a username">
+                                </div>
+                                <div class="form-group">
+                                    <label>Email *</label>
+                                    <input type="email" id="reg-email" placeholder="you@example.com">
+                                </div>
+                                <div class="form-group">
+                                    <label>Password * <small style="color:#999">(min 6 chars)</small></label>
+                                    <input type="password" id="reg-password" placeholder="At least 6 characters">
+                                </div>
+                                <div class="form-group">
+                                    <label>Confirm Password *</label>
+                                    <input type="password" id="reg-confirm-password" placeholder="Re-enter your password">
+                                </div>
+                                <div class="form-group">
+                                    <label>Phone <small style="color:#999">(optional)</small></label>
+                                    <input type="tel" id="reg-phone" placeholder="(555) 000-0000">
+                                </div>
+                                <button type="button" class="btn btn-primary btn-full" onclick="window.authManager.regNext(1)">Next →</button>
+                            </div>
+
+                            <!-- Step 2: Location & Budget -->
+                            <div class="reg-panel hidden" id="reg-panel-2">
+                                <p class="reg-panel-title">Location &amp; Budget</p>
+                                <div class="form-group">
+                                    <label>ZIP Code *</label>
+                                    <input type="text" id="reg-zip" maxlength="5" placeholder="e.g. 97331">
+                                </div>
+                                <div class="form-group">
+                                    <label>Search Radius *</label>
+                                    <select id="reg-radius">
+                                        <option value="5">5 miles</option>
+                                        <option value="10" selected>10 miles</option>
+                                        <option value="15">15 miles</option>
+                                        <option value="25">25 miles</option>
+                                        <option value="50">50 miles</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Weekly Grocery Budget * <small style="color:#999">($)</small></label>
+                                    <input type="number" id="reg-weekly-budget" min="10" max="2000" placeholder="e.g. 150">
+                                </div>
+                                <div class="form-group">
+                                    <label>Per-Meal Budget * <small style="color:#999">($)</small></label>
+                                    <input type="number" id="reg-meal-budget" min="1" max="200" placeholder="e.g. 12">
+                                </div>
+                                <div class="reg-nav-buttons">
+                                    <button type="button" class="btn btn-secondary" onclick="window.authManager.regBack(2)">← Back</button>
+                                    <button type="button" class="btn btn-primary" onclick="window.authManager.regNext(2)">Next →</button>
+                                </div>
+                            </div>
+
+                            <!-- Step 3: Diet & Nutrition -->
+                            <div class="reg-panel hidden" id="reg-panel-3">
+                                <p class="reg-panel-title">Diet &amp; Nutrition</p>
+                                <div class="form-group">
+                                    <label>Diet Type *</label>
+                                    <select id="reg-diet">
+                                        <option value="">-- Select your diet --</option>
+                                        <option value="none">No restrictions</option>
+                                        <option value="vegetarian">Vegetarian</option>
+                                        <option value="vegan">Vegan</option>
+                                        <option value="keto">Keto</option>
+                                        <option value="paleo">Paleo</option>
+                                        <option value="mediterranean">Mediterranean</option>
+                                        <option value="low-carb">Low Carb</option>
+                                        <option value="low-fat">Low Fat</option>
+                                        <option value="gluten-free">Gluten Free</option>
+                                        <option value="halal">Halal</option>
+                                        <option value="kosher">Kosher</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Allergies * <small style="color:#999">(check all that apply, or "None")</small></label>
+                                    <div class="reg-checkboxes">
+                                        <label class="reg-check"><input type="checkbox" name="reg-allergy" value="none"> None</label>
+                                        <label class="reg-check"><input type="checkbox" name="reg-allergy" value="gluten"> Gluten</label>
+                                        <label class="reg-check"><input type="checkbox" name="reg-allergy" value="dairy"> Dairy</label>
+                                        <label class="reg-check"><input type="checkbox" name="reg-allergy" value="eggs"> Eggs</label>
+                                        <label class="reg-check"><input type="checkbox" name="reg-allergy" value="peanuts"> Peanuts</label>
+                                        <label class="reg-check"><input type="checkbox" name="reg-allergy" value="tree nuts"> Tree Nuts</label>
+                                        <label class="reg-check"><input type="checkbox" name="reg-allergy" value="soy"> Soy</label>
+                                        <label class="reg-check"><input type="checkbox" name="reg-allergy" value="shellfish"> Shellfish</label>
+                                        <label class="reg-check"><input type="checkbox" name="reg-allergy" value="fish"> Fish</label>
+                                        <label class="reg-check"><input type="checkbox" name="reg-allergy" value="sesame"> Sesame</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Daily Calorie Target * <small style="color:#999">(kcal)</small></label>
+                                    <input type="number" id="reg-calorie-target" min="500" max="10000" placeholder="e.g. 2000">
+                                </div>
+                                <div class="form-group">
+                                    <label>Daily Protein Goal <small style="color:#999">(g, optional)</small></label>
+                                    <input type="number" id="reg-protein" min="0" max="500" placeholder="e.g. 120">
+                                </div>
+                                <div class="form-group">
+                                    <label>Daily Fat Goal <small style="color:#999">(g, optional)</small></label>
+                                    <input type="number" id="reg-fat" min="0" max="500" placeholder="e.g. 65">
+                                </div>
+                                <div class="form-group">
+                                    <label>Daily Carb Goal <small style="color:#999">(g, optional)</small></label>
+                                    <input type="number" id="reg-carbs" min="0" max="1000" placeholder="e.g. 250">
+                                </div>
+                                <div class="reg-nav-buttons">
+                                    <button type="button" class="btn btn-secondary" onclick="window.authManager.regBack(3)">← Back</button>
+                                    <button type="button" class="btn btn-primary" onclick="window.authManager.regNext(3)">Next →</button>
+                                </div>
+                            </div>
+
+                            <!-- Step 4: Cooking Preferences -->
+                            <div class="reg-panel hidden" id="reg-panel-4">
+                                <p class="reg-panel-title">Cooking Preferences</p>
+                                <div class="form-group">
+                                    <label>Available Equipment * <small style="color:#999">(select all that apply)</small></label>
+                                    <div class="reg-checkboxes">
+                                        <label class="reg-check"><input type="checkbox" name="reg-equipment" value="stove"> Stove</label>
+                                        <label class="reg-check"><input type="checkbox" name="reg-equipment" value="oven"> Oven</label>
+                                        <label class="reg-check"><input type="checkbox" name="reg-equipment" value="microwave"> Microwave</label>
+                                        <label class="reg-check"><input type="checkbox" name="reg-equipment" value="slow cooker"> Slow Cooker</label>
+                                        <label class="reg-check"><input type="checkbox" name="reg-equipment" value="air fryer"> Air Fryer</label>
+                                        <label class="reg-check"><input type="checkbox" name="reg-equipment" value="instant pot"> Instant Pot</label>
+                                        <label class="reg-check"><input type="checkbox" name="reg-equipment" value="grill"> Grill</label>
+                                        <label class="reg-check"><input type="checkbox" name="reg-equipment" value="blender"> Blender</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Cooking Skill Level *</label>
+                                    <select id="reg-cooking-skill">
+                                        <option value="">-- Select skill level --</option>
+                                        <option value="beginner">Beginner – simple recipes only</option>
+                                        <option value="intermediate">Intermediate – comfortable in the kitchen</option>
+                                        <option value="advanced">Advanced – enjoy complex dishes</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Max Cook Time *</label>
+                                    <select id="reg-max-cook-time">
+                                        <option value="">-- Select max time --</option>
+                                        <option value="15">15 minutes</option>
+                                        <option value="30">30 minutes</option>
+                                        <option value="45">45 minutes</option>
+                                        <option value="60">1 hour</option>
+                                        <option value="90">1.5 hours</option>
+                                        <option value="120">2+ hours</option>
+                                    </select>
+                                </div>
+                                <div class="reg-nav-buttons">
+                                    <button type="button" class="btn btn-secondary" onclick="window.authManager.regBack(4)">← Back</button>
+                                    <button type="button" class="btn btn-primary" id="reg-submit-btn" onclick="window.authManager.regSubmit()">Create Account</button>
+                                </div>
+                            </div>
+
+                            <p style="text-align:center; margin-top:16px; font-size:14px; color:#666;">
+                                Already have an account?
+                                <a href="#" id="show-login" style="color:#76b900; font-weight:600;">Sign in</a>
+                            </p>
+                        </div>
+
+                        <p class="auth-note">
+                            <strong>Note:</strong> Advanced meal planning and personalized features require an account
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Home Page -->
+            <div id="home-page" class="page">
+                <div class="hero-section">
+                    <div class="hero-content">
+                        <h1>AI-Powered Meal Planning Made Easy</h1>
+                        <p>Perfect for busy families and college students - find affordable groceries, discover budget-friendly recipes, and plan your meals with AI assistance</p>
+                        <div class="hero-stats">
+                            <div class="stat">
+                                <i class="fas fa-dollar-sign"></i>
+                                <span>Save up to 40% on groceries</span>
+                            </div>
+                            <div class="stat">
+                                <i class="fas fa-clock"></i>
+                                <span>Quick 15-minute recipes</span>
+                            </div>
+                            <div class="stat">
+                                <i class="fas fa-shopping-cart"></i>
+                                <span>Smart shopping lists</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <section class="about-section">
+                        <h2>About NomNomNomotron</h2>
+                        
+                        <div class="price-disclaimer" style="background: #fff3cd; border: 1px solid #ffeaa7; border-radius: 8px; padding: 20px; margin-bottom: 40px; text-align: left;">
+                            <h4 style="color: #856404; margin-bottom: 10px;"><i class="fas fa-exclamation-triangle"></i> Price Disclaimer:</h4>
+                            <p style="color: #856404; margin: 0; line-height: 1.5;">Prices shown are generalized estimates based on available store data and recent trends. Deals, sales, and in‑store pricing may change and may not be reflected in real time. Use this as a planning and comparison tool, not a guarantee of final price.</p>
+                        </div>
+                        <div class="features-grid">
+                            <div class="feature-card">
+                                <i class="fas fa-robot"></i>
+                                <h3>NVIDIA-Powered AI Assistant</h3>
+                                <p>Get intelligent meal suggestions tailored for busy families and students based on your schedule, budget, and dietary needs</p>
+                            </div>
+                            <div class="feature-card">
+                                <i class="fas fa-map-marked-alt"></i>
+                                <h3>Local Store Prices</h3>
+                                <p>Compare prices from nearby grocery stores to find the best deals</p>
+                            </div>
+                            <div class="feature-card">
+                                <i class="fas fa-utensils"></i>
+                                <h3>Family & Student-Friendly Recipes</h3>
+                                <p>Simple recipes perfect for busy lifestyles with minimal equipment and maximum nutrition for the whole family</p>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <!-- Other pages will be loaded here -->
+            <div id="chat-page" class="page hidden"></div>
+            <div id="meals-page" class="page hidden"></div>
+            <div id="profile-page" class="page hidden"></div>
+            <div id="recipes-page" class="page hidden"></div>
+            <div id="individual-meal-page" class="page hidden"></div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/auth.js?v=7"></script>
+    <script src="js/api.js?v=7"></script>
+    <script src="js/navigation.js?v=7"></script>
+    <script src="js/profile.js?v=7"></script>
+    <script src="js/language.js?v=7"></script>
+    <script src="js/app.js?v=7"></script>
+</body>
+</html>
