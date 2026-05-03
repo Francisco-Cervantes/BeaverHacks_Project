@@ -1,11 +1,14 @@
 from requests.auth import HTTPBasicAuth
 import requests
 import os
+import logging
 from typing import Optional, Dict, Any
 from pathlib import Path
 from dotenv import load_dotenv
 from pricing.ingredient_aliases import normalize_ingredient_name
 from pricing.providers.base import PricingProvider
+
+_log = logging.getLogger(__name__)
 
 # Load environment variables from .env file (explicit path)
 env_path = Path(__file__).parent.parent.parent / ".env"
@@ -64,8 +67,7 @@ class KrogerPricingProvider(PricingProvider):
                 timeout=10
             )
             
-            print("DEBUG: Token Status:", response.status_code)
-            print("DEBUG: Token Response:", response.text)
+            _log.debug("Kroger token status: %s", response.status_code)
             
             response.raise_for_status()
 
@@ -75,10 +77,6 @@ class KrogerPricingProvider(PricingProvider):
             return access_token
         except requests.exceptions.HTTPError as e:
             error_msg = f"OAuth Error: {e.response.status_code} - {e.response.text}"
-            print(f"DEBUG: Response Status: {e.response.status_code}")
-            print(f"DEBUG: Response Body: {e.response.text}")
-            print(f"DEBUG: Client ID: {self.client_id}")
-            print(f"DEBUG: Client Secret Length: {len(self.client_secret)}")
             raise ValueError(f"Failed to authenticate with Kroger API. {error_msg}\n"
                            f"Check your KROGER_CLIENT_ID and KROGER_CLIENT_SECRET in .env file")
 
@@ -96,7 +94,7 @@ class KrogerPricingProvider(PricingProvider):
 
         self.location_id = self.KNOWN_CERTIFICATION_LOCATION
         self.store_coords = None
-        print(f"✓ No nearby Kroger location found for {zip_code}. Using certification fallback location: {self.location_id}")
+        _log.info("No nearby Kroger location found for %s. Using certification fallback: %s", zip_code, self.location_id)
 
     def _get_nearby_locations(self, zip_code: str) -> list:
         """Get nearby Kroger locations."""

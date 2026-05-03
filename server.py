@@ -3,6 +3,7 @@ from flask_cors import CORS
 from user_chat import extract_keywords, wizard_confirmation
 from memory_manager import MemoryManager
 from Model import ask_model
+from ai_meal_planner import run_meal_planning_pipeline, format_pipeline_response
 import json
 
 app = Flask(__name__)
@@ -46,6 +47,98 @@ def user_is_editing_preferences(text: str) -> bool:
         "make my", "make the"
     ]
     return any(phrase in text for phrase in edit_phrases)
+
+
+# ---------------------------------------------------------
+# REGISTER
+# ---------------------------------------------------------
+@app.post("/register")
+def register():
+    data = request.json
+    username = (data.get("username") or "").strip()
+    password = data.get("password", "")
+
+    if not username or len(password) < 6:
+        return jsonify({"success": False, "error": "Username required and password must be at least 6 characters"}), 400
+
+    try:
+        with open("logged_in.json", "r") as f:
+            users = json.load(f)
+    except FileNotFoundError:
+        users = {}
+
+    if username in users:
+        return jsonify({"success": False, "error": "Username already taken"}), 400
+
+    keywords = data.get("keywords", {})
+    if not isinstance(keywords, dict):
+        keywords = {}
+
+    users[username] = {
+        "password":      password,
+        "email":         data.get("email", ""),
+        "phone":         data.get("phone", ""),
+        "zip":           data.get("zip", "00000"),
+        "radius":        int(data.get("radius", 10)),
+        "keywords": {
+            "diet":           keywords.get("diet", "none"),
+            "dieting":        bool(keywords.get("dieting", False)),
+            "calorie_target": keywords.get("calorie_target", 2000),
+            "protein_goal":   keywords.get("protein_goal"),
+            "fat_goal":       keywords.get("fat_goal"),
+            "carb_goal":      keywords.get("carb_goal"),
+        },
+        "allergies":     data.get("allergies", []),
+        "equipment":     data.get("equipment", []),
+        "cooking_skill": data.get("cooking_skill", "beginner"),
+        "max_cook_time": int(data.get("max_cook_time", 30)),
+        "weekly_budget": float(data.get("weekly_budget", 100)),
+        "meal_budget":   float(data.get("meal_budget", 15)),
+        "display_name":  data.get("display_name", username),
+        "guest_mode":    False,
+    }
+
+    with open("logged_in.json", "w") as f:
+        json.dump(users, f, indent=2)
+
+    return jsonify({"success": True})
+
+
+# ---------------------------------------------------------
+# SAVE PROFILE
+# ---------------------------------------------------------
+@app.post("/save-profile")
+def save_profile():
+    data = request.json
+    username = data.get("username", "").strip()
+
+    try:
+        with open("logged_in.json", "r") as f:
+            users = json.load(f)
+    except FileNotFoundError:
+        return jsonify({"success": False, "error": "User database missing"}), 500
+
+    if username not in users:
+        return jsonify({"success": False, "error": "User not found"}), 404
+
+    u = users[username]
+
+    if "zipCode"             in data: u["zip"]           = data["zipCode"]
+    if "radius"              in data: u["radius"]         = int(data["radius"])
+    if "dailyCalories"       in data: u["keywords"]["calorie_target"] = data["dailyCalories"]
+    if "dietaryRestrictions" in data: u["keywords"]["diet"] = data["dietaryRestrictions"]
+    if "equipment"           in data: u["equipment"]      = data["equipment"]
+    if "cooking_skill"       in data: u["cooking_skill"]  = data["cooking_skill"]
+    if "max_cook_time"       in data: u["max_cook_time"]  = int(data["max_cook_time"])
+    if "weekly_budget"       in data: u["weekly_budget"]  = float(data["weekly_budget"])
+    if "meal_budget"         in data: u["meal_budget"]    = float(data["meal_budget"])
+    if "allergies"           in data: u["allergies"]      = data["allergies"]
+    if "name"                in data: u["display_name"]   = data["name"]
+
+    with open("logged_in.json", "w") as f:
+        json.dump(users, f, indent=2)
+
+    return jsonify({"success": True})
 
 
 # ---------------------------------------------------------
@@ -127,8 +220,8 @@ def chat():
         mm.save_guest_session(zip_code, radius)
         profile = mm.get_user_profile()
 
-        # Automatic greeting for guest when frontend sends "__start__"
-        if user_input == "__start__":
+        # Automatic greeting for guest when frontend sends "start"
+        if user_input == "start":
             GREETED = True
             CURRENT_MODE = "meal_planning"
             return jsonify({
@@ -153,8 +246,8 @@ def chat():
         # LOGGED-IN USER FLOW
         profile = mm.get_user_profile()
 
-        # Automatic greeting for logged-in user when frontend sends "__start__"
-        if user_input == "__start__":
+        # Automatic greeting for logged-in user when frontend sends "start"
+        if user_input == "start":
             GREETED = True
             CURRENT_MODE = "preferences"
             PREFERENCE_STATE = "show_profile"
@@ -253,65 +346,38 @@ def chat():
         })
 
     # ---------------------------------------------------------
-    # NATURAL MEAL ASSISTANT (MEAL PLANNING MODE)
+    # MEAL PLANNING MODE — structured AI pipeline
+    # Python builds facts → AI chooses names → Python computes numbers
     # ---------------------------------------------------------
     profile = mm.get_user_profile()
 
-    system_prompt = f"""
-You are a structured, reliable diet and meal assistant.
+    # Run the structured pipeline (decision packet → Nemotron → validate → compute)
+    pipeline_result = run_meal_planning_pipeline(user_input_raw, profile)
+    response_text = format_pipeline_response(pipeline_result)
 
-USER PROFILE:
-{profile}
+    # Also send structured data so the frontend can render recipe cards with real costs
+    structured_result = None
+    if pipeline_result.get("success") and isinstance(pipeline_result.get("result"), dict):
+        r = pipeline_result["result"]
+        store_name = r.get("store", "")
+        meal_list = []
+        for m in r.get("meals", []):
+            meal_entry = {
+                "name":               m.get("name", ""),
+                "cook_time_minutes":  m.get("cook_time_minutes", 0),
+                "equipment_required": [],   # pipeline result doesn't carry these; cards still render
+                "ingredients":        [],   # recipe detail comes from the Meals page
+                "cost_at_store":      m.get("cost_at_store", 0),
+            }
+            meal_list.append(meal_entry)
+        structured_result = {
+            "store":      store_name,
+            "meals":      meal_list,
+            "total_cost": r.get("total_cost", 0),
+            "nutrition":  r.get("total_nutrition", {}),
+        }
 
-RULES:
-- Stay on food, diet, nutrition, and meal planning.
-- Understand natural requests like:
-  "meals that work around my preferences",
-  "show me dishes with chicken",
-  "what meals fit my diet",
-  "meals using tofu",
-  "meals based on my zip",
-  "what ingredients do I need to make X",
-  "what ingredients are in X",
-  "ingredients for X",
-  "how do I make X".
-
-INGREDIENT-BASED RECIPE LOOKUP:
-- If the user asks for ingredients for a dish:
-    1. Identify the dish name.
-    2. Provide a clean ingredient list.
-    3. Keep it simple and realistic.
-    4. Respect the user's diet (vegan, high protein, etc.).
-    5. If the dish conflicts with their diet, offer a diet‑friendly version.
-- Do NOT hallucinate stores or prices.
-- Do NOT output JSON.
-- Keep responses clean and readable.
-
-CALORIE-TOTAL MEAL GENERATION:
-- If the user asks for meals totaling a specific calorie amount
-  (e.g., "give me breakfast lunch and dinner that total 3000 calories"):
-    1. Generate the requested number of meals (default: breakfast, lunch, dinner).
-    2. Each meal must include:
-        - Name of the dish
-        - Short description
-        - Estimated calories
-    3. The total calories across all meals should be close to the target.
-    4. Meals must respect the user's diet, preferences, and keywords.
-    5. Keep the output clean and readable.
-
-- No trivia, math explanations, or unrelated topics.
-- No hallucinated stores or locations.
-- Provide clear meal ideas.
-- No JSON.
-"""
-
-    messages = [
-        {"role": "system", "content": system_prompt},
-        {"role": "user", "content": user_input_raw}
-    ]
-
-    response = ask_model(messages)
-    return jsonify({"response": response})
+    return jsonify({"response": response_text, "structured_result": structured_result})
 
 
 # ---------------------------------------------------------

@@ -289,7 +289,13 @@ class NavigationManager {
         const chatMessages = document.getElementById('chat-messages');
         const messageDiv = document.createElement('div');
         messageDiv.className = `message ${sender}`;
-        messageDiv.textContent = text;
+        // Safely render newlines as <br> — escape HTML first to prevent injection
+        const escaped = text
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;');
+        messageDiv.innerHTML = escaped.replace(/\n/g, '<br>');
         chatMessages.appendChild(messageDiv);
         chatMessages.scrollTop = chatMessages.scrollHeight;
     }
@@ -338,22 +344,49 @@ class NavigationManager {
     }
 
     async getBotResponse(userMessage) {
+        // Show typing indicator
+        const chatMessages = document.getElementById('chat-messages');
+        const typingDiv = document.createElement('div');
+        typingDiv.className = 'message bot';
+        typingDiv.id = 'bot-typing';
+        typingDiv.innerHTML = '<i class="fas fa-ellipsis-h" style="color:#aaa;"></i>';
+        chatMessages?.appendChild(typingDiv);
+        if (chatMessages) chatMessages.scrollTop = chatMessages.scrollHeight;
+
         try {
-            // Use real API if available
-            const response = await window.apiManager.sendChatMessage(userMessage, {
+            const data = await window.apiManager.sendChatMessage(userMessage, {
                 current_page: 'chat',
                 user_location: document.getElementById('zip-input')?.value || '97331'
             });
-            this.addMessage(response, 'bot');
+            document.getElementById('bot-typing')?.remove();
+
+            // data may be a string (legacy) or an object with { response, structured_result }
+            if (typeof data === 'string') {
+                this.addMessage(data, 'bot');
+                await this.searchRecipes(userMessage);
+            } else {
+                this.addMessage(data.response || data, 'bot');
+                // If the pipeline returned structured meal data, show those cards in the right panel
+                if (data.structured_result && data.structured_result.meals?.length) {
+                    this.displayRecipeResults(data.structured_result.meals.map(m => ({
+                        name:                m.name,
+                        cook_time_minutes:   m.cook_time_minutes,
+                        equipment_required:  m.equipment_required || [],
+                        ingredients:         m.ingredients || [],
+                        // Inject the real backend cost so createRecipeCard shows it
+                        _real_cost:          m.cost_at_store,
+                        _store:              data.structured_result.store
+                    })));
+                } else {
+                    await this.searchRecipes(userMessage);
+                }
+            }
         } catch (error) {
+            document.getElementById('bot-typing')?.remove();
             console.error('Chat API error:', error);
-            // Fallback to local responses
-            const localResponse = this.getLocalChatResponse(userMessage);
-            this.addMessage(localResponse, 'bot');
+            this.addMessage(this.getLocalChatResponse(userMessage), 'bot');
+            await this.searchRecipes(userMessage);
         }
-        
-        // Trigger recipe search based on message
-        await this.searchRecipes(userMessage);
     }
 
     getLocalChatResponse(userMessage) {
@@ -438,6 +471,10 @@ class NavigationManager {
         const favorites = JSON.parse(localStorage.getItem('recipe_favorites') || '[]');
         const isFav = favorites.includes(meal.name);
         const mealJson = JSON.stringify(JSON.stringify(meal));
+        // Show store badge when this card came from the AI pipeline
+        const storeBadge = meal._store
+            ? `<div class="recipe-store-badge"><i class="fas fa-store"></i> ${meal._store}</div>`
+            : '';
 
         return `
             <div class="recipe-card" data-meal="${meal.name}">
@@ -448,6 +485,7 @@ class NavigationManager {
                 </div>
                 <div class="recipe-info">
                     <h4 class="recipe-title">${meal.name}</h4>
+                    ${storeBadge}
                     <div class="recipe-details">
                         <div class="detail-item">
                             <i class="fas fa-clock"></i>
@@ -483,19 +521,24 @@ class NavigationManager {
     }
 
     estimateMealCost(meal) {
-        // Simple cost estimation based on ingredients
+        // Use real backend cost if pipeline injected it
+        if (meal._real_cost != null) return Number(meal._real_cost).toFixed(2);
+        // Use cheapest store cost from API response if available
+        if (meal.costs && typeof meal.costs === 'object') {
+            const cheapest = Math.min(...Object.values(meal.costs).filter(v => v > 0));
+            if (isFinite(cheapest)) return cheapest.toFixed(2);
+        }
+        // Last resort: ingredient-weight estimate
         const baseCosts = {
             'pasta': 0.50, 'chicken': 2.00, 'eggs': 0.30, 'rice': 0.25,
             'onion': 0.25, 'tomato': 0.50, 'cheese': 1.00, 'bread': 0.15
         };
-        
         let totalCost = 0;
-        meal.ingredients.forEach(ingredient => {
-            const name = ingredient.ingredient_name.toLowerCase();
-            const matchedCost = Object.entries(baseCosts).find(([key]) => name.includes(key));
-            totalCost += matchedCost ? matchedCost[1] * ingredient.quantity : 0.50;
+        (meal.ingredients || []).forEach(ingredient => {
+            const name = (ingredient.ingredient_name || '').toLowerCase();
+            const matched = Object.entries(baseCosts).find(([key]) => name.includes(key));
+            totalCost += matched ? matched[1] * ingredient.quantity : 0.50;
         });
-        
         return Math.max(totalCost, 1.50).toFixed(2);
     }
 

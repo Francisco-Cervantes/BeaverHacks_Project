@@ -143,6 +143,9 @@ class APIManager {
 
             if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
             const data = await response.json();
+            // Return full object so getBotResponse can use structured_result for recipe cards
+            // Fall back to plain string for legacy callers
+            if (data.structured_result !== undefined) return data;
             return data.response || 'Sorry, I could not process that request.';
         } catch (error) {
             console.error('Error sending chat message:', error);

@@ -1,5 +1,8 @@
 from pricing.providers.base import PricingProvider
 from typing import Optional
+import logging
+
+_log = logging.getLogger(__name__)
 
 class SafePricingProvider(PricingProvider):
     """Wrapper provider that falls back to an estimated provider when primary fails."""
@@ -24,8 +27,8 @@ class SafePricingProvider(PricingProvider):
         try:
             return self.primary.get_price(ingredient_name)
         except Exception as exc:
-            print(
-                f"DEBUG: {self.primary_name} failed for '{ingredient_name}': {exc}. "
-                f"Falling back to {self.fallback_name} pricing."
+            _log.debug(
+                "%s failed for '%s': %s. Falling back to %s pricing.",
+                self.primary_name, ingredient_name, exc, self.fallback_name
             )
             return self.fallback.get_price(ingredient_name)
