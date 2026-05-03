@@ -52,6 +52,16 @@ def _build_ai_prompt(user_message: str, decision_packet: dict) -> list:
     """
     profile = decision_packet["user_profile"]
 
+    # Separate hard allergies from diet style so the AI doesn't refuse to suggest meals
+    restrictions = profile.get('dietary_restrictions') or []
+    diet_style = profile.get('diet_preference') or ''
+    hard_allergies = [r for r in restrictions if r not in (
+        'vegan', 'vegetarian', 'pescatarian', 'low-fat', 'low-carb',
+        'low-sodium', 'keto', 'paleo', 'mediterranean', 'normal', 'none', ''
+    )]
+    allergies_text = ', '.join(hard_allergies) if hard_allergies else 'none'
+    diet_style_text = diet_style or (restrictions[0] if restrictions else 'none')
+
     # Summarize stores (Python-computed totals — AI reads but never changes these)
     store_lines = []
     for s in decision_packet["stores"]:
@@ -62,46 +72,80 @@ def _build_ai_prompt(user_message: str, decision_packet: dict) -> list:
         )
     stores_text = "\n".join(store_lines)
 
-    # Summarize available meals (pre-filtered by Python for user's equipment/time)
+    # Number the meals so the AI can reference them precisely
     meal_lines = []
-    for m in decision_packet["meals"]:
+    meal_names_list = []
+    for i, m in enumerate(decision_packet["meals"], 1):
+        name = m['name']
+        meal_names_list.append(f'"{name}"')
         meal_lines.append(
-            f"  • {m['name']}: ~{m['nutrition'].get('calories', 0):.0f}cal  "
-            f"{m['cook_time_minutes']}min  "
+            f"  {i}. {name}\n"
+            f"     calories=~{m['nutrition'].get('calories', 0):.0f}  "
+            f"time={m['cook_time_minutes']}min  "
             f"equipment={','.join(m['equipment_required'])}"
         )
     meals_text = "\n".join(meal_lines)
+    valid_meal_names = ", ".join(meal_names_list)
+
+    # Build readable macro goals for the prompt
+    protein_goal = profile.get('protein_goal')
+    fat_goal     = profile.get('fat_goal')
+    carb_goal    = profile.get('carb_goal')
+    macro_lines  = []
+    if protein_goal and str(protein_goal).lower() not in ('normal', 'none', ''):
+        macro_lines.append(f"protein target ≥ {protein_goal}g")
+    if fat_goal:
+        macro_lines.append(f"fat target ≤ {fat_goal}g")
+    if carb_goal:
+        macro_lines.append(f"carb target ≤ {carb_goal}g")
+    macros_text = ', '.join(macro_lines) if macro_lines else 'none set'
+
+    dieting      = profile.get('dieting', 'no')
+    cooking_skill = profile.get('cooking_skill', 'beginner')
+    weekly_budget = profile.get('weekly_budget', 100)
 
     system_content = f"""You are a meal planning assistant. All prices, distances, nutrition, and \
 store data below were computed by the backend system — do NOT invent or change any numbers. \
-Your ONLY job is to choose names from the lists and write a short explanation.
+Your ONLY job is to choose names from the numbered lists below and write a short explanation.
 
 USER PROFILE:
-  Budget per meal: ${profile.get('budget', 50)}
-  Max distance: {profile.get('max_distance_miles', 10)} miles
-  Dietary restrictions: {profile.get('dietary_restrictions') or 'none'}
-  Available equipment: {profile.get('available_equipment', ['stove', 'oven', 'microwave'])}
-  Max cook time: {profile.get('max_time_minutes', 45)} min
+  Preferred diet style: {diet_style_text}
+  Actively dieting / calorie cutting: {dieting}
+  Hard food allergies (avoid these ingredients): {allergies_text}
   Daily calorie target: {profile.get('daily_calories', 2000)} kcal
+  Macro goals: {macros_text}
+  Cooking skill: {cooking_skill}
+  Available equipment: {profile.get('available_equipment', ['stove', 'oven', 'microwave'])}
+  Max cook time per meal: {profile.get('max_time_minutes', 45)} min
+  Budget per meal: ${profile.get('budget', 15)}
+  Weekly grocery budget: ${weekly_budget}
+  Max store distance: {profile.get('max_distance_miles', 10)} miles
 
-AVAILABLE STORES (backend-computed totals — do NOT change these numbers):
+AVAILABLE STORES (pick one — use the exact name):
 {stores_text}
 
-AVAILABLE MEALS (already filtered for user's equipment and time — do NOT add meals outside this list):
+AVAILABLE MEALS — YOU MUST ONLY USE NAMES FROM THIS EXACT LIST, COPIED CHARACTER FOR CHARACTER:
 {meals_text}
 
+VALID MEAL NAMES (copy one or more of these strings exactly into selected_meals):
+  [{valid_meal_names}]
+
 YOUR TASK:
-1. Pick the best store from AVAILABLE STORES (consider price, distance, confidence).
-2. Pick 2–4 meals from AVAILABLE MEALS that match the user's request and profile.
-3. Write a short reasoning sentence and a notes sentence.
+1. Pick the best store from AVAILABLE STORES.
+2. Pick 2–4 meals from the VALID MEAL NAMES list that best fit the user's preferred diet style and request.
+   IMPORTANT: You MUST always pick at least 2 meals. If no meal perfectly matches the diet style,
+   pick the closest available options and explain the trade-off in your reasoning.
+3. Write a 1-2 sentence reasoning and an optional notes string.
 
-RULES:
-  • Respond with ONLY valid JSON — no markdown, no extra text, no code fences.
-  • Use EXACT store and meal names as they appear in the lists above.
-  • Do NOT invent store names or meal names not in the lists.
-  • Do NOT include any numbers (prices, calories, distances) in your JSON.
+CRITICAL RULES — failure to follow these means your answer is wrong:
+  • Output ONLY valid JSON — no markdown, no prose, no code fences, no <think> tags.
+  • The value of "recommended_store" MUST be copied exactly from AVAILABLE STORES.
+  • Every item in "selected_meals" MUST be copied exactly from VALID MEAL NAMES above.
+  • "selected_meals" MUST contain at least 2 meal names — NEVER leave it empty.
+  • Do NOT invent any meal name. Do NOT use any meal not in the VALID MEAL NAMES list.
+  • Do NOT include numbers (prices, calories, distances) in your JSON values.
 
-Required JSON schema (copy this structure exactly):
+Required JSON schema:
 {_SCHEMA_COMMENT}"""
 
     return [
@@ -215,6 +259,43 @@ def _compute_final_results(ai_output: dict, decision_packet: dict) -> dict:
 
 
 # ---------------------------------------------------------------------------
+# Python fallback: select meals without the AI when validation fails
+# ---------------------------------------------------------------------------
+def _python_select_meals(decision_packet: dict, user_message: str) -> dict:
+    """
+    Pure Python meal selection used as fallback when the AI hallucinates or
+    returns an empty selected_meals list.
+    Picks the cheapest store, then picks up to 4 meals sorted by cost at that store.
+    """
+    stores = sorted(decision_packet["stores"], key=lambda s: s["total_cost"])
+    best_store = stores[0]
+    store_name = best_store["name"]
+
+    meals = decision_packet["meals"]
+    if not meals:
+        # No meals survived filtering — return a graceful failure signal
+        return {
+            "recommended_store": store_name,
+            "selected_meals": [],
+            "reasoning": "No meals matched your current equipment and time constraints.",
+            "notes": "",
+        }
+
+    # Sort meals by cost at the selected store (cheapest first)
+    meals_sorted = sorted(meals, key=lambda m: m["costs"].get(store_name, 999))
+    selected = meals_sorted[:4]
+
+    reasoning = "Selected the most affordable meals available at the closest budget store based on your profile."
+
+    return {
+        "recommended_store": store_name,
+        "selected_meals": [m["name"] for m in selected],
+        "reasoning": reasoning,
+        "notes": "",
+    }
+
+
+# ---------------------------------------------------------------------------
 # PUBLIC API: run the full pipeline
 # ---------------------------------------------------------------------------
 def run_meal_planning_pipeline(user_message: str, profile: dict) -> dict:
@@ -239,13 +320,28 @@ def run_meal_planning_pipeline(user_message: str, profile: dict) -> dict:
 
     # --- Map user profile fields to decision packet constraints ---
     keywords = profile.get("keywords", {})
+
+    # Build dietary_restrictions from both allergies AND the stored diet type
+    # so the AI knows about vegan/vegetarian/etc. preferences
+    allergies = list(profile.get("allergies") or [])
+    diet_type = (keywords.get("diet") or "none").lower().strip()
+    if diet_type and diet_type not in ("none", "normal", ""):
+        allergies.append(diet_type)
+
     user_constraints = {
-        "budget":               float(profile.get("meal_budget", keywords.get("calorie_target", 15))),
-        "max_distance_miles":   float(profile.get("radius", 10)),
-        "dietary_restrictions": profile.get("allergies", []),
-        "available_equipment":  profile.get("equipment", ["stove", "oven", "microwave"]),
-        "max_time_minutes":     int(profile.get("max_cook_time", 45)),
-        "daily_calories":       int(keywords.get("calorie_target", 2000)),
+        "budget":               float(profile.get("meal_budget") or 15.0),
+        "weekly_budget":        float(profile.get("weekly_budget") or 100.0),
+        "max_distance_miles":   float(profile.get("radius") or 10),
+        "dietary_restrictions": allergies,
+        "diet_preference":      diet_type,
+        "available_equipment":  profile.get("equipment") or ["stove", "oven", "microwave"],
+        "max_time_minutes":     int(profile.get("max_cook_time") or 45),
+        "cooking_skill":        profile.get("cooking_skill") or "beginner",
+        "daily_calories":       int(keywords.get("calorie_target") or 2000),
+        "protein_goal":         keywords.get("protein_goal") or "normal",
+        "fat_goal":             keywords.get("fat_goal"),
+        "carb_goal":            keywords.get("carb_goal"),
+        "dieting":              keywords.get("dieting") or "no",
     }
 
     # STEP 1 — Python builds facts; AI never sees raw Python objects
@@ -276,22 +372,20 @@ def run_meal_planning_pipeline(user_message: str, profile: dict) -> dict:
     # STEP 4 — Parse JSON from AI response
     ai_output = _parse_ai_json(raw_response)
     if ai_output is None:
-        # AI returned free text (e.g. a recipe or ingredient answer) — pass through as-is
+        # AI returned free text — pass through to the user as conversational response
         return {
             "success": False,
-            "error": "AI did not return structured JSON (probably a conversational answer)",
+            "error": "AI did not return structured JSON",
             "fallback_text": raw_response,
         }
 
     # STEP 5 — Validate AI choices (hallucination guard)
     is_valid, error_msg = _validate_ai_output(ai_output, decision_packet)
     if not is_valid:
-        print(f"[ai_meal_planner] Validation failed: {error_msg}")
-        return {
-            "success": False,
-            "error": error_msg,
-            "fallback_text": raw_response,
-        }
+        print(f"[ai_meal_planner] Validation failed: {error_msg} — using Python fallback selection")
+        # AI hallucinated a meal/store not in our data.
+        # Fall back to pure Python selection so the user always gets a valid meal plan.
+        ai_output = _python_select_meals(decision_packet, user_message)
 
     # STEP 6 — Python computes everything numeric
     result = _compute_final_results(ai_output, decision_packet)
@@ -318,6 +412,12 @@ def format_pipeline_response(pipeline_result: dict) -> str:
         )
 
     r = pipeline_result["result"]
+
+    if not r.get("meals"):
+        return (
+            "I wasn't able to find meals that match your current equipment and time settings. "
+            "Try updating your equipment list or increasing your max cook time in your profile."
+        )
 
     # Build meal bullet list (all numbers from Python, not AI)
     meal_lines = []

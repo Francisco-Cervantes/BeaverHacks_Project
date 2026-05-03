@@ -43,7 +43,7 @@
     "keywords": {
       "diet": "low-fat",
       "dieting": true,
-      "calorie_target": 2000,
+      "calorie_target": 1500,
       "protein_goal": 100,
       "fat_goal": 20,
       "carb_goal": 200
@@ -60,6 +60,40 @@
     "weekly_budget": 100.0,
     "meal_budget": 20.0,
     "display_name": "testuser",
+    "guest_mode": false
+  },
+  "testuser2": {
+    "password": "123456",
+    "email": "test@gmail.com",
+    "phone": "",
+    "zip": "97331",
+    "radius": 10,
+    "keywords": {
+      "diet": "none",
+      "dieting": false,
+      "calorie_target": 2000,
+      "protein_goal": 150,
+      "fat_goal": 40,
+      "carb_goal": 200
+    },
+    "allergies": [
+      "none"
+    ],
+    "equipment": [
+      "stove",
+      "oven",
+      "microwave",
+      "slow cooker",
+      "air fryer",
+      "instant pot",
+      "grill",
+      "blender"
+    ],
+    "cooking_skill": "intermediate",
+    "max_cook_time": 60,
+    "weekly_budget": 200.0,
+    "meal_budget": 30.0,
+    "display_name": "testuser2",
     "guest_mode": false
   }
 }

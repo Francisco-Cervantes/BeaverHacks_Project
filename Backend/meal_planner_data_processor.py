@@ -157,6 +157,270 @@ INGREDIENT_NUTRITION = {
         "protein": 22.0,
         "carbs": 0.0,
         "fat": 13.0
+    },
+    "bell pepper": {
+        "calories": 31.0,
+        "protein": 1.0,
+        "carbs": 6.0,
+        "fat": 0.3
+    },
+    "mushrooms": {
+        "calories": 22.0,
+        "protein": 3.1,
+        "carbs": 3.3,
+        "fat": 0.3
+    },
+    "sweet potato": {
+        "calories": 86.0,
+        "protein": 1.6,
+        "carbs": 20.0,
+        "fat": 0.1
+    },
+    "garlic": {
+        "calories": 149.0,
+        "protein": 6.4,
+        "carbs": 33.0,
+        "fat": 0.5
+    },
+    "ground turkey": {
+        "calories": 189.0,
+        "protein": 27.0,
+        "carbs": 0.0,
+        "fat": 9.0
+    },
+    "shrimp": {
+        "calories": 99.0,
+        "protein": 24.0,
+        "carbs": 0.0,
+        "fat": 0.3
+    },
+    "canned tuna": {
+        "calories": 132.0,
+        "protein": 29.0,
+        "carbs": 0.0,
+        "fat": 1.5
+    },
+    "black beans": {
+        "calories": 132.0,
+        "protein": 8.9,
+        "carbs": 23.0,
+        "fat": 0.5
+    },
+    "chickpeas": {
+        "calories": 164.0,
+        "protein": 8.9,
+        "carbs": 27.0,
+        "fat": 2.6
+    },
+    "lentils": {
+        "calories": 116.0,
+        "protein": 9.0,
+        "carbs": 20.0,
+        "fat": 0.4
+    },
+    "tofu": {
+        "calories": 76.0,
+        "protein": 8.1,
+        "carbs": 1.9,
+        "fat": 4.2
+    },
+    "tortillas": {
+        "calories": 238.0,
+        "protein": 6.0,
+        "carbs": 44.0,
+        "fat": 5.0
+    },
+    "avocado": {
+        "calories": 160.0,
+        "protein": 2.0,
+        "carbs": 9.0,
+        "fat": 15.0
+    },
+    "oats": {
+        "calories": 389.0,
+        "protein": 17.0,
+        "carbs": 66.0,
+        "fat": 7.0
+    },
+    "quinoa": {
+        "calories": 120.0,
+        "protein": 4.4,
+        "carbs": 21.0,
+        "fat": 1.9
+    },
+    "coconut milk": {
+        "calories": 197.0,
+        "protein": 2.0,
+        "carbs": 6.0,
+        "fat": 21.0
+    },
+    "greek yogurt": {
+        "calories": 59.0,
+        "protein": 10.0,
+        "carbs": 3.6,
+        "fat": 0.4
+    },
+    "mozzarella": {
+        "calories": 280.0,
+        "protein": 28.0,
+        "carbs": 2.2,
+        "fat": 17.0
+    },
+    "parmesan": {
+        "calories": 431.0,
+        "protein": 38.0,
+        "carbs": 4.1,
+        "fat": 29.0
+    },
+    "pork chops": {
+        "calories": 231.0,
+        "protein": 25.0,
+        "carbs": 0.0,
+        "fat": 14.0
+    },
+    "soy sauce": {
+        "calories": 53.0,
+        "protein": 8.1,
+        "carbs": 5.0,
+        "fat": 0.1
+    },
+    "cauliflower": {
+        "calories": 25.0,
+        "protein": 1.9,
+        "carbs": 5.0,
+        "fat": 0.3
+    },
+    "corn": {
+        "calories": 86.0,
+        "protein": 3.3,
+        "carbs": 19.0,
+        "fat": 1.4
+    },
+    "heavy cream": {
+        "calories": 345.0,
+        "protein": 2.8,
+        "carbs": 2.8,
+        "fat": 37.0
+    },
+    "chicken broth": {
+        "calories": 15.0,
+        "protein": 3.0,
+        "carbs": 1.0,
+        "fat": 0.5
+    },
+    "zucchini": {
+        "calories": 17.0,
+        "protein": 1.2,
+        "carbs": 3.1,
+        "fat": 0.3
+    },
+    "kale": {
+        "calories": 49.0,
+        "protein": 4.3,
+        "carbs": 8.8,
+        "fat": 0.9
+    },
+    "celery": {
+        "calories": 16.0,
+        "protein": 0.7,
+        "carbs": 3.0,
+        "fat": 0.2
+    },
+    "chicken thighs": {
+        "calories": 209.0,
+        "protein": 26.0,
+        "carbs": 0.0,
+        "fat": 10.9
+    },
+    "tilapia": {
+        "calories": 128.0,
+        "protein": 26.0,
+        "carbs": 0.0,
+        "fat": 2.7
+    },
+    "cod": {
+        "calories": 82.0,
+        "protein": 18.0,
+        "carbs": 0.0,
+        "fat": 0.7
+    },
+    "noodles": {
+        "calories": 138.0,
+        "protein": 4.5,
+        "carbs": 25.0,
+        "fat": 2.1
+    },
+    "kidney beans": {
+        "calories": 127.0,
+        "protein": 8.7,
+        "carbs": 22.8,
+        "fat": 0.5
+    },
+    "cabbage": {
+        "calories": 25.0,
+        "protein": 1.3,
+        "carbs": 5.8,
+        "fat": 0.1
+    },
+    "cucumber": {
+        "calories": 15.0,
+        "protein": 0.7,
+        "carbs": 3.6,
+        "fat": 0.1
+    },
+    "ginger": {
+        "calories": 80.0,
+        "protein": 1.8,
+        "carbs": 18.0,
+        "fat": 0.8
+    },
+    "peanut butter": {
+        "calories": 588.0,
+        "protein": 25.0,
+        "carbs": 20.0,
+        "fat": 50.0
+    },
+    "Italian sausage": {
+        "calories": 301.0,
+        "protein": 14.0,
+        "carbs": 2.0,
+        "fat": 27.0
+    },
+    "bacon": {
+        "calories": 417.0,
+        "protein": 37.0,
+        "carbs": 1.3,
+        "fat": 28.0
+    },
+    "turkey breast": {
+        "calories": 189.0,
+        "protein": 29.0,
+        "carbs": 0.0,
+        "fat": 7.0
+    },
+    "green beans": {
+        "calories": 31.0,
+        "protein": 1.8,
+        "carbs": 7.0,
+        "fat": 0.1
+    },
+    "asparagus": {
+        "calories": 20.0,
+        "protein": 2.2,
+        "carbs": 3.9,
+        "fat": 0.1
+    },
+    "brussels sprouts": {
+        "calories": 43.0,
+        "protein": 3.4,
+        "carbs": 9.0,
+        "fat": 0.3
+    },
+    "butternut squash": {
+        "calories": 45.0,
+        "protein": 1.0,
+        "carbs": 11.7,
+        "fat": 0.1
     }
 }
 
@@ -182,14 +446,65 @@ UNIT_TO_GRAMS = {
 INGREDIENT_UNIT_OVERRIDES = {
     "rice": {"cup": 158.0},
     "pasta": {"cup": 140.0},
+    "noodles": {"cup": 140.0},
     "eggs": {"each": 50.0},
     "onion": {"each": 110.0},
     "chicken breast": {"lb": 453.592},
+    "chicken thighs": {"lb": 453.592},
+    "ground beef": {"lb": 453.592},
+    "ground turkey": {"lb": 453.592},
+    "pork chops": {"lb": 453.592},
+    "salmon": {"lb": 453.592},
+    "shrimp": {"lb": 453.592},
+    "tilapia": {"lb": 453.592},
+    "cod": {"lb": 453.592},
+    "Italian sausage": {"lb": 453.592},
+    "bacon": {"lb": 453.592},
+    "turkey breast": {"lb": 453.592},
+    "tofu": {"lb": 453.592},
+    "asparagus": {"lb": 453.592},
+    "brussels sprouts": {"lb": 453.592},
+    "green beans": {"cup": 100.0},
     "canned tomatoes": {"can": 240.0},
+    "black beans": {"can": 240.0},
+    "chickpeas": {"can": 240.0},
+    "kidney beans": {"can": 240.0},
+    "lentils": {"cup": 192.0},
+    "oats": {"cup": 90.0},
+    "quinoa": {"cup": 170.0},
+    "coconut milk": {"can": 240.0},
+    "chicken broth": {"can": 240.0},
     "banana": {"each": 118.0},
     "apple": {"each": 182.0},
     "potatoes": {"each": 173.0},
+    "sweet potato": {"each": 200.0},
     "carrots": {"each": 61.0},
+    "onion": {"each": 110.0},
+    "cucumber": {"each": 200.0},
+    "cabbage": {"each": 900.0},
+    "cauliflower": {"each": 600.0},
+    "butternut squash": {"each": 500.0},
+    "bell pepper": {"each": 150.0},
+    "tomato": {"each": 123.0},
+    "mushrooms": {"cup": 70.0},
+    "spinach": {"cup": 30.0},
+    "broccoli": {"cup": 91.0},
+    "kale": {"cup": 67.0},
+    "corn": {"cup": 154.0},
+    "greek yogurt": {"cup": 245.0},
+    "milk": {"cup": 244.0},
+    "heavy cream": {"cup": 238.0},
+    "peanut butter": {"tbsp": 16.0},
+    "soy sauce": {"tbsp": 18.0},
+    "olive oil": {"tbsp": 14.0},
+    "butter": {"tbsp": 14.0},
+    "garlic": {"tbsp": 9.0},
+    "ginger": {"oz": 28.35},
+    "parmesan": {"tbsp": 5.0},
+    "mozzarella": {"lb": 453.592},
+    "bread": {"each": 30.0},
+    "tortillas": {"each": 45.0},
+    "avocado": {"each": 200.0},
 }
 
 
@@ -228,7 +543,23 @@ STORE_CONFIGURATIONS = {
             "tomato": 1.49,
             "olive oil": 5.99,
             "butter": 2.99,
-            "cheese": 3.99
+            "cheese": 3.99,
+            "chicken thighs": 2.49,
+            "tilapia": 4.79,
+            "cod": 6.79,
+            "noodles": 1.59,
+            "kidney beans": 0.89,
+            "cabbage": 0.69,
+            "cucumber": 0.79,
+            "ginger": 0.69,
+            "peanut butter": 3.29,
+            "Italian sausage": 4.79,
+            "bacon": 5.79,
+            "turkey breast": 5.79,
+            "green beans": 1.39,
+            "asparagus": 3.79,
+            "brussels sprouts": 2.79,
+            "butternut squash": 2.29
         }
     },
     "Costco": {
@@ -255,7 +586,23 @@ STORE_CONFIGURATIONS = {
             "tomato": 1.39,
             "olive oil": 5.79,
             "butter": 2.89,
-            "cheese": 3.79
+            "cheese": 3.79,
+            "chicken thighs": 2.39,
+            "tilapia": 4.59,
+            "cod": 6.59,
+            "noodles": 1.49,
+            "kidney beans": 0.79,
+            "cabbage": 0.59,
+            "cucumber": 0.69,
+            "ginger": 0.59,
+            "peanut butter": 2.99,
+            "Italian sausage": 4.59,
+            "bacon": 5.59,
+            "turkey breast": 5.59,
+            "green beans": 1.29,
+            "asparagus": 3.59,
+            "brussels sprouts": 2.59,
+            "butternut squash": 2.09
         }
     },
     "Safeway": {
@@ -282,7 +629,23 @@ STORE_CONFIGURATIONS = {
             "tomato": 1.69,
             "olive oil": 6.29,
             "butter": 3.19,
-            "cheese": 4.19
+            "cheese": 4.19,
+            "chicken thighs": 3.19,
+            "tilapia": 5.49,
+            "cod": 7.49,
+            "noodles": 1.89,
+            "kidney beans": 1.09,
+            "cabbage": 0.89,
+            "cucumber": 0.99,
+            "ginger": 0.89,
+            "peanut butter": 3.99,
+            "Italian sausage": 5.49,
+            "bacon": 6.49,
+            "turkey breast": 6.49,
+            "green beans": 1.69,
+            "asparagus": 4.49,
+            "brussels sprouts": 3.49,
+            "butternut squash": 2.99
         }
     },
     "Walmart": {
@@ -309,7 +672,23 @@ STORE_CONFIGURATIONS = {
             "tomato": 1.49,
             "olive oil": 5.99,
             "butter": 2.99,
-            "cheese": 3.99
+            "cheese": 3.99,
+            "chicken thighs": 2.69,
+            "tilapia": 4.99,
+            "cod": 6.99,
+            "noodles": 1.69,
+            "kidney beans": 0.99,
+            "cabbage": 0.79,
+            "cucumber": 0.89,
+            "ginger": 0.79,
+            "peanut butter": 3.49,
+            "Italian sausage": 4.99,
+            "bacon": 5.99,
+            "turkey breast": 5.99,
+            "green beans": 1.49,
+            "asparagus": 3.99,
+            "brussels sprouts": 2.99,
+            "butternut squash": 2.49
         }
     },
     "Albertsons": {
@@ -336,7 +715,23 @@ STORE_CONFIGURATIONS = {
             "tomato": 1.79,
             "olive oil": 6.39,
             "butter": 3.29,
-            "cheese": 4.29
+            "cheese": 4.29,
+            "chicken thighs": 3.29,
+            "tilapia": 5.69,
+            "cod": 7.69,
+            "noodles": 1.99,
+            "kidney beans": 1.19,
+            "cabbage": 0.99,
+            "cucumber": 1.09,
+            "ginger": 0.99,
+            "peanut butter": 4.19,
+            "Italian sausage": 5.69,
+            "bacon": 6.69,
+            "turkey breast": 6.69,
+            "green beans": 1.79,
+            "asparagus": 4.69,
+            "brussels sprouts": 3.69,
+            "butternut squash": 3.19
         }
     },
     "Grocery Outlet": {
@@ -363,7 +758,23 @@ STORE_CONFIGURATIONS = {
             "tomato": 1.19,
             "olive oil": 4.99,
             "butter": 2.49,
-            "cheese": 3.49
+            "cheese": 3.49,
+            "chicken thighs": 2.29,
+            "tilapia": 4.29,
+            "cod": 5.99,
+            "noodles": 1.39,
+            "kidney beans": 0.79,
+            "cabbage": 0.59,
+            "cucumber": 0.69,
+            "ginger": 0.59,
+            "peanut butter": 2.99,
+            "Italian sausage": 4.29,
+            "bacon": 5.29,
+            "turkey breast": 5.29,
+            "green beans": 1.19,
+            "asparagus": 3.49,
+            "brussels sprouts": 2.49,
+            "butternut squash": 1.99
         }
     }
 }
@@ -445,7 +856,1241 @@ SAMPLE_MEALS = [
         ],
         cook_time_minutes=25,
         equipment_required=["stove"]
-    )
+    ),
+
+    # -----------------------------------------------------------------------
+    # BREAKFAST (10 meals)
+    # -----------------------------------------------------------------------
+    Meal(
+        name="Avocado Toast with Egg",
+        ingredients=[
+            MealIngredient(ingredient_name="avocado", quantity=0.5, unit="each"),
+            MealIngredient(ingredient_name="bread", quantity=2, unit="each"),
+            MealIngredient(ingredient_name="eggs", quantity=2, unit="each"),
+            MealIngredient(ingredient_name="tomato", quantity=1, unit="each"),
+        ],
+        cook_time_minutes=15,
+        equipment_required=["stove"]
+    ),
+    Meal(
+        name="Cheese Omelette",
+        ingredients=[
+            MealIngredient(ingredient_name="eggs", quantity=3, unit="each"),
+            MealIngredient(ingredient_name="cheese", quantity=0.1, unit="lb"),
+            MealIngredient(ingredient_name="butter", quantity=1, unit="tbsp"),
+            MealIngredient(ingredient_name="bell pepper", quantity=1, unit="each"),
+        ],
+        cook_time_minutes=10,
+        equipment_required=["stove"]
+    ),
+    Meal(
+        name="Spinach Mushroom Omelette",
+        ingredients=[
+            MealIngredient(ingredient_name="eggs", quantity=3, unit="each"),
+            MealIngredient(ingredient_name="spinach", quantity=1, unit="cup"),
+            MealIngredient(ingredient_name="mushrooms", quantity=0.5, unit="cup"),
+            MealIngredient(ingredient_name="butter", quantity=1, unit="tbsp"),
+        ],
+        cook_time_minutes=15,
+        equipment_required=["stove"]
+    ),
+    Meal(
+        name="Avocado Egg Toast",
+        ingredients=[
+            MealIngredient(ingredient_name="eggs", quantity=2, unit="each"),
+            MealIngredient(ingredient_name="avocado", quantity=1, unit="each"),
+            MealIngredient(ingredient_name="bread", quantity=2, unit="each"),
+            MealIngredient(ingredient_name="tomato", quantity=1, unit="each"),
+        ],
+        cook_time_minutes=15,
+        equipment_required=["stove"]
+    ),
+    Meal(
+        name="Greek Yogurt Parfait",
+        ingredients=[
+            MealIngredient(ingredient_name="greek yogurt", quantity=1, unit="cup"),
+            MealIngredient(ingredient_name="banana", quantity=1, unit="each"),
+            MealIngredient(ingredient_name="oats", quantity=0.5, unit="cup"),
+        ],
+        cook_time_minutes=5,
+        equipment_required=["microwave"]
+    ),
+    Meal(
+        name="Peanut Butter Banana Oatmeal",
+        ingredients=[
+            MealIngredient(ingredient_name="oats", quantity=1, unit="cup"),
+            MealIngredient(ingredient_name="peanut butter", quantity=2, unit="tbsp"),
+            MealIngredient(ingredient_name="banana", quantity=1, unit="each"),
+            MealIngredient(ingredient_name="milk", quantity=0.5, unit="cup"),
+        ],
+        cook_time_minutes=10,
+        equipment_required=["stove"]
+    ),
+    Meal(
+        name="Bacon and Egg Scramble",
+        ingredients=[
+            MealIngredient(ingredient_name="bacon", quantity=0.25, unit="lb"),
+            MealIngredient(ingredient_name="eggs", quantity=3, unit="each"),
+            MealIngredient(ingredient_name="onion", quantity=0.5, unit="each"),
+            MealIngredient(ingredient_name="bell pepper", quantity=1, unit="each"),
+        ],
+        cook_time_minutes=15,
+        equipment_required=["stove"]
+    ),
+    Meal(
+        name="Veggie Frittata",
+        ingredients=[
+            MealIngredient(ingredient_name="eggs", quantity=4, unit="each"),
+            MealIngredient(ingredient_name="bell pepper", quantity=2, unit="each"),
+            MealIngredient(ingredient_name="onion", quantity=0.5, unit="each"),
+            MealIngredient(ingredient_name="spinach", quantity=1, unit="cup"),
+            MealIngredient(ingredient_name="mushrooms", quantity=0.5, unit="cup"),
+        ],
+        cook_time_minutes=25,
+        equipment_required=["oven"]
+    ),
+    Meal(
+        name="Microwave Scrambled Eggs",
+        ingredients=[
+            MealIngredient(ingredient_name="eggs", quantity=3, unit="each"),
+            MealIngredient(ingredient_name="milk", quantity=0.25, unit="cup"),
+            MealIngredient(ingredient_name="cheese", quantity=0.1, unit="lb"),
+        ],
+        cook_time_minutes=5,
+        equipment_required=["microwave"]
+    ),
+    Meal(
+        name="Microwave Oatmeal with Banana",
+        ingredients=[
+            MealIngredient(ingredient_name="oats", quantity=1, unit="cup"),
+            MealIngredient(ingredient_name="milk", quantity=0.5, unit="cup"),
+            MealIngredient(ingredient_name="banana", quantity=1, unit="each"),
+        ],
+        cook_time_minutes=5,
+        equipment_required=["microwave"]
+    ),
+
+    # -----------------------------------------------------------------------
+    # SANDWICHES / WRAPS / TACOS (10 meals)
+    # -----------------------------------------------------------------------
+    Meal(
+        name="Tuna Salad Sandwich",
+        ingredients=[
+            MealIngredient(ingredient_name="canned tuna", quantity=1, unit="can"),
+            MealIngredient(ingredient_name="bread", quantity=2, unit="each"),
+            MealIngredient(ingredient_name="celery", quantity=1, unit="each"),
+            MealIngredient(ingredient_name="onion", quantity=0.25, unit="each"),
+        ],
+        cook_time_minutes=10,
+        equipment_required=["stove"]
+    ),
+    Meal(
+        name="Black Bean Quesadilla",
+        ingredients=[
+            MealIngredient(ingredient_name="tortillas", quantity=2, unit="each"),
+            MealIngredient(ingredient_name="black beans", quantity=0.5, unit="can"),
+            MealIngredient(ingredient_name="cheese", quantity=0.125, unit="lb"),
+            MealIngredient(ingredient_name="onion", quantity=0.25, unit="each"),
+        ],
+        cook_time_minutes=15,
+        equipment_required=["stove"]
+    ),
+    Meal(
+        name="Chicken Tacos",
+        ingredients=[
+            MealIngredient(ingredient_name="chicken breast", quantity=0.5, unit="lb"),
+            MealIngredient(ingredient_name="tortillas", quantity=3, unit="each"),
+            MealIngredient(ingredient_name="onion", quantity=0.5, unit="each"),
+            MealIngredient(ingredient_name="bell pepper", quantity=1, unit="each"),
+            MealIngredient(ingredient_name="avocado", quantity=0.5, unit="each"),
+        ],
+        cook_time_minutes=25,
+        equipment_required=["stove"]
+    ),
+    Meal(
+        name="Beef Tacos",
+        ingredients=[
+            MealIngredient(ingredient_name="ground beef", quantity=0.5, unit="lb"),
+            MealIngredient(ingredient_name="tortillas", quantity=3, unit="each"),
+            MealIngredient(ingredient_name="onion", quantity=0.5, unit="each"),
+            MealIngredient(ingredient_name="tomato", quantity=2, unit="each"),
+            MealIngredient(ingredient_name="cheese", quantity=0.125, unit="lb"),
+        ],
+        cook_time_minutes=25,
+        equipment_required=["stove"]
+    ),
+    Meal(
+        name="Shrimp Tacos",
+        ingredients=[
+            MealIngredient(ingredient_name="shrimp", quantity=0.5, unit="lb"),
+            MealIngredient(ingredient_name="tortillas", quantity=3, unit="each"),
+            MealIngredient(ingredient_name="cabbage", quantity=0.25, unit="each"),
+            MealIngredient(ingredient_name="avocado", quantity=1, unit="each"),
+            MealIngredient(ingredient_name="tomato", quantity=1, unit="each"),
+        ],
+        cook_time_minutes=20,
+        equipment_required=["stove"]
+    ),
+    Meal(
+        name="Chicken Quesadilla",
+        ingredients=[
+            MealIngredient(ingredient_name="chicken breast", quantity=0.5, unit="lb"),
+            MealIngredient(ingredient_name="tortillas", quantity=2, unit="each"),
+            MealIngredient(ingredient_name="cheese", quantity=0.25, unit="lb"),
+            MealIngredient(ingredient_name="bell pepper", quantity=1, unit="each"),
+        ],
+        cook_time_minutes=20,
+        equipment_required=["stove"]
+    ),
+    Meal(
+        name="Ground Turkey Lettuce Wraps",
+        ingredients=[
+            MealIngredient(ingredient_name="ground turkey", quantity=0.5, unit="lb"),
+            MealIngredient(ingredient_name="cabbage", quantity=0.25, unit="each"),
+            MealIngredient(ingredient_name="onion", quantity=0.5, unit="each"),
+            MealIngredient(ingredient_name="soy sauce", quantity=2, unit="tbsp"),
+            MealIngredient(ingredient_name="ginger", quantity=0.5, unit="oz"),
+            MealIngredient(ingredient_name="garlic", quantity=1, unit="tbsp"),
+        ],
+        cook_time_minutes=25,
+        equipment_required=["stove"]
+    ),
+    Meal(
+        name="Chicken Burrito",
+        ingredients=[
+            MealIngredient(ingredient_name="chicken breast", quantity=0.5, unit="lb"),
+            MealIngredient(ingredient_name="tortillas", quantity=2, unit="each"),
+            MealIngredient(ingredient_name="rice", quantity=0.5, unit="cup"),
+            MealIngredient(ingredient_name="black beans", quantity=0.5, unit="can"),
+            MealIngredient(ingredient_name="cheese", quantity=0.125, unit="lb"),
+        ],
+        cook_time_minutes=25,
+        equipment_required=["stove"]
+    ),
+    Meal(
+        name="Black Bean Burrito Bowl",
+        ingredients=[
+            MealIngredient(ingredient_name="black beans", quantity=1, unit="can"),
+            MealIngredient(ingredient_name="rice", quantity=1, unit="cup"),
+            MealIngredient(ingredient_name="corn", quantity=1, unit="cup"),
+            MealIngredient(ingredient_name="onion", quantity=0.5, unit="each"),
+            MealIngredient(ingredient_name="bell pepper", quantity=1, unit="each"),
+            MealIngredient(ingredient_name="avocado", quantity=0.5, unit="each"),
+        ],
+        cook_time_minutes=25,
+        equipment_required=["stove"]
+    ),
+    Meal(
+        name="Turkey Avocado Wrap",
+        ingredients=[
+            MealIngredient(ingredient_name="turkey breast", quantity=0.5, unit="lb"),
+            MealIngredient(ingredient_name="tortillas", quantity=2, unit="each"),
+            MealIngredient(ingredient_name="avocado", quantity=1, unit="each"),
+            MealIngredient(ingredient_name="tomato", quantity=1, unit="each"),
+            MealIngredient(ingredient_name="spinach", quantity=1, unit="cup"),
+        ],
+        cook_time_minutes=15,
+        equipment_required=["stove"]
+    ),
+
+    # -----------------------------------------------------------------------
+    # RICE & NOODLE BOWLS (12 meals)
+    # -----------------------------------------------------------------------
+    Meal(
+        name="Egg Fried Rice",
+        ingredients=[
+            MealIngredient(ingredient_name="rice", quantity=1, unit="cup"),
+            MealIngredient(ingredient_name="eggs", quantity=2, unit="each"),
+            MealIngredient(ingredient_name="onion", quantity=0.5, unit="each"),
+            MealIngredient(ingredient_name="soy sauce", quantity=2, unit="tbsp"),
+            MealIngredient(ingredient_name="carrots", quantity=1, unit="each"),
+        ],
+        cook_time_minutes=20,
+        equipment_required=["stove"]
+    ),
+    Meal(
+        name="Shrimp Fried Rice",
+        ingredients=[
+            MealIngredient(ingredient_name="shrimp", quantity=0.5, unit="lb"),
+            MealIngredient(ingredient_name="rice", quantity=1, unit="cup"),
+            MealIngredient(ingredient_name="eggs", quantity=1, unit="each"),
+            MealIngredient(ingredient_name="carrots", quantity=1, unit="each"),
+            MealIngredient(ingredient_name="onion", quantity=0.5, unit="each"),
+            MealIngredient(ingredient_name="soy sauce", quantity=2, unit="tbsp"),
+        ],
+        cook_time_minutes=20,
+        equipment_required=["stove"]
+    ),
+    Meal(
+        name="Pork Fried Rice",
+        ingredients=[
+            MealIngredient(ingredient_name="pork chops", quantity=0.5, unit="lb"),
+            MealIngredient(ingredient_name="rice", quantity=1, unit="cup"),
+            MealIngredient(ingredient_name="eggs", quantity=1, unit="each"),
+            MealIngredient(ingredient_name="onion", quantity=0.5, unit="each"),
+            MealIngredient(ingredient_name="soy sauce", quantity=2, unit="tbsp"),
+            MealIngredient(ingredient_name="carrots", quantity=1, unit="each"),
+        ],
+        cook_time_minutes=30,
+        equipment_required=["stove"]
+    ),
+    Meal(
+        name="Cauliflower Fried Rice",
+        ingredients=[
+            MealIngredient(ingredient_name="cauliflower", quantity=1, unit="each"),
+            MealIngredient(ingredient_name="eggs", quantity=2, unit="each"),
+            MealIngredient(ingredient_name="carrots", quantity=2, unit="each"),
+            MealIngredient(ingredient_name="onion", quantity=0.5, unit="each"),
+            MealIngredient(ingredient_name="soy sauce", quantity=2, unit="tbsp"),
+        ],
+        cook_time_minutes=20,
+        equipment_required=["stove"]
+    ),
+    Meal(
+        name="Korean Beef Bowl",
+        ingredients=[
+            MealIngredient(ingredient_name="ground beef", quantity=0.5, unit="lb"),
+            MealIngredient(ingredient_name="rice", quantity=1, unit="cup"),
+            MealIngredient(ingredient_name="soy sauce", quantity=3, unit="tbsp"),
+            MealIngredient(ingredient_name="ginger", quantity=0.5, unit="oz"),
+            MealIngredient(ingredient_name="garlic", quantity=2, unit="tbsp"),
+            MealIngredient(ingredient_name="carrots", quantity=1, unit="each"),
+        ],
+        cook_time_minutes=25,
+        equipment_required=["stove"]
+    ),
+    Meal(
+        name="Tuna Rice Bowl",
+        ingredients=[
+            MealIngredient(ingredient_name="canned tuna", quantity=1, unit="can"),
+            MealIngredient(ingredient_name="rice", quantity=1, unit="cup"),
+            MealIngredient(ingredient_name="soy sauce", quantity=2, unit="tbsp"),
+            MealIngredient(ingredient_name="cucumber", quantity=1, unit="each"),
+            MealIngredient(ingredient_name="avocado", quantity=0.5, unit="each"),
+        ],
+        cook_time_minutes=20,
+        equipment_required=["stove"]
+    ),
+    Meal(
+        name="Avocado Chicken Rice Bowl",
+        ingredients=[
+            MealIngredient(ingredient_name="chicken breast", quantity=0.5, unit="lb"),
+            MealIngredient(ingredient_name="rice", quantity=1, unit="cup"),
+            MealIngredient(ingredient_name="avocado", quantity=1, unit="each"),
+            MealIngredient(ingredient_name="tomato", quantity=1, unit="each"),
+        ],
+        cook_time_minutes=30,
+        equipment_required=["stove"]
+    ),
+    Meal(
+        name="Turkey Taco Bowl",
+        ingredients=[
+            MealIngredient(ingredient_name="ground turkey", quantity=0.5, unit="lb"),
+            MealIngredient(ingredient_name="rice", quantity=1, unit="cup"),
+            MealIngredient(ingredient_name="black beans", quantity=0.5, unit="can"),
+            MealIngredient(ingredient_name="corn", quantity=0.5, unit="cup"),
+            MealIngredient(ingredient_name="onion", quantity=0.5, unit="each"),
+            MealIngredient(ingredient_name="bell pepper", quantity=1, unit="each"),
+        ],
+        cook_time_minutes=30,
+        equipment_required=["stove"]
+    ),
+    Meal(
+        name="Salmon Quinoa Bowl",
+        ingredients=[
+            MealIngredient(ingredient_name="salmon", quantity=0.5, unit="lb"),
+            MealIngredient(ingredient_name="quinoa", quantity=1, unit="cup"),
+            MealIngredient(ingredient_name="spinach", quantity=2, unit="cup"),
+            MealIngredient(ingredient_name="avocado", quantity=0.5, unit="each"),
+        ],
+        cook_time_minutes=30,
+        equipment_required=["stove"]
+    ),
+    Meal(
+        name="Thai Peanut Noodles",
+        ingredients=[
+            MealIngredient(ingredient_name="noodles", quantity=0.5, unit="lb"),
+            MealIngredient(ingredient_name="peanut butter", quantity=3, unit="tbsp"),
+            MealIngredient(ingredient_name="soy sauce", quantity=2, unit="tbsp"),
+            MealIngredient(ingredient_name="carrots", quantity=2, unit="each"),
+            MealIngredient(ingredient_name="cabbage", quantity=0.25, unit="each"),
+        ],
+        cook_time_minutes=25,
+        equipment_required=["stove"]
+    ),
+    Meal(
+        name="Chicken Noodle Soup",
+        ingredients=[
+            MealIngredient(ingredient_name="chicken breast", quantity=0.5, unit="lb"),
+            MealIngredient(ingredient_name="noodles", quantity=0.5, unit="lb"),
+            MealIngredient(ingredient_name="carrots", quantity=2, unit="each"),
+            MealIngredient(ingredient_name="celery", quantity=2, unit="each"),
+            MealIngredient(ingredient_name="chicken broth", quantity=1, unit="can"),
+            MealIngredient(ingredient_name="onion", quantity=0.5, unit="each"),
+        ],
+        cook_time_minutes=35,
+        equipment_required=["stove"]
+    ),
+    Meal(
+        name="Quinoa Power Bowl",
+        ingredients=[
+            MealIngredient(ingredient_name="quinoa", quantity=1, unit="cup"),
+            MealIngredient(ingredient_name="chicken breast", quantity=0.5, unit="lb"),
+            MealIngredient(ingredient_name="spinach", quantity=2, unit="cup"),
+            MealIngredient(ingredient_name="avocado", quantity=0.5, unit="each"),
+            MealIngredient(ingredient_name="carrots", quantity=1, unit="each"),
+        ],
+        cook_time_minutes=30,
+        equipment_required=["stove"]
+    ),
+
+    # -----------------------------------------------------------------------
+    # PASTA (8 meals)
+    # -----------------------------------------------------------------------
+    Meal(
+        name="Spaghetti Bolognese",
+        ingredients=[
+            MealIngredient(ingredient_name="pasta", quantity=0.5, unit="lb"),
+            MealIngredient(ingredient_name="ground beef", quantity=0.5, unit="lb"),
+            MealIngredient(ingredient_name="canned tomatoes", quantity=1, unit="can"),
+            MealIngredient(ingredient_name="onion", quantity=1, unit="each"),
+            MealIngredient(ingredient_name="garlic", quantity=2, unit="tbsp"),
+        ],
+        cook_time_minutes=35,
+        equipment_required=["stove"]
+    ),
+    Meal(
+        name="Mushroom Spinach Pasta",
+        ingredients=[
+            MealIngredient(ingredient_name="pasta", quantity=0.5, unit="lb"),
+            MealIngredient(ingredient_name="mushrooms", quantity=1.5, unit="cup"),
+            MealIngredient(ingredient_name="spinach", quantity=2, unit="cup"),
+            MealIngredient(ingredient_name="garlic", quantity=2, unit="tbsp"),
+            MealIngredient(ingredient_name="olive oil", quantity=2, unit="tbsp"),
+        ],
+        cook_time_minutes=25,
+        equipment_required=["stove"]
+    ),
+    Meal(
+        name="Ground Turkey Spaghetti",
+        ingredients=[
+            MealIngredient(ingredient_name="pasta", quantity=0.5, unit="lb"),
+            MealIngredient(ingredient_name="ground turkey", quantity=0.5, unit="lb"),
+            MealIngredient(ingredient_name="canned tomatoes", quantity=1, unit="can"),
+            MealIngredient(ingredient_name="onion", quantity=1, unit="each"),
+            MealIngredient(ingredient_name="garlic", quantity=2, unit="tbsp"),
+        ],
+        cook_time_minutes=30,
+        equipment_required=["stove"]
+    ),
+    Meal(
+        name="Caprese Pasta",
+        ingredients=[
+            MealIngredient(ingredient_name="pasta", quantity=0.5, unit="lb"),
+            MealIngredient(ingredient_name="mozzarella", quantity=0.25, unit="lb"),
+            MealIngredient(ingredient_name="tomato", quantity=3, unit="each"),
+            MealIngredient(ingredient_name="olive oil", quantity=2, unit="tbsp"),
+            MealIngredient(ingredient_name="garlic", quantity=2, unit="tbsp"),
+        ],
+        cook_time_minutes=20,
+        equipment_required=["stove"]
+    ),
+    Meal(
+        name="Pasta Primavera",
+        ingredients=[
+            MealIngredient(ingredient_name="pasta", quantity=0.5, unit="lb"),
+            MealIngredient(ingredient_name="zucchini", quantity=1, unit="each"),
+            MealIngredient(ingredient_name="bell pepper", quantity=1, unit="each"),
+            MealIngredient(ingredient_name="tomato", quantity=2, unit="each"),
+            MealIngredient(ingredient_name="olive oil", quantity=2, unit="tbsp"),
+            MealIngredient(ingredient_name="garlic", quantity=2, unit="tbsp"),
+        ],
+        cook_time_minutes=25,
+        equipment_required=["stove"]
+    ),
+    Meal(
+        name="Sausage Pepper Pasta",
+        ingredients=[
+            MealIngredient(ingredient_name="pasta", quantity=0.5, unit="lb"),
+            MealIngredient(ingredient_name="Italian sausage", quantity=0.5, unit="lb"),
+            MealIngredient(ingredient_name="bell pepper", quantity=2, unit="each"),
+            MealIngredient(ingredient_name="onion", quantity=1, unit="each"),
+            MealIngredient(ingredient_name="canned tomatoes", quantity=1, unit="can"),
+        ],
+        cook_time_minutes=35,
+        equipment_required=["stove"]
+    ),
+    Meal(
+        name="Pesto Pasta with Chicken",
+        ingredients=[
+            MealIngredient(ingredient_name="pasta", quantity=0.5, unit="lb"),
+            MealIngredient(ingredient_name="chicken breast", quantity=0.5, unit="lb"),
+            MealIngredient(ingredient_name="spinach", quantity=1, unit="cup"),
+            MealIngredient(ingredient_name="garlic", quantity=2, unit="tbsp"),
+            MealIngredient(ingredient_name="parmesan", quantity=2, unit="tbsp"),
+            MealIngredient(ingredient_name="olive oil", quantity=3, unit="tbsp"),
+        ],
+        cook_time_minutes=30,
+        equipment_required=["stove"]
+    ),
+    Meal(
+        name="Salmon Pasta",
+        ingredients=[
+            MealIngredient(ingredient_name="pasta", quantity=0.5, unit="lb"),
+            MealIngredient(ingredient_name="salmon", quantity=0.5, unit="lb"),
+            MealIngredient(ingredient_name="spinach", quantity=1, unit="cup"),
+            MealIngredient(ingredient_name="garlic", quantity=2, unit="tbsp"),
+            MealIngredient(ingredient_name="heavy cream", quantity=0.25, unit="cup"),
+        ],
+        cook_time_minutes=30,
+        equipment_required=["stove"]
+    ),
+
+    # -----------------------------------------------------------------------
+    # SOUPS & STEWS (8 meals)
+    # -----------------------------------------------------------------------
+    Meal(
+        name="Lentil Soup",
+        ingredients=[
+            MealIngredient(ingredient_name="lentils", quantity=1, unit="cup"),
+            MealIngredient(ingredient_name="carrots", quantity=2, unit="each"),
+            MealIngredient(ingredient_name="celery", quantity=2, unit="each"),
+            MealIngredient(ingredient_name="onion", quantity=1, unit="each"),
+            MealIngredient(ingredient_name="chicken broth", quantity=1, unit="can"),
+            MealIngredient(ingredient_name="garlic", quantity=1, unit="tbsp"),
+        ],
+        cook_time_minutes=35,
+        equipment_required=["stove"]
+    ),
+    Meal(
+        name="Black Bean Soup",
+        ingredients=[
+            MealIngredient(ingredient_name="black beans", quantity=1, unit="can"),
+            MealIngredient(ingredient_name="onion", quantity=1, unit="each"),
+            MealIngredient(ingredient_name="garlic", quantity=2, unit="tbsp"),
+            MealIngredient(ingredient_name="chicken broth", quantity=1, unit="can"),
+            MealIngredient(ingredient_name="corn", quantity=0.5, unit="cup"),
+        ],
+        cook_time_minutes=30,
+        equipment_required=["stove"]
+    ),
+    Meal(
+        name="Chicken Vegetable Soup",
+        ingredients=[
+            MealIngredient(ingredient_name="chicken breast", quantity=0.5, unit="lb"),
+            MealIngredient(ingredient_name="carrots", quantity=2, unit="each"),
+            MealIngredient(ingredient_name="celery", quantity=2, unit="each"),
+            MealIngredient(ingredient_name="onion", quantity=1, unit="each"),
+            MealIngredient(ingredient_name="chicken broth", quantity=1, unit="can"),
+            MealIngredient(ingredient_name="zucchini", quantity=1, unit="each"),
+        ],
+        cook_time_minutes=35,
+        equipment_required=["stove"]
+    ),
+    Meal(
+        name="Coconut Lentil Soup",
+        ingredients=[
+            MealIngredient(ingredient_name="lentils", quantity=1, unit="cup"),
+            MealIngredient(ingredient_name="coconut milk", quantity=1, unit="can"),
+            MealIngredient(ingredient_name="carrots", quantity=2, unit="each"),
+            MealIngredient(ingredient_name="onion", quantity=1, unit="each"),
+            MealIngredient(ingredient_name="ginger", quantity=0.5, unit="oz"),
+            MealIngredient(ingredient_name="garlic", quantity=1, unit="tbsp"),
+        ],
+        cook_time_minutes=35,
+        equipment_required=["stove"]
+    ),
+    Meal(
+        name="Beef Potato Stew",
+        ingredients=[
+            MealIngredient(ingredient_name="ground beef", quantity=0.5, unit="lb"),
+            MealIngredient(ingredient_name="potatoes", quantity=3, unit="each"),
+            MealIngredient(ingredient_name="carrots", quantity=2, unit="each"),
+            MealIngredient(ingredient_name="onion", quantity=1, unit="each"),
+            MealIngredient(ingredient_name="celery", quantity=2, unit="each"),
+            MealIngredient(ingredient_name="chicken broth", quantity=1, unit="can"),
+        ],
+        cook_time_minutes=40,
+        equipment_required=["stove"]
+    ),
+    Meal(
+        name="Turkey Vegetable Soup",
+        ingredients=[
+            MealIngredient(ingredient_name="ground turkey", quantity=0.5, unit="lb"),
+            MealIngredient(ingredient_name="carrots", quantity=2, unit="each"),
+            MealIngredient(ingredient_name="celery", quantity=2, unit="each"),
+            MealIngredient(ingredient_name="onion", quantity=1, unit="each"),
+            MealIngredient(ingredient_name="chicken broth", quantity=1, unit="can"),
+            MealIngredient(ingredient_name="zucchini", quantity=1, unit="each"),
+        ],
+        cook_time_minutes=35,
+        equipment_required=["stove"]
+    ),
+    Meal(
+        name="Mushroom Risotto",
+        ingredients=[
+            MealIngredient(ingredient_name="rice", quantity=1.5, unit="cup"),
+            MealIngredient(ingredient_name="mushrooms", quantity=2, unit="cup"),
+            MealIngredient(ingredient_name="onion", quantity=1, unit="each"),
+            MealIngredient(ingredient_name="chicken broth", quantity=1, unit="can"),
+            MealIngredient(ingredient_name="parmesan", quantity=2, unit="tbsp"),
+            MealIngredient(ingredient_name="butter", quantity=1, unit="tbsp"),
+        ],
+        cook_time_minutes=35,
+        equipment_required=["stove"]
+    ),
+    Meal(
+        name="Butternut Squash Soup",
+        ingredients=[
+            MealIngredient(ingredient_name="butternut squash", quantity=1, unit="each"),
+            MealIngredient(ingredient_name="onion", quantity=1, unit="each"),
+            MealIngredient(ingredient_name="chicken broth", quantity=1, unit="can"),
+            MealIngredient(ingredient_name="heavy cream", quantity=0.25, unit="cup"),
+            MealIngredient(ingredient_name="garlic", quantity=2, unit="tbsp"),
+        ],
+        cook_time_minutes=45,
+        equipment_required=["stove"]
+    ),
+
+    # -----------------------------------------------------------------------
+    # CURRIES (8 meals)
+    # -----------------------------------------------------------------------
+    Meal(
+        name="Chickpea Coconut Curry",
+        ingredients=[
+            MealIngredient(ingredient_name="chickpeas", quantity=1, unit="can"),
+            MealIngredient(ingredient_name="coconut milk", quantity=1, unit="can"),
+            MealIngredient(ingredient_name="onion", quantity=1, unit="each"),
+            MealIngredient(ingredient_name="tomato", quantity=2, unit="each"),
+            MealIngredient(ingredient_name="garlic", quantity=2, unit="tbsp"),
+            MealIngredient(ingredient_name="spinach", quantity=1, unit="cup"),
+        ],
+        cook_time_minutes=30,
+        equipment_required=["stove"]
+    ),
+    Meal(
+        name="Lentil Dal",
+        ingredients=[
+            MealIngredient(ingredient_name="lentils", quantity=1, unit="cup"),
+            MealIngredient(ingredient_name="coconut milk", quantity=0.5, unit="can"),
+            MealIngredient(ingredient_name="tomato", quantity=2, unit="each"),
+            MealIngredient(ingredient_name="onion", quantity=1, unit="each"),
+            MealIngredient(ingredient_name="garlic", quantity=2, unit="tbsp"),
+            MealIngredient(ingredient_name="ginger", quantity=0.5, unit="oz"),
+        ],
+        cook_time_minutes=35,
+        equipment_required=["stove"]
+    ),
+    Meal(
+        name="Tofu Tikka Masala",
+        ingredients=[
+            MealIngredient(ingredient_name="tofu", quantity=0.75, unit="lb"),
+            MealIngredient(ingredient_name="canned tomatoes", quantity=1, unit="can"),
+            MealIngredient(ingredient_name="coconut milk", quantity=0.5, unit="can"),
+            MealIngredient(ingredient_name="onion", quantity=1, unit="each"),
+            MealIngredient(ingredient_name="garlic", quantity=2, unit="tbsp"),
+            MealIngredient(ingredient_name="ginger", quantity=0.5, unit="oz"),
+        ],
+        cook_time_minutes=30,
+        equipment_required=["stove"]
+    ),
+    Meal(
+        name="Chicken Tikka Masala",
+        ingredients=[
+            MealIngredient(ingredient_name="chicken breast", quantity=0.75, unit="lb"),
+            MealIngredient(ingredient_name="canned tomatoes", quantity=1, unit="can"),
+            MealIngredient(ingredient_name="heavy cream", quantity=0.5, unit="cup"),
+            MealIngredient(ingredient_name="onion", quantity=1, unit="each"),
+            MealIngredient(ingredient_name="garlic", quantity=2, unit="tbsp"),
+            MealIngredient(ingredient_name="ginger", quantity=0.5, unit="oz"),
+        ],
+        cook_time_minutes=35,
+        equipment_required=["stove"]
+    ),
+    Meal(
+        name="Butter Chicken",
+        ingredients=[
+            MealIngredient(ingredient_name="chicken breast", quantity=0.75, unit="lb"),
+            MealIngredient(ingredient_name="canned tomatoes", quantity=1, unit="can"),
+            MealIngredient(ingredient_name="heavy cream", quantity=0.5, unit="cup"),
+            MealIngredient(ingredient_name="butter", quantity=2, unit="tbsp"),
+            MealIngredient(ingredient_name="onion", quantity=1, unit="each"),
+            MealIngredient(ingredient_name="garlic", quantity=2, unit="tbsp"),
+            MealIngredient(ingredient_name="ginger", quantity=0.5, unit="oz"),
+        ],
+        cook_time_minutes=35,
+        equipment_required=["stove"]
+    ),
+    Meal(
+        name="Chickpea Spinach Curry",
+        ingredients=[
+            MealIngredient(ingredient_name="chickpeas", quantity=1, unit="can"),
+            MealIngredient(ingredient_name="spinach", quantity=2, unit="cup"),
+            MealIngredient(ingredient_name="canned tomatoes", quantity=1, unit="can"),
+            MealIngredient(ingredient_name="coconut milk", quantity=0.5, unit="can"),
+            MealIngredient(ingredient_name="garlic", quantity=2, unit="tbsp"),
+        ],
+        cook_time_minutes=30,
+        equipment_required=["stove"]
+    ),
+    Meal(
+        name="Coconut Shrimp Curry",
+        ingredients=[
+            MealIngredient(ingredient_name="shrimp", quantity=0.5, unit="lb"),
+            MealIngredient(ingredient_name="coconut milk", quantity=1, unit="can"),
+            MealIngredient(ingredient_name="bell pepper", quantity=1, unit="each"),
+            MealIngredient(ingredient_name="onion", quantity=0.5, unit="each"),
+            MealIngredient(ingredient_name="garlic", quantity=2, unit="tbsp"),
+            MealIngredient(ingredient_name="ginger", quantity=0.5, unit="oz"),
+            MealIngredient(ingredient_name="rice", quantity=1, unit="cup"),
+        ],
+        cook_time_minutes=30,
+        equipment_required=["stove"]
+    ),
+    Meal(
+        name="Thai Green Curry with Tofu",
+        ingredients=[
+            MealIngredient(ingredient_name="tofu", quantity=0.75, unit="lb"),
+            MealIngredient(ingredient_name="coconut milk", quantity=1, unit="can"),
+            MealIngredient(ingredient_name="zucchini", quantity=1, unit="each"),
+            MealIngredient(ingredient_name="bell pepper", quantity=1, unit="each"),
+            MealIngredient(ingredient_name="spinach", quantity=1, unit="cup"),
+            MealIngredient(ingredient_name="garlic", quantity=2, unit="tbsp"),
+            MealIngredient(ingredient_name="ginger", quantity=0.5, unit="oz"),
+        ],
+        cook_time_minutes=25,
+        equipment_required=["stove"]
+    ),
+
+    # -----------------------------------------------------------------------
+    # OVEN-BAKED (22 meals)
+    # -----------------------------------------------------------------------
+    Meal(
+        name="Roasted Chicken Thighs and Vegetables",
+        ingredients=[
+            MealIngredient(ingredient_name="chicken thighs", quantity=1, unit="lb"),
+            MealIngredient(ingredient_name="potatoes", quantity=3, unit="each"),
+            MealIngredient(ingredient_name="carrots", quantity=3, unit="each"),
+            MealIngredient(ingredient_name="onion", quantity=1, unit="each"),
+            MealIngredient(ingredient_name="olive oil", quantity=2, unit="tbsp"),
+        ],
+        cook_time_minutes=45,
+        equipment_required=["oven"]
+    ),
+    Meal(
+        name="Baked Tilapia with Sweet Potato",
+        ingredients=[
+            MealIngredient(ingredient_name="tilapia", quantity=0.75, unit="lb"),
+            MealIngredient(ingredient_name="sweet potato", quantity=2, unit="each"),
+            MealIngredient(ingredient_name="broccoli", quantity=1, unit="cup"),
+            MealIngredient(ingredient_name="olive oil", quantity=2, unit="tbsp"),
+        ],
+        cook_time_minutes=35,
+        equipment_required=["oven"]
+    ),
+    Meal(
+        name="Baked Chicken Breast with Broccoli",
+        ingredients=[
+            MealIngredient(ingredient_name="chicken breast", quantity=0.75, unit="lb"),
+            MealIngredient(ingredient_name="broccoli", quantity=2, unit="cup"),
+            MealIngredient(ingredient_name="garlic", quantity=2, unit="tbsp"),
+            MealIngredient(ingredient_name="olive oil", quantity=2, unit="tbsp"),
+        ],
+        cook_time_minutes=30,
+        equipment_required=["oven"]
+    ),
+    Meal(
+        name="Stuffed Bell Peppers with Beef and Rice",
+        ingredients=[
+            MealIngredient(ingredient_name="bell pepper", quantity=4, unit="each"),
+            MealIngredient(ingredient_name="ground beef", quantity=0.5, unit="lb"),
+            MealIngredient(ingredient_name="rice", quantity=0.5, unit="cup"),
+            MealIngredient(ingredient_name="canned tomatoes", quantity=0.5, unit="can"),
+            MealIngredient(ingredient_name="cheese", quantity=0.125, unit="lb"),
+        ],
+        cook_time_minutes=45,
+        equipment_required=["oven"]
+    ),
+    Meal(
+        name="Baked Cod with Green Beans",
+        ingredients=[
+            MealIngredient(ingredient_name="cod", quantity=0.75, unit="lb"),
+            MealIngredient(ingredient_name="green beans", quantity=1, unit="cup"),
+            MealIngredient(ingredient_name="potatoes", quantity=2, unit="each"),
+            MealIngredient(ingredient_name="olive oil", quantity=2, unit="tbsp"),
+        ],
+        cook_time_minutes=30,
+        equipment_required=["oven"]
+    ),
+    Meal(
+        name="Roasted Vegetable Medley",
+        ingredients=[
+            MealIngredient(ingredient_name="zucchini", quantity=1, unit="each"),
+            MealIngredient(ingredient_name="bell pepper", quantity=2, unit="each"),
+            MealIngredient(ingredient_name="mushrooms", quantity=1, unit="cup"),
+            MealIngredient(ingredient_name="onion", quantity=1, unit="each"),
+            MealIngredient(ingredient_name="sweet potato", quantity=1, unit="each"),
+            MealIngredient(ingredient_name="olive oil", quantity=3, unit="tbsp"),
+        ],
+        cook_time_minutes=35,
+        equipment_required=["oven"]
+    ),
+    Meal(
+        name="Chicken and Potato Bake",
+        ingredients=[
+            MealIngredient(ingredient_name="chicken thighs", quantity=1, unit="lb"),
+            MealIngredient(ingredient_name="potatoes", quantity=4, unit="each"),
+            MealIngredient(ingredient_name="onion", quantity=1, unit="each"),
+            MealIngredient(ingredient_name="garlic", quantity=2, unit="tbsp"),
+            MealIngredient(ingredient_name="olive oil", quantity=2, unit="tbsp"),
+        ],
+        cook_time_minutes=45,
+        equipment_required=["oven"]
+    ),
+    Meal(
+        name="Shakshuka",
+        ingredients=[
+            MealIngredient(ingredient_name="eggs", quantity=4, unit="each"),
+            MealIngredient(ingredient_name="canned tomatoes", quantity=1, unit="can"),
+            MealIngredient(ingredient_name="bell pepper", quantity=2, unit="each"),
+            MealIngredient(ingredient_name="onion", quantity=1, unit="each"),
+            MealIngredient(ingredient_name="garlic", quantity=2, unit="tbsp"),
+        ],
+        cook_time_minutes=30,
+        equipment_required=["stove"]
+    ),
+    Meal(
+        name="Roasted Sweet Potato Chickpea Bowl",
+        ingredients=[
+            MealIngredient(ingredient_name="sweet potato", quantity=2, unit="each"),
+            MealIngredient(ingredient_name="chickpeas", quantity=1, unit="can"),
+            MealIngredient(ingredient_name="spinach", quantity=2, unit="cup"),
+            MealIngredient(ingredient_name="olive oil", quantity=2, unit="tbsp"),
+        ],
+        cook_time_minutes=40,
+        equipment_required=["oven"]
+    ),
+    Meal(
+        name="Baked Pork Chops with Sweet Potato",
+        ingredients=[
+            MealIngredient(ingredient_name="pork chops", quantity=0.75, unit="lb"),
+            MealIngredient(ingredient_name="sweet potato", quantity=2, unit="each"),
+            MealIngredient(ingredient_name="green beans", quantity=1, unit="cup"),
+        ],
+        cook_time_minutes=35,
+        equipment_required=["oven"]
+    ),
+    Meal(
+        name="Baked Ziti",
+        ingredients=[
+            MealIngredient(ingredient_name="pasta", quantity=0.5, unit="lb"),
+            MealIngredient(ingredient_name="canned tomatoes", quantity=1, unit="can"),
+            MealIngredient(ingredient_name="mozzarella", quantity=0.25, unit="lb"),
+            MealIngredient(ingredient_name="ground beef", quantity=0.5, unit="lb"),
+        ],
+        cook_time_minutes=45,
+        equipment_required=["oven"]
+    ),
+    Meal(
+        name="Turkey Meatloaf",
+        ingredients=[
+            MealIngredient(ingredient_name="ground turkey", quantity=0.75, unit="lb"),
+            MealIngredient(ingredient_name="bread", quantity=2, unit="each"),
+            MealIngredient(ingredient_name="eggs", quantity=1, unit="each"),
+            MealIngredient(ingredient_name="onion", quantity=0.5, unit="each"),
+            MealIngredient(ingredient_name="tomato", quantity=1, unit="each"),
+        ],
+        cook_time_minutes=55,
+        equipment_required=["oven"]
+    ),
+    Meal(
+        name="Baked Salmon with Asparagus",
+        ingredients=[
+            MealIngredient(ingredient_name="salmon", quantity=0.5, unit="lb"),
+            MealIngredient(ingredient_name="asparagus", quantity=0.5, unit="lb"),
+            MealIngredient(ingredient_name="olive oil", quantity=2, unit="tbsp"),
+            MealIngredient(ingredient_name="garlic", quantity=1, unit="tbsp"),
+        ],
+        cook_time_minutes=25,
+        equipment_required=["oven"]
+    ),
+    Meal(
+        name="Beef and Vegetable Casserole",
+        ingredients=[
+            MealIngredient(ingredient_name="ground beef", quantity=0.5, unit="lb"),
+            MealIngredient(ingredient_name="potatoes", quantity=3, unit="each"),
+            MealIngredient(ingredient_name="carrots", quantity=2, unit="each"),
+            MealIngredient(ingredient_name="corn", quantity=1, unit="cup"),
+            MealIngredient(ingredient_name="chicken broth", quantity=1, unit="can"),
+        ],
+        cook_time_minutes=50,
+        equipment_required=["oven"]
+    ),
+    Meal(
+        name="Roasted Brussels Sprouts Chicken Bowl",
+        ingredients=[
+            MealIngredient(ingredient_name="chicken thighs", quantity=0.75, unit="lb"),
+            MealIngredient(ingredient_name="brussels sprouts", quantity=0.5, unit="lb"),
+            MealIngredient(ingredient_name="sweet potato", quantity=1, unit="each"),
+            MealIngredient(ingredient_name="olive oil", quantity=2, unit="tbsp"),
+        ],
+        cook_time_minutes=40,
+        equipment_required=["oven"]
+    ),
+    Meal(
+        name="Chicken Enchiladas",
+        ingredients=[
+            MealIngredient(ingredient_name="chicken breast", quantity=0.5, unit="lb"),
+            MealIngredient(ingredient_name="tortillas", quantity=4, unit="each"),
+            MealIngredient(ingredient_name="cheese", quantity=0.25, unit="lb"),
+            MealIngredient(ingredient_name="canned tomatoes", quantity=1, unit="can"),
+            MealIngredient(ingredient_name="onion", quantity=0.5, unit="each"),
+        ],
+        cook_time_minutes=35,
+        equipment_required=["oven"]
+    ),
+    Meal(
+        name="Sheet Pan Shrimp and Vegetables",
+        ingredients=[
+            MealIngredient(ingredient_name="shrimp", quantity=0.5, unit="lb"),
+            MealIngredient(ingredient_name="zucchini", quantity=1, unit="each"),
+            MealIngredient(ingredient_name="bell pepper", quantity=2, unit="each"),
+            MealIngredient(ingredient_name="onion", quantity=1, unit="each"),
+            MealIngredient(ingredient_name="olive oil", quantity=2, unit="tbsp"),
+        ],
+        cook_time_minutes=20,
+        equipment_required=["oven"]
+    ),
+    Meal(
+        name="Quinoa Stuffed Bell Peppers",
+        ingredients=[
+            MealIngredient(ingredient_name="bell pepper", quantity=4, unit="each"),
+            MealIngredient(ingredient_name="quinoa", quantity=1, unit="cup"),
+            MealIngredient(ingredient_name="black beans", quantity=0.5, unit="can"),
+            MealIngredient(ingredient_name="corn", quantity=0.5, unit="cup"),
+            MealIngredient(ingredient_name="tomato", quantity=1, unit="each"),
+        ],
+        cook_time_minutes=40,
+        equipment_required=["oven"]
+    ),
+    Meal(
+        name="Turkey Stuffed Zucchini",
+        ingredients=[
+            MealIngredient(ingredient_name="ground turkey", quantity=0.5, unit="lb"),
+            MealIngredient(ingredient_name="zucchini", quantity=2, unit="each"),
+            MealIngredient(ingredient_name="rice", quantity=0.5, unit="cup"),
+            MealIngredient(ingredient_name="canned tomatoes", quantity=0.5, unit="can"),
+            MealIngredient(ingredient_name="cheese", quantity=0.125, unit="lb"),
+        ],
+        cook_time_minutes=40,
+        equipment_required=["oven"]
+    ),
+    Meal(
+        name="BBQ Chicken Thighs with Rice",
+        ingredients=[
+            MealIngredient(ingredient_name="chicken thighs", quantity=0.75, unit="lb"),
+            MealIngredient(ingredient_name="rice", quantity=1, unit="cup"),
+            MealIngredient(ingredient_name="corn", quantity=0.5, unit="cup"),
+            MealIngredient(ingredient_name="onion", quantity=0.5, unit="each"),
+        ],
+        cook_time_minutes=40,
+        equipment_required=["oven"]
+    ),
+    Meal(
+        name="Bacon Veggie Frittata",
+        ingredients=[
+            MealIngredient(ingredient_name="bacon", quantity=0.25, unit="lb"),
+            MealIngredient(ingredient_name="eggs", quantity=4, unit="each"),
+            MealIngredient(ingredient_name="bell pepper", quantity=1, unit="each"),
+            MealIngredient(ingredient_name="onion", quantity=0.5, unit="each"),
+            MealIngredient(ingredient_name="spinach", quantity=1, unit="cup"),
+        ],
+        cook_time_minutes=25,
+        equipment_required=["oven"]
+    ),
+    Meal(
+        name="Roasted Cauliflower Bowl",
+        ingredients=[
+            MealIngredient(ingredient_name="cauliflower", quantity=1, unit="each"),
+            MealIngredient(ingredient_name="chickpeas", quantity=1, unit="can"),
+            MealIngredient(ingredient_name="spinach", quantity=2, unit="cup"),
+            MealIngredient(ingredient_name="olive oil", quantity=2, unit="tbsp"),
+            MealIngredient(ingredient_name="garlic", quantity=2, unit="tbsp"),
+        ],
+        cook_time_minutes=35,
+        equipment_required=["oven"]
+    ),
+
+    # -----------------------------------------------------------------------
+    # MICROWAVE QUICK MEALS (3 meals)
+    # -----------------------------------------------------------------------
+    Meal(
+        name="Microwave Rice and Bean Bowl",
+        ingredients=[
+            MealIngredient(ingredient_name="rice", quantity=1, unit="cup"),
+            MealIngredient(ingredient_name="black beans", quantity=0.5, unit="can"),
+            MealIngredient(ingredient_name="cheese", quantity=0.1, unit="lb"),
+        ],
+        cook_time_minutes=15,
+        equipment_required=["microwave"]
+    ),
+    Meal(
+        name="Microwave Baked Potato",
+        ingredients=[
+            MealIngredient(ingredient_name="potatoes", quantity=2, unit="each"),
+            MealIngredient(ingredient_name="cheese", quantity=0.125, unit="lb"),
+            MealIngredient(ingredient_name="butter", quantity=1, unit="tbsp"),
+        ],
+        cook_time_minutes=10,
+        equipment_required=["microwave"]
+    ),
+    Meal(
+        name="Microwave Veggie Quesadilla",
+        ingredients=[
+            MealIngredient(ingredient_name="tortillas", quantity=2, unit="each"),
+            MealIngredient(ingredient_name="cheese", quantity=0.125, unit="lb"),
+            MealIngredient(ingredient_name="bell pepper", quantity=1, unit="each"),
+            MealIngredient(ingredient_name="onion", quantity=0.25, unit="each"),
+        ],
+        cook_time_minutes=10,
+        equipment_required=["microwave"]
+    ),
+
+    # -----------------------------------------------------------------------
+    # MORE STOVE MEALS (17 meals)
+    # -----------------------------------------------------------------------
+    Meal(
+        name="Sausage and Veggie Skillet",
+        ingredients=[
+            MealIngredient(ingredient_name="Italian sausage", quantity=0.5, unit="lb"),
+            MealIngredient(ingredient_name="zucchini", quantity=1, unit="each"),
+            MealIngredient(ingredient_name="bell pepper", quantity=1, unit="each"),
+            MealIngredient(ingredient_name="onion", quantity=1, unit="each"),
+            MealIngredient(ingredient_name="potatoes", quantity=2, unit="each"),
+        ],
+        cook_time_minutes=30,
+        equipment_required=["stove"]
+    ),
+    Meal(
+        name="Kale Sweet Potato Hash",
+        ingredients=[
+            MealIngredient(ingredient_name="sweet potato", quantity=2, unit="each"),
+            MealIngredient(ingredient_name="kale", quantity=2, unit="cup"),
+            MealIngredient(ingredient_name="eggs", quantity=2, unit="each"),
+            MealIngredient(ingredient_name="onion", quantity=0.5, unit="each"),
+            MealIngredient(ingredient_name="garlic", quantity=2, unit="tbsp"),
+        ],
+        cook_time_minutes=25,
+        equipment_required=["stove"]
+    ),
+    Meal(
+        name="Pork Chop with Mashed Potatoes",
+        ingredients=[
+            MealIngredient(ingredient_name="pork chops", quantity=0.75, unit="lb"),
+            MealIngredient(ingredient_name="potatoes", quantity=4, unit="each"),
+            MealIngredient(ingredient_name="butter", quantity=2, unit="tbsp"),
+            MealIngredient(ingredient_name="milk", quantity=0.25, unit="cup"),
+        ],
+        cook_time_minutes=35,
+        equipment_required=["stove"]
+    ),
+    Meal(
+        name="Greek Chicken Quinoa Bowl",
+        ingredients=[
+            MealIngredient(ingredient_name="chicken breast", quantity=0.5, unit="lb"),
+            MealIngredient(ingredient_name="quinoa", quantity=1, unit="cup"),
+            MealIngredient(ingredient_name="cucumber", quantity=1, unit="each"),
+            MealIngredient(ingredient_name="tomato", quantity=2, unit="each"),
+            MealIngredient(ingredient_name="spinach", quantity=1, unit="cup"),
+        ],
+        cook_time_minutes=30,
+        equipment_required=["stove"]
+    ),
+    Meal(
+        name="Tofu Stir Fry with Noodles",
+        ingredients=[
+            MealIngredient(ingredient_name="tofu", quantity=0.5, unit="lb"),
+            MealIngredient(ingredient_name="noodles", quantity=0.5, unit="lb"),
+            MealIngredient(ingredient_name="broccoli", quantity=1, unit="cup"),
+            MealIngredient(ingredient_name="soy sauce", quantity=3, unit="tbsp"),
+            MealIngredient(ingredient_name="ginger", quantity=0.5, unit="oz"),
+            MealIngredient(ingredient_name="garlic", quantity=1, unit="tbsp"),
+        ],
+        cook_time_minutes=25,
+        equipment_required=["stove"]
+    ),
+    Meal(
+        name="Spaghetti with Meatballs",
+        ingredients=[
+            MealIngredient(ingredient_name="pasta", quantity=0.5, unit="lb"),
+            MealIngredient(ingredient_name="ground beef", quantity=0.5, unit="lb"),
+            MealIngredient(ingredient_name="eggs", quantity=1, unit="each"),
+            MealIngredient(ingredient_name="canned tomatoes", quantity=1, unit="can"),
+            MealIngredient(ingredient_name="onion", quantity=0.5, unit="each"),
+            MealIngredient(ingredient_name="garlic", quantity=2, unit="tbsp"),
+        ],
+        cook_time_minutes=40,
+        equipment_required=["stove"]
+    ),
+    Meal(
+        name="Shrimp Scampi with Pasta",
+        ingredients=[
+            MealIngredient(ingredient_name="pasta", quantity=0.5, unit="lb"),
+            MealIngredient(ingredient_name="shrimp", quantity=0.5, unit="lb"),
+            MealIngredient(ingredient_name="garlic", quantity=3, unit="tbsp"),
+            MealIngredient(ingredient_name="butter", quantity=2, unit="tbsp"),
+            MealIngredient(ingredient_name="olive oil", quantity=2, unit="tbsp"),
+            MealIngredient(ingredient_name="spinach", quantity=1, unit="cup"),
+        ],
+        cook_time_minutes=25,
+        equipment_required=["stove"]
+    ),
+    Meal(
+        name="Chicken Marsala Style",
+        ingredients=[
+            MealIngredient(ingredient_name="chicken breast", quantity=0.75, unit="lb"),
+            MealIngredient(ingredient_name="mushrooms", quantity=1.5, unit="cup"),
+            MealIngredient(ingredient_name="chicken broth", quantity=1, unit="can"),
+            MealIngredient(ingredient_name="garlic", quantity=2, unit="tbsp"),
+            MealIngredient(ingredient_name="butter", quantity=1, unit="tbsp"),
+        ],
+        cook_time_minutes=30,
+        equipment_required=["stove"]
+    ),
+    Meal(
+        name="Salmon with Quinoa and Kale",
+        ingredients=[
+            MealIngredient(ingredient_name="salmon", quantity=0.5, unit="lb"),
+            MealIngredient(ingredient_name="quinoa", quantity=1, unit="cup"),
+            MealIngredient(ingredient_name="kale", quantity=2, unit="cup"),
+            MealIngredient(ingredient_name="garlic", quantity=2, unit="tbsp"),
+            MealIngredient(ingredient_name="olive oil", quantity=2, unit="tbsp"),
+        ],
+        cook_time_minutes=30,
+        equipment_required=["stove"]
+    ),
+    Meal(
+        name="Vegan Lentil Vegetable Curry",
+        ingredients=[
+            MealIngredient(ingredient_name="lentils", quantity=1, unit="cup"),
+            MealIngredient(ingredient_name="coconut milk", quantity=1, unit="can"),
+            MealIngredient(ingredient_name="sweet potato", quantity=1, unit="each"),
+            MealIngredient(ingredient_name="spinach", quantity=1, unit="cup"),
+            MealIngredient(ingredient_name="onion", quantity=1, unit="each"),
+            MealIngredient(ingredient_name="garlic", quantity=2, unit="tbsp"),
+        ],
+        cook_time_minutes=35,
+        equipment_required=["stove"]
+    ),
+    Meal(
+        name="Avocado Black Bean Rice Bowl",
+        ingredients=[
+            MealIngredient(ingredient_name="avocado", quantity=1, unit="each"),
+            MealIngredient(ingredient_name="black beans", quantity=1, unit="can"),
+            MealIngredient(ingredient_name="rice", quantity=1, unit="cup"),
+            MealIngredient(ingredient_name="corn", quantity=0.5, unit="cup"),
+            MealIngredient(ingredient_name="tomato", quantity=1, unit="each"),
+        ],
+        cook_time_minutes=20,
+        equipment_required=["stove"]
+    ),
+    Meal(
+        name="Miso-Style Tofu Soup",
+        ingredients=[
+            MealIngredient(ingredient_name="tofu", quantity=0.5, unit="lb"),
+            MealIngredient(ingredient_name="chicken broth", quantity=1, unit="can"),
+            MealIngredient(ingredient_name="mushrooms", quantity=1, unit="cup"),
+            MealIngredient(ingredient_name="kale", quantity=1, unit="cup"),
+            MealIngredient(ingredient_name="ginger", quantity=0.5, unit="oz"),
+        ],
+        cook_time_minutes=20,
+        equipment_required=["stove"]
+    ),
+    Meal(
+        name="Kimchi-Style Fried Rice",
+        ingredients=[
+            MealIngredient(ingredient_name="rice", quantity=1, unit="cup"),
+            MealIngredient(ingredient_name="eggs", quantity=2, unit="each"),
+            MealIngredient(ingredient_name="cabbage", quantity=0.25, unit="each"),
+            MealIngredient(ingredient_name="onion", quantity=0.5, unit="each"),
+            MealIngredient(ingredient_name="soy sauce", quantity=3, unit="tbsp"),
+            MealIngredient(ingredient_name="ginger", quantity=0.5, unit="oz"),
+        ],
+        cook_time_minutes=20,
+        equipment_required=["stove"]
+    ),
+    Meal(
+        name="Pasta e Fagioli",
+        ingredients=[
+            MealIngredient(ingredient_name="pasta", quantity=0.5, unit="lb"),
+            MealIngredient(ingredient_name="kidney beans", quantity=1, unit="can"),
+            MealIngredient(ingredient_name="canned tomatoes", quantity=1, unit="can"),
+            MealIngredient(ingredient_name="onion", quantity=1, unit="each"),
+            MealIngredient(ingredient_name="chicken broth", quantity=1, unit="can"),
+            MealIngredient(ingredient_name="garlic", quantity=2, unit="tbsp"),
+        ],
+        cook_time_minutes=30,
+        equipment_required=["stove"]
+    ),
+    Meal(
+        name="Sweet Potato Black Bean Bowl",
+        ingredients=[
+            MealIngredient(ingredient_name="sweet potato", quantity=2, unit="each"),
+            MealIngredient(ingredient_name="black beans", quantity=1, unit="can"),
+            MealIngredient(ingredient_name="corn", quantity=0.5, unit="cup"),
+            MealIngredient(ingredient_name="onion", quantity=0.5, unit="each"),
+            MealIngredient(ingredient_name="avocado", quantity=0.5, unit="each"),
+        ],
+        cook_time_minutes=25,
+        equipment_required=["stove"]
+    ),
+    Meal(
+        name="Cucumber Tomato Tuna Salad",
+        ingredients=[
+            MealIngredient(ingredient_name="canned tuna", quantity=1, unit="can"),
+            MealIngredient(ingredient_name="cucumber", quantity=1, unit="each"),
+            MealIngredient(ingredient_name="tomato", quantity=2, unit="each"),
+            MealIngredient(ingredient_name="onion", quantity=0.25, unit="each"),
+            MealIngredient(ingredient_name="olive oil", quantity=1, unit="tbsp"),
+        ],
+        cook_time_minutes=10,
+        equipment_required=["stove"]
+    ),
+    Meal(
+        name="Chicken Fajita Skillet",
+        ingredients=[
+            MealIngredient(ingredient_name="chicken breast", quantity=0.5, unit="lb"),
+            MealIngredient(ingredient_name="bell pepper", quantity=3, unit="each"),
+            MealIngredient(ingredient_name="onion", quantity=1, unit="each"),
+            MealIngredient(ingredient_name="tortillas", quantity=3, unit="each"),
+            MealIngredient(ingredient_name="olive oil", quantity=2, unit="tbsp"),
+        ],
+        cook_time_minutes=25,
+        equipment_required=["stove"]
+    ),
+    Meal(
+        name="Chicken and Spinach Stuffed Potatoes",
+        ingredients=[
+            MealIngredient(ingredient_name="chicken breast", quantity=0.5, unit="lb"),
+            MealIngredient(ingredient_name="potatoes", quantity=3, unit="each"),
+            MealIngredient(ingredient_name="spinach", quantity=1, unit="cup"),
+            MealIngredient(ingredient_name="cheese", quantity=0.125, unit="lb"),
+        ],
+        cook_time_minutes=45,
+        equipment_required=["oven"]
+    ),
+    Meal(
+        name="Sausage and Potato Skillet",
+        ingredients=[
+            MealIngredient(ingredient_name="Italian sausage", quantity=0.5, unit="lb"),
+            MealIngredient(ingredient_name="potatoes", quantity=3, unit="each"),
+            MealIngredient(ingredient_name="bell pepper", quantity=1, unit="each"),
+            MealIngredient(ingredient_name="onion", quantity=1, unit="each"),
+            MealIngredient(ingredient_name="garlic", quantity=1, unit="tbsp"),
+        ],
+        cook_time_minutes=30,
+        equipment_required=["stove"]
+    ),
 ]
 
 

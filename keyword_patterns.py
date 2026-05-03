@@ -39,7 +39,14 @@ DIET_START_PATTERNS = {
         "im transitioning to vegan",
         "make me vegan",
         "switch me to vegan",
-        "set my diet to vegan"
+        "set my diet to vegan",
+        "set it to vegan",
+        "change it to vegan",
+        "switch it to vegan",
+        "make it vegan",
+        "vegan diet",
+        "go vegan",
+        "be vegan"
     ],
     "vegetarian": [
         "i want to start a vegetarian diet",
@@ -48,7 +55,13 @@ DIET_START_PATTERNS = {
         "im becoming vegetarian",
         "im switching to vegetarian",
         "make me vegetarian",
-        "set my diet to vegetarian"
+        "set my diet to vegetarian",
+        "set it to vegetarian",
+        "change it to vegetarian",
+        "switch it to vegetarian",
+        "make it vegetarian",
+        "vegetarian diet",
+        "go vegetarian"
     ],
     "pescatarian": [
         "i want to start a pescatarian diet",
@@ -57,7 +70,11 @@ DIET_START_PATTERNS = {
         "im becoming pescatarian",
         "im switching to pescatarian",
         "make me pescatarian",
-        "set my diet to pescatarian"
+        "set my diet to pescatarian",
+        "set it to pescatarian",
+        "change it to pescatarian",
+        "pescatarian diet",
+        "go pescatarian"
     ]
 }
 

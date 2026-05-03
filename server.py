@@ -50,6 +50,50 @@ def user_is_editing_preferences(text: str) -> bool:
 
 
 # ---------------------------------------------------------
+# Helper: detect cooking instructions requests
+# ---------------------------------------------------------
+def is_cooking_instructions_request(text: str) -> bool:
+    """Return True when the user asks HOW to prepare/make/cook a specific dish."""
+    patterns = [
+        "how do i make", "how do i prepare", "how do i cook",
+        "how to make", "how to prepare", "how to cook",
+        "how do you make", "how do you prepare", "how do you cook",
+        "steps to make", "steps to cook", "steps to prepare",
+        "recipe for", "instructions for", "directions for",
+        "walk me through", "teach me to make", "teach me to cook",
+        "how do i go about", "how would i make", "how would i cook",
+        "how would i prepare", "how do i bake", "how to bake",
+        "how do i grill", "how to grill", "how do i fry", "how to fry",
+        "how do i roast", "how to roast", "give me a recipe",
+        "show me how to make", "show me how to cook",
+        "i want to cook", "i want to make", "i want to bake",
+        "i want to prepare",
+    ]
+    return any(p in text for p in patterns)
+
+
+def get_cooking_instructions(user_message: str) -> str:
+    """Ask Nemotron directly for cooking instructions and return the reply."""
+    messages = [
+        {
+            "role": "system",
+            "content": (
+                "You are a friendly cooking assistant. "
+                "When the user asks how to prepare or cook a dish, give them clear, "
+                "numbered step-by-step instructions. Include approximate cooking times and "
+                "any helpful tips. Keep the response concise but complete."
+            )
+        },
+        {"role": "user", "content": user_message}
+    ]
+    try:
+        reply = ask_model(messages)
+        return reply.strip() if reply else "Sorry, I couldn't fetch instructions right now. Please try again."
+    except Exception as e:
+        return f"Sorry, I ran into an error fetching instructions: {str(e)}"
+
+
+# ---------------------------------------------------------
 # REGISTER
 # ---------------------------------------------------------
 @app.post("/register")
@@ -344,6 +388,14 @@ def chat():
                 "Say 'I am done meal planning' to switch back."
             )
         })
+
+    # ---------------------------------------------------------
+    # COOKING INSTRUCTIONS — "how do I make/prepare/cook X"
+    # Bypass the meal planning pipeline; ask Nemotron directly
+    # ---------------------------------------------------------
+    if is_cooking_instructions_request(user_input):
+        instructions = get_cooking_instructions(user_input_raw)
+        return jsonify({"response": instructions, "structured_result": None})
 
     # ---------------------------------------------------------
     # MEAL PLANNING MODE — structured AI pipeline
