@@ -1,0 +1,228 @@
+/* ============================================================
+   NAVBAR — top navigation bar, inputs, auth buttons
+   ============================================================ */
+
+.navbar {
+    background-color: #fff;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    padding-top: 8px;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 78px;
+}
+
+.nav-brand h2 {
+    color: #76b900;
+    font-size: 24px;
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-item {
+    margin: 0 10px;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #666;
+    font-weight: 500;
+    padding: 10px 12px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    min-width: 70px;
+    text-align: center;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: white;
+    background-color: #5e9400;
+    border-radius: 8px;
+}
+
+.nav-link:hover {
+    background-color: #76b900;
+}
+
+.nav-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.bar {
+    width: 25px;
+    height: 3px;
+    background-color: #333;
+    margin: 3px 0;
+    transition: 0.3s;
+}
+
+/* User action area — zip, range, language, auth */
+.user-actions {
+    display: flex;
+    align-items: flex-end;
+    gap: 20px;
+}
+
+.location-inputs {
+    display: flex;
+    gap: 15px;
+}
+
+.language-selector {
+    display: flex;
+}
+
+.auth-buttons {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    position: relative;
+}
+
+.input-label {
+    font-size: 10px;
+    font-weight: 600;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    margin: 0 0 4px 0;
+    white-space: nowrap;
+    text-align: center;
+    display: block;
+}
+
+.input-group input,
+.input-group select {
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.location-inputs input:focus,
+.location-inputs select:focus,
+.input-group input:focus,
+.input-group select:focus {
+    border-color: #76b900 !important;
+    box-shadow: 0 0 0 2px rgba(118, 185, 0, 0.1);
+    outline: none;
+}
+
+.input-group input:hover,
+.input-group select:hover {
+    border-color: #76b900 !important;
+}
+
+.language-selector select {
+    cursor: pointer;
+}
+
+.language-selector select:focus {
+    border-color: #76b900 !important;
+    outline: none;
+}
+
+#user-info {
+    color: #666;
+    font-size: 14px;
+}
+
+/* Responsive navbar */
+@media (max-width: 768px) {
+    .nav-menu {
+        position: fixed;
+        left: -100%;
+        top: 86px;
+        flex-direction: column;
+        background-color: white;
+        width: 100%;
+        text-align: center;
+        transition: 0.3s;
+        box-shadow: 0 10px 27px rgba(0,0,0,0.05);
+        padding: 20px 0;
+    }
+
+    .nav-menu.active {
+        left: 0;
+    }
+
+    .nav-menu .nav-item {
+        margin: 10px 0;
+    }
+
+    .nav-toggle {
+        display: flex;
+    }
+
+    .user-actions {
+        flex-direction: column;
+        gap: 15px;
+        align-items: center;
+    }
+
+    .location-inputs {
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .input-label {
+        font-size: 9px;
+        letter-spacing: 0.2px;
+    }
+}
+
+@media (max-width: 480px) {
+    .user-actions {
+        gap: 12px;
+    }
+
+    .location-inputs {
+        gap: 8px;
+    }
+
+    .auth-buttons {
+        gap: 6px;
+    }
+
+    .input-group input,
+    .input-group select {
+        font-size: 11px !important;
+        padding: 5px !important;
+    }
+
+    .input-label {
+        font-size: 9px;
+    }
+
+    .btn-primary {
+        padding: 8px 12px;
+        min-width: 70px;
+        font-size: 12px;
+    }
+}
