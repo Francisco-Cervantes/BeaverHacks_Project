@@ -4,9 +4,11 @@ from models.pricing import calculate_meal_cost, calculate_weekly_cost, calculate
 from filters import filter_by_equipment, filter_by_time, filter_by_distance, mark_meals_with_cost
 from pricing.providers.base import PricingProvider
 from pricing.providers.registry import build_store_provider, get_supported_store_names
+from nutrition.nutrition import calculate_meal_nutrition, calculate_weekly_nutrition
 from pricing.comparison import build_store_comparison
 from meals.sample_meals import sample_meals
 from typing import List, Dict, Any
+
 
 def get_all_meals() -> List[Meal]:
     return sample_meals
@@ -121,3 +123,11 @@ def compare_store_costs(
         "excluded_stores": excluded_stores,
         "shopping_list": shopping_list,
     }
+
+
+def get_meal_nutrition(meals: List[Meal], nutrition_provider) -> Dict[str, Dict[str, float]]:
+    return {meal.name: calculate_meal_nutrition(meal, nutrition_provider) for meal in meals}
+
+
+def get_weekly_nutrition(meals: List[Meal], nutrition_provider) -> Dict[str, float]:
+    return calculate_weekly_nutrition(meals, nutrition_provider)

@@ -3,3 +3,6 @@ uvicorn[standard]==0.24.0
 pydantic
 requests
 python-dotenv
+passlib[bcrypt]
+PyJWT
+email-validator
