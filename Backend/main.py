@@ -9,9 +9,12 @@ from services import (
     get_store_options,
     get_prices_for_store,
     compare_store_costs,
+    get_meal_nutrition,
 )
 from pricing.providers.mock_provider import MockPricingProvider
+from nutrition.providers.registry import build_nutrition_provider
 from models.meal import Meal
+from auth.routes import router as auth_router
 from typing import Dict, Any, List
 import requests
 import os
@@ -20,7 +23,9 @@ from dotenv import load_dotenv
 load_dotenv()
 
 app = FastAPI()
+app.include_router(auth_router)
 pricing_provider = MockPricingProvider()
+nutrition_provider = build_nutrition_provider()
 
 # Add CORS middleware for frontend integration
 app.add_middleware(
@@ -56,6 +61,12 @@ async def meal_costs(meals_data: List[Dict[str, Any]]):
     meals = get_all_meals()
     costs = get_meal_costs(meals, pricing_provider)
     return {"costs": costs}
+
+@app.post("/meal-nutrition")
+async def meal_nutrition(meals_data: List[Dict[str, Any]]):
+    meals = [Meal(**meal_data) for meal_data in meals_data]
+    nutrition = get_meal_nutrition(meals, nutrition_provider)
+    return {"nutrition": nutrition}
 
 @app.post("/shopping-list")
 async def shopping_list(meals_data: List[Dict[str, Any]]):
