@@ -233,8 +233,9 @@ class NavigationManager {
             this.setupRecipesFunctionality();
             this.setupResizableDivider();
             
-            // Load some initial recipes to show the interface working
+            // Send "start" to the server to get the personalized greeting
             setTimeout(() => {
+                this.sendStartMessage();
                 this.loadInitialRecipes();
             }, 100);
             
@@ -283,6 +284,49 @@ class NavigationManager {
         messageDiv.textContent = text;
         chatMessages.appendChild(messageDiv);
         chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    async sendStartMessage() {
+        // Show a typing indicator while waiting for the server greeting
+        const chatMessages = document.getElementById('chat-messages');
+        if (!chatMessages) return;
+
+        const typingDiv = document.createElement('div');
+        typingDiv.className = 'message bot';
+        typingDiv.id = 'chat-typing-indicator';
+        typingDiv.innerHTML = '<i class="fas fa-ellipsis-h" style="color:#aaa;"></i>';
+        chatMessages.appendChild(typingDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+
+        try {
+            const isLoggedIn = window.authManager?.getIsLoggedIn() || false;
+            const username = window.authManager?.currentUser?.name || null;
+            const zip = document.getElementById('zip-input')?.value || '00000';
+            const radius = parseInt(document.getElementById('mile-range')?.value || '10');
+
+            const payload = { message: 'start', logged_in: isLoggedIn, zip, radius };
+            if (isLoggedIn && username) payload.username = username;
+
+            const response = await fetch(`${window.apiManager.chatBaseURL}/chat`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            const data = await response.json();
+            typingDiv.remove();
+            this.addMessage(data.response || 'Hello! What would you like to cook today?', 'bot');
+        } catch (e) {
+            typingDiv.remove();
+            // Fallback greeting if server is down
+            const isLoggedIn = window.authManager?.getIsLoggedIn() || false;
+            if (isLoggedIn) {
+                const name = window.authManager?.currentUser?.name || 'there';
+                this.addMessage(`Hello ${name}! What would you like to cook today?`, 'bot');
+            } else {
+                this.addMessage("Hello guest! Since you're not logged in, we'll jump straight into meal planning.\n\nWhat type of meals are you looking to prep?", 'bot');
+            }
+        }
     }
 
     async getBotResponse(userMessage) {

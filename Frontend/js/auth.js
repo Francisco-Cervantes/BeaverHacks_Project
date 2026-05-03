@@ -233,11 +233,9 @@ class AuthManager {
     }
 
     showInitialPage() {
-        if (this.isLoggedIn) {
-            this.showHomePage();
-        } else {
-            this.showSignInPage();
-        }
+        // Always start on home (as guest if not logged in).
+        // The sign-in page is only shown when the user explicitly clicks Sign In.
+        this.showHomePage();
     }
 
     showSignInPage() {
