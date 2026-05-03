@@ -1,0 +1,34 @@
+{
+    "francisco123": {
+        "zip": "97330",
+        "radius": 10,
+        "keywords": {
+            "diet": "normal",
+            "dieting": "no",
+            "calorie_target": 1000,
+            "protein_goal": "normal"
+        },
+        "guest_mode": false
+    },
+    "sarah89": {
+        "zip": "90210",
+        "radius": 5,
+        "keywords": {
+            "diet": "vegan",
+            "organic": "only"
+        },
+        "guest_mode": false
+    },
+    "francisco2003": {
+        "zip": "97331",
+        "radius": 20,
+        "keywords": {
+            "diet": "high protein",
+            "dieting": "no",
+            "calorie_target": 1000,
+            "protein_goal": "high",
+            "mealprep": "yes"
+        },
+        "guest_mode": false
+    }
+}
