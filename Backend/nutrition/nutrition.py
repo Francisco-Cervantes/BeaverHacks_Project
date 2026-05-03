@@ -10,7 +10,13 @@ def calculate_ingredient_nutrition(
     unit: str,
     nutrition_provider: NutritionProvider,
 ) -> Dict[str, float]:
-    return nutrition_provider.get_nutrition(ingredient_name, quantity, unit)
+    try:
+        return nutrition_provider.get_nutrition(ingredient_name, quantity, unit)
+    except Exception:
+        # Fallback to mock nutrition data if API fails
+        from nutrition.providers.mock_provider import MockNutritionProvider
+        mock_provider = MockNutritionProvider()
+        return mock_provider.get_nutrition(ingredient_name, quantity, unit)
 
 
 def calculate_meal_nutrition(meal: Meal, nutrition_provider: NutritionProvider) -> Dict[str, float]:

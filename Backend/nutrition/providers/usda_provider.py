@@ -67,21 +67,61 @@ def _get_food_item(ingredient_name: str) -> Optional[dict]:
     if not USDA_API_KEY:
         return None
 
-    params = {"api_key": USDA_API_KEY}
-    body = {
-        "query": ingredient_name,
-        "pageSize": 1,
-        "dataType": ["Foundation", "SR Legacy", "Survey (FNDDS)"],
-    }
+    # First try searching for raw version
+    queries = [f"{ingredient_name} raw", ingredient_name]
+    
+    for query in queries:
+        params = {"api_key": USDA_API_KEY}
+        body = {
+            "query": query,
+            "pageSize": 5,  # Get more results to find one with complete nutrition
+            "dataType": ["Foundation", "SR Legacy", "Survey (FNDDS)"],
+        }
 
-    response = requests.post(USDA_SEARCH_URL, params=params, json=body, timeout=10)
-    response.raise_for_status()
-    data = response.json()
-    foods = data.get("foods", [])
-    if not foods:
-        return None
-
-    return foods[0]
+        try:
+            response = requests.post(USDA_SEARCH_URL, params=params, json=body, timeout=10)
+            response.raise_for_status()
+            data = response.json()
+            foods = data.get("foods", [])
+            
+            if not foods:
+                continue
+                
+            # Find the best food item (one with most complete nutrition)
+            best_food = None
+            best_score = 0
+            
+            for food in foods:
+                score = 0
+                nutrients = food.get("foodNutrients", [])
+                
+                # Score based on having our target nutrients
+                nutrient_names = [n.get("nutrientName", "").lower() for n in nutrients]
+                
+                if any("energy" in name for name in nutrient_names):
+                    score += 1
+                if any("protein" in name for name in nutrient_names):
+                    score += 1
+                if any("carbohydrate" in name for name in nutrient_names):
+                    score += 1
+                if any("lipid" in name or "fat" in name for name in nutrient_names):
+                    score += 1
+                    
+                # Prefer Foundation data type
+                if food.get("dataType") == "Foundation":
+                    score += 2
+                    
+                if score > best_score:
+                    best_score = score
+                    best_food = food
+            
+            if best_food and best_score >= 3:  # Must have at least 3 nutrients
+                return best_food
+                
+        except Exception:
+            continue
+    
+    return None
 
 
 class USDANutritionProvider(NutritionProvider):

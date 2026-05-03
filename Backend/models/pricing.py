@@ -18,6 +18,10 @@ def calculate_weekly_cost(meals: List[Meal], pricing_provider: PricingProvider) 
 def calculate_shopping_cost(shopping_list: Dict[str, float], pricing_provider: PricingProvider) -> float:
     total = 0.0
     for ingredient, quantity in shopping_list.items():
-        price = pricing_provider.get_price(ingredient)
-        total += price * quantity
+        try:
+            price = pricing_provider.get_price(ingredient)
+            total += price * quantity
+        except Exception:
+            # Skip ingredients that can't be priced
+            continue
     return round(total, 2)

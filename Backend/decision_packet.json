@@ -1,0 +1,348 @@
+{
+  "user_profile": {
+    "persona": "college_student",
+    "budget": 50.0,
+    "max_distance_miles": 10.0,
+    "dietary_restrictions": [],
+    "available_equipment": [
+      "stove",
+      "microwave"
+    ],
+    "max_time_minutes": 30,
+    "daily_calories": 2000,
+    "protein": 150,
+    "carbs": 250,
+    "fat": 67
+  },
+  "meals": [
+    {
+      "name": "Pasta with Tomato Sauce",
+      "nutrition": {
+        "calories": 216.92,
+        "protein": 5.91,
+        "carbs": 52.53,
+        "fat": 1.37
+      },
+      "costs": {
+        "Kroger": 4.43,
+        "WinCo": 3.9,
+        "Costco": 4.21,
+        "Grocery Outlet": 3.77,
+        "Safeway": 4.88,
+        "Walmart": 4.34,
+        "Albertsons": 4.92
+      },
+      "cook_time_minutes": 20,
+      "equipment_required": [
+        "stove"
+      ],
+      "ingredients": [
+        {
+          "name": "pasta",
+          "quantity": 0.5,
+          "unit": "lb"
+        },
+        {
+          "name": "canned tomatoes",
+          "quantity": 1.0,
+          "unit": "can"
+        },
+        {
+          "name": "onion",
+          "quantity": 0.5,
+          "unit": "each"
+        }
+      ]
+    },
+    {
+      "name": "Chicken Rice Bowl",
+      "nutrition": {
+        "calories": 802.11,
+        "protein": 62.53,
+        "carbs": 117.29,
+        "fat": 9.55
+      },
+      "costs": {
+        "Kroger": 4.21,
+        "WinCo": 3.7,
+        "Costco": 4.0,
+        "Grocery Outlet": 3.58,
+        "Safeway": 4.63,
+        "Walmart": 4.12,
+        "Albertsons": 4.67
+      },
+      "cook_time_minutes": 30,
+      "equipment_required": [
+        "stove"
+      ],
+      "ingredients": [
+        {
+          "name": "rice",
+          "quantity": 1.0,
+          "unit": "cup"
+        },
+        {
+          "name": "chicken breast",
+          "quantity": 0.5,
+          "unit": "lb"
+        },
+        {
+          "name": "onion",
+          "quantity": 0.25,
+          "unit": "each"
+        }
+      ]
+    },
+    {
+      "name": "Scrambled Eggs",
+      "nutrition": {
+        "calories": 171.6,
+        "protein": 14.88,
+        "carbs": 1.15,
+        "fat": 11.95
+      },
+      "costs": {
+        "Kroger": 7.98,
+        "WinCo": 7.02,
+        "Costco": 7.58,
+        "Grocery Outlet": 6.78,
+        "Safeway": 8.78,
+        "Walmart": 7.82,
+        "Albertsons": 8.86
+      },
+      "cook_time_minutes": 10,
+      "equipment_required": [
+        "stove"
+      ],
+      "ingredients": [
+        {
+          "name": "eggs",
+          "quantity": 2.0,
+          "unit": "each"
+        }
+      ]
+    },
+    {
+      "name": "Grilled Chicken Salad",
+      "nutrition": {
+        "calories": 524.18,
+        "protein": 86.56,
+        "carbs": 21.44,
+        "fat": 8.98
+      },
+      "costs": {
+        "Kroger": 0.0,
+        "WinCo": 9.72,
+        "Costco": 8.99,
+        "Grocery Outlet": 8.19,
+        "Safeway": 11.04,
+        "Walmart": 9.87,
+        "Albertsons": 11.69
+      },
+      "cook_time_minutes": 25,
+      "equipment_required": [
+        "stove"
+      ],
+      "ingredients": [
+        {
+          "name": "chicken breast",
+          "quantity": 0.75,
+          "unit": "lb"
+        },
+        {
+          "name": "spinach",
+          "quantity": 2.0,
+          "unit": "cup"
+        },
+        {
+          "name": "tomato",
+          "quantity": 1.0,
+          "unit": "each"
+        },
+        {
+          "name": "carrots",
+          "quantity": 2.0,
+          "unit": "each"
+        }
+      ]
+    },
+    {
+      "name": "Vegetable Stir Fry",
+      "nutrition": {
+        "calories": 670.41,
+        "protein": 18.39,
+        "carbs": 143.79,
+        "fat": 6.13
+      },
+      "costs": {
+        "Kroger": 0.0,
+        "WinCo": 5.4,
+        "Costco": 4.9,
+        "Grocery Outlet": 4.25,
+        "Safeway": 6.2,
+        "Walmart": 5.55,
+        "Albertsons": 6.7
+      },
+      "cook_time_minutes": 25,
+      "equipment_required": [
+        "stove"
+      ],
+      "ingredients": [
+        {
+          "name": "rice",
+          "quantity": 1.0,
+          "unit": "cup"
+        },
+        {
+          "name": "broccoli",
+          "quantity": 1.5,
+          "unit": "cup"
+        },
+        {
+          "name": "carrots",
+          "quantity": 2.0,
+          "unit": "each"
+        },
+        {
+          "name": "onion",
+          "quantity": 0.5,
+          "unit": "each"
+        }
+      ]
+    }
+  ],
+  "stores": [
+    {
+      "name": "Kroger",
+      "total_cost": 22.3,
+      "distance_miles": 5.0,
+      "confidence": "live",
+      "shopping_list": {
+        "pasta": 0.5,
+        "canned tomatoes": 1.0,
+        "onion": 1.25,
+        "rice": 2.0,
+        "chicken breast": 1.25,
+        "eggs": 2.0,
+        "spinach": 2.0,
+        "tomato": 1.0,
+        "carrots": 4.0,
+        "broccoli": 1.5
+      }
+    },
+    {
+      "name": "WinCo",
+      "total_cost": 19.61,
+      "distance_miles": 8.0,
+      "confidence": "estimated",
+      "shopping_list": {
+        "pasta": 0.5,
+        "canned tomatoes": 1.0,
+        "onion": 1.25,
+        "rice": 2.0,
+        "chicken breast": 1.25,
+        "eggs": 2.0,
+        "spinach": 2.0,
+        "tomato": 1.0,
+        "carrots": 4.0,
+        "broccoli": 1.5
+      }
+    },
+    {
+      "name": "Costco",
+      "total_cost": 21.2,
+      "distance_miles": 12.0,
+      "confidence": "estimated",
+      "shopping_list": {
+        "pasta": 0.5,
+        "canned tomatoes": 1.0,
+        "onion": 1.25,
+        "rice": 2.0,
+        "chicken breast": 1.25,
+        "eggs": 2.0,
+        "spinach": 2.0,
+        "tomato": 1.0,
+        "carrots": 4.0,
+        "broccoli": 1.5
+      }
+    },
+    {
+      "name": "Grocery Outlet",
+      "total_cost": 18.96,
+      "distance_miles": 9.0,
+      "confidence": "estimated",
+      "shopping_list": {
+        "pasta": 0.5,
+        "canned tomatoes": 1.0,
+        "onion": 1.25,
+        "rice": 2.0,
+        "chicken breast": 1.25,
+        "eggs": 2.0,
+        "spinach": 2.0,
+        "tomato": 1.0,
+        "carrots": 4.0,
+        "broccoli": 1.5
+      }
+    },
+    {
+      "name": "Safeway",
+      "total_cost": 24.53,
+      "distance_miles": 6.0,
+      "confidence": "estimated",
+      "shopping_list": {
+        "pasta": 0.5,
+        "canned tomatoes": 1.0,
+        "onion": 1.25,
+        "rice": 2.0,
+        "chicken breast": 1.25,
+        "eggs": 2.0,
+        "spinach": 2.0,
+        "tomato": 1.0,
+        "carrots": 4.0,
+        "broccoli": 1.5
+      }
+    },
+    {
+      "name": "Walmart",
+      "total_cost": 21.84,
+      "distance_miles": 4.0,
+      "confidence": "estimated",
+      "shopping_list": {
+        "pasta": 0.5,
+        "canned tomatoes": 1.0,
+        "onion": 1.25,
+        "rice": 2.0,
+        "chicken breast": 1.25,
+        "eggs": 2.0,
+        "spinach": 2.0,
+        "tomato": 1.0,
+        "carrots": 4.0,
+        "broccoli": 1.5
+      }
+    },
+    {
+      "name": "Albertsons",
+      "total_cost": 24.74,
+      "distance_miles": 7.0,
+      "confidence": "estimated",
+      "shopping_list": {
+        "pasta": 0.5,
+        "canned tomatoes": 1.0,
+        "onion": 1.25,
+        "rice": 2.0,
+        "chicken breast": 1.25,
+        "eggs": 2.0,
+        "spinach": 2.0,
+        "tomato": 1.0,
+        "carrots": 4.0,
+        "broccoli": 1.5
+      }
+    }
+  ],
+  "metadata": {
+    "total_meals_available": 5,
+    "total_stores_available": 7,
+    "zip_code": "97201",
+    "generated_at": "2026-05-03T00:00:00Z"
+  }
+}

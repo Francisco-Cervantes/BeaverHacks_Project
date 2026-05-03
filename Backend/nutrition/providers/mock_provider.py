@@ -19,6 +19,11 @@ NUTRITION_PER_100G: Dict[str, Dict[str, float]] = {
     "cheese": {"calories": 402, "protein": 25.0, "carbs": 1.3, "fat": 33.0},
     "tomato": {"calories": 18, "protein": 0.9, "carbs": 3.9, "fat": 0.2},
     "spinach": {"calories": 23, "protein": 2.9, "carbs": 3.6, "fat": 0.4},
+    "ground beef": {"calories": 250, "protein": 26.0, "carbs": 0.0, "fat": 17.0},
+    "potatoes": {"calories": 77, "protein": 2.0, "carbs": 17.0, "fat": 0.1},
+    "carrots": {"calories": 41, "protein": 0.9, "carbs": 10.0, "fat": 0.2},
+    "broccoli": {"calories": 34, "protein": 2.8, "carbs": 7.0, "fat": 0.4},
+    "salmon": {"calories": 208, "protein": 22.0, "carbs": 0.0, "fat": 13.0}
 }
 
 UNIT_TO_GRAMS: Dict[str, float] = {
@@ -42,6 +47,10 @@ INGREDIENT_UNIT_OVERRIDES: Dict[str, Dict[str, float]] = {
     "onion": {"each": 110.0},
     "chicken breast": {"lb": 453.592},
     "canned tomatoes": {"can": 240.0},
+    "banana": {"each": 118.0},
+    "apple": {"each": 182.0},
+    "potatoes": {"each": 173.0},
+    "carrots": {"each": 61.0},
 }
 
 
