@@ -95,26 +95,50 @@
                         <h2><i class="fas fa-robot"></i> Welcome to NomNomNomotron</h2>
                         <p class="auth-subtitle">AI-powered meal planning for busy families and students</p>
                         
-                        <form id="sign-in-form" class="auth-form">
-                            <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="email" id="email" name="email" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="password">Password</label>
-                                <input type="password" id="password" name="password" required>
-                            </div>
-                            <button type="submit" class="btn btn-primary btn-full">Sign In</button>
-                        </form>
-                        
-                        <div class="auth-divider">
-                            <span>or</span>
+                        <!-- Login Section -->
+                        <div id="login-section">
+                            <form id="sign-in-form" class="auth-form">
+                                <div class="form-group">
+                                    <label for="email">Username or Email</label>
+                                    <input type="text" id="email" name="email" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">Password</label>
+                                    <input type="password" id="password" name="password" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-full">Sign In</button>
+                            </form>
+
+                            <div class="auth-divider"><span>or</span></div>
+
+                            <button id="guest-continue" class="btn btn-secondary btn-full">Continue as Guest</button>
+
+                            <p style="text-align:center; margin-top:16px; font-size:14px; color:#666;">
+                                Don't have an account?
+                                <a href="#" id="show-register" style="color:#76b900; font-weight:600;">Create one</a>
+                            </p>
                         </div>
-                        
-                        <button id="guest-continue" class="btn btn-secondary btn-full">
-                            Continue as Guest
-                        </button>
-                        
+
+                        <!-- Register Section -->
+                        <div id="register-section" class="hidden">
+                            <form id="register-form" class="auth-form">
+                                <div class="form-group">
+                                    <label for="reg-username">Username</label>
+                                    <input type="text" id="reg-username" name="reg-username" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="reg-password">Password <small style="color:#999">(min 6 chars)</small></label>
+                                    <input type="password" id="reg-password" name="reg-password" required minlength="6">
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-full">Create Account</button>
+                            </form>
+
+                            <p style="text-align:center; margin-top:16px; font-size:14px; color:#666;">
+                                Already have an account?
+                                <a href="#" id="show-login" style="color:#76b900; font-weight:600;">Sign in</a>
+                            </p>
+                        </div>
+
                         <p class="auth-note">
                             <strong>Note:</strong> Advanced meal planning and personalized features require an account
                         </p>
@@ -184,11 +208,11 @@
     </div>
 
     <!-- Scripts -->
-    <script src="js/auth.js?v=4"></script>
-    <script src="js/api.js?v=4"></script>
-    <script src="js/navigation.js?v=4"></script>
-    <script src="js/profile.js?v=4"></script>
-    <script src="js/language.js?v=4"></script>
-    <script src="js/app.js?v=4"></script>
+    <script src="js/auth.js?v=6"></script>
+    <script src="js/api.js?v=6"></script>
+    <script src="js/navigation.js?v=6"></script>
+    <script src="js/profile.js?v=6"></script>
+    <script src="js/language.js?v=6"></script>
+    <script src="js/app.js?v=6"></script>
 </body>
 </html>

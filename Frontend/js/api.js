@@ -128,10 +128,11 @@ class APIManager {
     async sendChatMessage(message, context = {}) {
         try {
             const username = window.authManager?.currentUser?.name || null;
+            const logged_in = window.authManager?.getIsLoggedIn() === true;
             const zip = document.getElementById('zip-input')?.value || '00000';
             const radius = parseInt(document.getElementById('mile-range')?.value || '10');
 
-            const payload = { message, zip, radius };
+            const payload = { message, zip, radius, logged_in };
             if (username) payload.username = username;
 
             const response = await fetch(`${this.chatBaseURL}/chat`, {
@@ -158,6 +159,18 @@ class APIManager {
         });
         const data = await response.json();
         if (!data.success) throw new Error(data.error || 'Login failed');
+        return data;
+    }
+
+    // Register a new user
+    async registerUser(username, password, zip = '00000', radius = 10) {
+        const response = await fetch(`${this.chatBaseURL}/register`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, password, zip, radius })
+        });
+        const data = await response.json();
+        if (!data.success) throw new Error(data.error || 'Registration failed');
         return data;
     }
 

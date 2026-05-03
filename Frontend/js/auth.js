@@ -11,6 +11,9 @@ class AuthManager {
         const authBtn = document.getElementById('auth-btn');
         const signInForm = document.getElementById('sign-in-form');
         const guestContinue = document.getElementById('guest-continue');
+        const registerForm = document.getElementById('register-form');
+        const showRegister = document.getElementById('show-register');
+        const showLogin = document.getElementById('show-login');
 
         if (authBtn) {
             authBtn.addEventListener('click', () => this.handleAuthButton());
@@ -24,11 +27,50 @@ class AuthManager {
             guestContinue.addEventListener('click', () => this.continueAsGuest());
         }
 
+        if (registerForm) {
+            registerForm.addEventListener('submit', (e) => this.handleRegister(e));
+        }
+
+        if (showRegister) {
+            showRegister.addEventListener('click', () => {
+                document.getElementById('login-section').classList.add('hidden');
+                document.getElementById('register-section').classList.remove('hidden');
+            });
+        }
+
+        if (showLogin) {
+            showLogin.addEventListener('click', () => {
+                document.getElementById('register-section').classList.add('hidden');
+                document.getElementById('login-section').classList.remove('hidden');
+            });
+        }
+
         // Update UI based on auth state
         this.updateAuthUI();
         
         // Show appropriate initial page
         this.showInitialPage();
+    }
+
+    async handleRegister(e) {
+        e.preventDefault();
+        const username = document.getElementById('reg-username').value.trim();
+        const password = document.getElementById('reg-password').value;
+        const zip = document.getElementById('zip-input')?.value || '97331';
+        const radius = parseInt(document.getElementById('mile-range')?.value || '10');
+
+        if (!username || password.length < 6) {
+            this.showError('Username required and password must be at least 6 characters');
+            return;
+        }
+
+        try {
+            await window.apiManager.registerUser(username, password, zip, radius);
+            const user = { id: username, email: username, name: username, zipCode: zip, dietaryRestrictions: [], dailyCalories: 2000 };
+            this.signIn(user);
+        } catch (error) {
+            this.showError(error.message || 'Registration failed');
+        }
     }
 
     handleAuthButton() {
@@ -55,23 +97,18 @@ class AuthManager {
     }
 
     async authenticateUser(email, password) {
-        // Mock authentication - replace with real API call
-        return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                if (email && password.length >= 6) {
-                    resolve({
-                        id: 1,
-                        email: email,
-                        name: email.split('@')[0],
-                        zipCode: '97331',
-                        dietaryRestrictions: [],
-                        dailyCalories: 2000
-                    });
-                } else {
-                    reject(new Error('Invalid credentials'));
-                }
-            }, 1000);
-        });
+        // Use real Flask login endpoint
+        const username = email.includes('@') ? email.split('@')[0] : email;
+        await window.apiManager.loginUser(username, password);
+        const zip = document.getElementById('zip-input')?.value || '97331';
+        return {
+            id: username,
+            email: email,
+            name: username,
+            zipCode: zip,
+            dietaryRestrictions: [],
+            dailyCalories: 2000
+        };
     }
 
     signIn(user) {

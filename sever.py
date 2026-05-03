@@ -40,15 +40,57 @@ def login():
         return jsonify({"success": False, "error": "Invalid credentials"}), 401
 
 
-
 # ---------------------------------------------------------
-# CHAT ENDPOINT
+# REGISTER ENDPOINT
+# ---------------------------------------------------------
+@app.post("/register")
+def register():
+    data = request.json
+    username = data.get("username", "").strip()
+    password = data.get("password", "").strip()
+    zip_code = data.get("zip", "00000").strip()
+    radius   = int(data.get("radius", 10))
+
+    if not username or not password:
+        return jsonify({"success": False, "error": "Username and password are required"}), 400
+
+    try:
+        with open("logged_in.json", "r") as f:
+            users = json.load(f)
+    except FileNotFoundError:
+        users = {}
+
+    if username in users:
+        return jsonify({"success": False, "error": "Username already exists"}), 409
+
+    users[username] = {
+        "password": password,
+        "zip": zip_code,
+        "radius": radius,
+        "keywords": {
+            "diet": "normal",
+            "dieting": "no",
+            "calorie_target": 2000,
+            "protein_goal": "normal"
+        },
+        "guest_mode": False
+    }
+
+    with open("logged_in.json", "w") as f:
+        json.dump(users, f, indent=4)
+
+    mm.login(username, zip_code, radius)
+    return jsonify({"success": True})
+
+
+
 # ---------------------------------------------------------
 @app.post("/chat")
 def chat():
     data = request.json
     user_input = data.get("message", "").strip().lower()
-    username = data.get("username")  # optional for guest mode
+    username = data.get("username")       # optional for guest mode
+    logged_in = data.get("logged_in", False)  # boolean from frontend
 
     # If username provided → ensure user is loaded
     if username:
@@ -75,8 +117,8 @@ def chat():
     # ---------------------------------------------------------
     result = extract_keywords(user_input)
 
-    # Update memory if logged in
-    if mm.is_logged_in():
+    # Update memory only if frontend confirmed user is logged in
+    if logged_in and mm.is_logged_in():
         mm.update_keywords(
             add_list=result.get("add", []),
             remove_list=result.get("remove", []),
