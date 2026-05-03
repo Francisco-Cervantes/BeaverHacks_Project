@@ -2,7 +2,9 @@ from models.meal import Meal
 from models.shopping_list import build_shopping_list
 from models.pricing import calculate_meal_cost, calculate_weekly_cost, calculate_shopping_cost
 from filters import filter_by_equipment, filter_by_time, filter_by_distance, mark_meals_with_cost
-from pricing.provider import PricingProvider
+from pricing.providers.base import PricingProvider
+from pricing.providers.registry import build_store_provider, get_supported_store_names
+from pricing.comparison import build_store_comparison
 from meals.sample_meals import sample_meals
 from typing import List, Dict, Any
 
@@ -35,3 +37,87 @@ def get_total_cost(meals: List[Meal], pricing_provider: PricingProvider) -> floa
     """Get total cost for meals using shopping list aggregation."""
     shopping_list = get_shopping_list(meals)
     return calculate_shopping_cost(shopping_list, pricing_provider)
+
+
+def get_store_options(zip_code: str) -> List[str]:
+    """Return the list of supported store names."""
+    return get_supported_store_names()
+
+
+def get_prices_for_store(
+    store_name: str,
+    shopping_list: Dict[str, float],
+    zip_code: str,
+    max_distance_miles: float = None,
+    gas_price: float = None,
+    vehicle_mpg: float = 25.0,
+    avg_speed_mph: float = 25.0,
+) -> Dict[str, Any]:
+    """Return per-item and total prices and travel metrics for a store."""
+    provider = build_store_provider(store_name)
+    if hasattr(provider, "set_location"):
+        provider.set_location(zip_code)
+
+    comparison = build_store_comparison(
+        store_name,
+        provider,
+        shopping_list,
+        zip_code,
+        max_distance_miles=max_distance_miles,
+        gas_price=gas_price,
+        vehicle_mpg=vehicle_mpg,
+        avg_speed_mph=avg_speed_mph,
+    )
+
+    if comparison is None:
+        raise ValueError(f"{store_name} is unavailable within {max_distance_miles} miles of {zip_code}")
+
+    items = []
+    for ingredient, quantity in shopping_list.items():
+        price = provider.get_price(ingredient)
+        items.append({
+            "ingredient": ingredient,
+            "price_per_unit": price,
+            "quantity": quantity,
+            "store": store_name,
+            "confidence": comparison["confidence"],
+        })
+
+    comparison["items"] = items
+    comparison["shopping_list"] = shopping_list
+    return comparison
+
+
+def compare_store_costs(
+    meals: List[Meal],
+    zip_code: str,
+    max_distance_miles: float = None,
+    gas_price: float = None,
+    vehicle_mpg: float = 25.0,
+    avg_speed_mph: float = 25.0,
+) -> Dict[str, Any]:
+    """Compare store totals for a meal plan."""
+    shopping_list = get_shopping_list(meals)
+    results = {}
+    excluded_stores = []
+
+    for store_name in get_supported_store_names():
+        try:
+            store_data = get_prices_for_store(
+                store_name,
+                shopping_list,
+                zip_code,
+                max_distance_miles=max_distance_miles,
+                gas_price=gas_price,
+                vehicle_mpg=vehicle_mpg,
+                avg_speed_mph=avg_speed_mph,
+            )
+            results[store_name] = store_data
+        except ValueError:
+            excluded_stores.append(store_name)
+
+    return {
+        "stores": results,
+        "excluded_stores": excluded_stores,
+        "shopping_list": shopping_list,
+    }

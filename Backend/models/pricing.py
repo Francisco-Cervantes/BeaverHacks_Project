@@ -1,4 +1,4 @@
-from pricing.provider import PricingProvider
+from pricing.providers.base import PricingProvider
 from models.meal import Meal
 from typing import List, Dict
 

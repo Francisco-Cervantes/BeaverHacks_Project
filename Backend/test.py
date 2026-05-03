@@ -1,4 +1,4 @@
-from pricing.mock_provider import MockPricingProvider
+from pricing.providers.mock_provider import MockPricingProvider
 from services import get_all_meals, get_meal_costs, get_shopping_list, get_total_cost, get_available_meals
 from models.pricing import calculate_meal_cost, calculate_weekly_cost, calculate_shopping_cost
 from filters import filter_by_equipment, filter_by_time, filter_by_distance, mark_meals_with_cost
