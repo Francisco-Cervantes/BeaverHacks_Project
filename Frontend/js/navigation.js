@@ -136,12 +136,14 @@ class NavigationManager {
         const chatPage = document.getElementById('chat-page');
         if (chatPage && !chatPage.hasAttribute('data-loaded')) {
             chatPage.innerHTML = `
-                <div class="chat-container">
-                    <div style="width: 100%; display: flex; flex-direction: column; height: 100%;">
+                <div class="chat-layout">
+                    <!-- Left Column: AI Chat -->
+                    <div class="chat-column" id="chat-column">
                         <div class="chat-header">
                             <h2><i class="fas fa-robot"></i> NomNomNomotron AI Assistant</h2>
                             <p>Ask me about recipes, meal planning, or grocery shopping tips!</p>
                         </div>
+                        
                         <div class="chat-messages" id="chat-messages">
                             <div class="message bot">
                                 <p>Hi! I'm your NomNomNomotron AI assistant powered by NVIDIA technology. I can help you:</p>
@@ -151,52 +153,128 @@ class NavigationManager {
                                     <li>Suggest grocery shopping tips</li>
                                     <li>Find stores with the best prices</li>
                                 </ul>
-                                <p>What would you like to know?</p>
+                                <p>What would you like to cook today?</p>
                             </div>
                         </div>
+                        
                         <div class="chat-input-container">
                             <input 
                                 type="text" 
                                 id="chat-input" 
                                 class="chat-input" 
-                                placeholder="Type your message here..."
+                                placeholder="Ask for recipe suggestions..."
                             >
                             <button id="send-btn" class="send-btn">
                                 <i class="fas fa-paper-plane"></i>
                             </button>
                         </div>
                     </div>
+
+                    <!-- Resizable Divider -->
+                    <div class="chat-divider" id="chat-divider">
+                        <div class="divider-handle">
+                            <i class="fas fa-grip-vertical"></i>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Recipe Results -->
+                    <div class="recipes-column" id="recipes-column">
+                        <div class="recipes-header">
+                            <h3><i class="fas fa-utensils"></i> Recipe Suggestions</h3>
+                            <div class="recipe-mode-toggle">
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="individual-meal-mode">
+                                    <span class="slider"></span>
+                                </label>
+                                <span class="toggle-label">Individual Meal Mode</span>
+                            </div>
+                        </div>
+                        
+                        <div class="recipes-container" id="recipes-container">
+                            <div class="no-results">
+                                <i class="fas fa-search" style="font-size: 3rem; color: #ccc; margin-bottom: 20px;"></i>
+                                <p style="color: #666;">Ask the AI for recipe suggestions to see results here!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Meal Plan Dropdown Modal -->
+                <div id="meal-plan-dropdown" class="dropdown-modal" style="display: none;">
+                    <div class="dropdown-content">
+                        <h4>Add to Meal Plan</h4>
+                        <div class="meal-options">
+                            <button class="meal-option-btn" data-meal="breakfast">
+                                <i class="fas fa-sun"></i> Breakfast
+                            </button>
+                            <button class="meal-option-btn" data-meal="lunch">
+                                <i class="fas fa-cloud-sun"></i> Lunch
+                            </button>
+                            <button class="meal-option-btn" data-meal="dinner">
+                                <i class="fas fa-moon"></i> Dinner
+                            </button>
+                        </div>
+                        <button class="close-dropdown">Cancel</button>
+                    </div>
+                </div>
+
+                <!-- Login Prompt Modal -->
+                <div id="login-prompt-modal" class="login-modal" style="display: none;">
+                    <div class="login-modal-content">
+                        <h3><i class="fas fa-lock"></i> Login Required</h3>
+                        <p>You need to sign in to access meal planning features and save recipes to your plan.</p>
+                        <div class="login-modal-actions">
+                            <button id="go-to-login" class="btn btn-primary">Sign In</button>
+                            <button id="close-login-modal" class="btn btn-secondary">Cancel</button>
+                        </div>
+                    </div>
                 </div>
             `;
             this.setupChatFunctionality();
+            this.setupRecipesFunctionality();
+            this.setupResizableDivider();
+            
+            // Load some initial recipes to show the interface working
+            setTimeout(() => {
+                this.loadInitialRecipes();
+            }, 100);
+            
             chatPage.setAttribute('data-loaded', 'true');
         }
     }
 
     setupChatFunctionality() {
-        const chatInput = document.getElementById('chat-input');
-        const sendBtn = document.getElementById('send-btn');
-        const chatMessages = document.getElementById('chat-messages');
+        // Wait a brief moment to ensure elements are in DOM
+        setTimeout(() => {
+            const chatInput = document.getElementById('chat-input');
+            const sendBtn = document.getElementById('send-btn');
+            const chatMessages = document.getElementById('chat-messages');
 
-        const sendMessage = () => {
-            const message = chatInput.value.trim();
-            if (message) {
-                this.addMessage(message, 'user');
-                chatInput.value = '';
-                
-                // Simulate bot response
-                setTimeout(() => {
-                    this.getBotResponse(message);
-                }, 1000);
+            if (!chatInput || !sendBtn || !chatMessages) {
+                console.error('Chat elements not found in DOM');
+                return;
             }
-        };
 
-        sendBtn.addEventListener('click', sendMessage);
-        chatInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                sendMessage();
-            }
-        });
+            const sendMessage = () => {
+                const message = chatInput.value.trim();
+                if (message) {
+                    this.addMessage(message, 'user');
+                    chatInput.value = '';
+                    
+                    // Simulate bot response
+                    setTimeout(() => {
+                        this.getBotResponse(message);
+                    }, 1000);
+                }
+            };
+
+            sendBtn.addEventListener('click', sendMessage);
+            chatInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+        }, 50);
     }
 
     addMessage(text, sender) {
@@ -215,11 +293,16 @@ class NavigationManager {
             'meal plan': 'Meal planning saves time and money! Would you like me to help you create a weekly plan?',
             'grocery': 'Check our price comparison feature to find the best deals at nearby stores.',
             'cheap': 'Our cheapest meals include pasta with tomato sauce ($2.50) and scrambled eggs ($1.80).',
-            'hello': 'Hello! How can I help you with your meal planning today?'
+            'hello': 'Hello! How can I help you with your meal planning today?',
+            'chicken': 'I found some great chicken recipes for you!',
+            'pasta': 'Here are some delicious pasta recipes!',
+            'quick': 'Here are some quick meal options for busy days!',
+            'breakfast': 'Here are some healthy breakfast ideas!',
+            'vegetarian': 'I found some tasty vegetarian options for you!'
         };
 
         const lowerMessage = userMessage.toLowerCase();
-        let response = "I'm here to help with meals, recipes, and grocery shopping. Could you be more specific about what you need?";
+        let response = "I'm here to help with meals, recipes, and grocery shopping. Let me find some recipe suggestions for you!";
 
         for (const [keyword, reply] of Object.entries(responses)) {
             if (lowerMessage.includes(keyword)) {
@@ -229,6 +312,354 @@ class NavigationManager {
         }
 
         this.addMessage(response, 'bot');
+        
+        // Trigger recipe search based on message
+        await this.searchRecipes(userMessage);
+    }
+
+    async searchRecipes(query) {
+        try {
+            const meals = await window.apiManager.getMeals();
+            // Filter meals based on query keywords
+            const filteredMeals = this.filterMealsByQuery(meals, query);
+            this.displayRecipeResults(filteredMeals);
+        } catch (error) {
+            console.error('Error searching recipes:', error);
+        }
+    }
+
+    filterMealsByQuery(meals, query) {
+        const lowerQuery = query.toLowerCase();
+        const keywords = lowerQuery.split(' ');
+        
+        return meals.filter(meal => {
+            const mealText = (meal.name + ' ' + meal.ingredients.map(i => i.ingredient_name).join(' ')).toLowerCase();
+            return keywords.some(keyword => {
+                if (keyword.length < 3) return false; // Skip very short words
+                return mealText.includes(keyword);
+            });
+        }).slice(0, 6); // Limit to 6 results
+    }
+
+    displayRecipeResults(meals) {
+        const container = document.getElementById('recipes-container');
+        if (!container) return;
+
+        if (meals.length === 0) {
+            container.innerHTML = `
+                <div class="no-results">
+                    <i class="fas fa-search" style="font-size: 3rem; color: #ccc; margin-bottom: 20px;"></i>
+                    <p style="color: #666;">No recipes found. Try a different search term!</p>
+                </div>
+            `;
+            return;
+        }
+
+        container.innerHTML = `
+            <div class="recipes-grid">
+                ${meals.map(meal => this.createRecipeCard(meal)).join('')}
+            </div>
+        `;
+
+        // Add event listeners to buttons
+        this.setupRecipeCardListeners();
+    }
+
+    createRecipeCard(meal) {
+        const cost = this.estimateMealCost(meal);
+        const isLoggedIn = window.authManager?.getIsLoggedIn() || false;
+        
+        return `
+            <div class="recipe-card" data-meal="${meal.name}">
+                <div class="recipe-image">
+                    <div class="placeholder-image">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                </div>
+                <div class="recipe-info">
+                    <h4 class="recipe-title">${meal.name}</h4>
+                    <div class="recipe-details">
+                        <div class="detail-item">
+                            <i class="fas fa-clock"></i>
+                            <span>${meal.cook_time_minutes} min</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-dollar-sign"></i>
+                            <span>$${cost}</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-users"></i>
+                            <span>1-2 servings</span>
+                        </div>
+                    </div>
+                    <div class="ingredients-preview">
+                        <strong>Ingredients:</strong>
+                        <span>${meal.ingredients.slice(0, 3).map(i => i.ingredient_name).join(', ')}${meal.ingredients.length > 3 ? '...' : ''}</span>
+                    </div>
+                </div>
+                <div class="recipe-actions">
+                    <button class="make-it-btn btn btn-primary" data-meal="${meal.name}">
+                        <i class="fas fa-play"></i> Make It
+                    </button>
+                    <button class="add-to-plan-btn btn ${isLoggedIn ? 'btn-success' : 'btn-disabled'}" 
+                            data-meal="${meal.name}" ${!isLoggedIn ? 'disabled' : ''}>
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+        `;
+    }
+
+    estimateMealCost(meal) {
+        // Simple cost estimation based on ingredients
+        const baseCosts = {
+            'pasta': 0.50, 'chicken': 2.00, 'eggs': 0.30, 'rice': 0.25,
+            'onion': 0.25, 'tomato': 0.50, 'cheese': 1.00, 'bread': 0.15
+        };
+        
+        let totalCost = 0;
+        meal.ingredients.forEach(ingredient => {
+            const name = ingredient.ingredient_name.toLowerCase();
+            const matchedCost = Object.entries(baseCosts).find(([key]) => name.includes(key));
+            totalCost += matchedCost ? matchedCost[1] * ingredient.quantity : 0.50;
+        });
+        
+        return Math.max(totalCost, 1.50).toFixed(2);
+    }
+
+    setupRecipeCardListeners() {
+        // Make It buttons
+        document.querySelectorAll('.make-it-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const mealName = e.target.closest('.make-it-btn').getAttribute('data-meal');
+                this.goToMealDetail(mealName);
+            });
+        });
+
+        // Add to Plan buttons
+        document.querySelectorAll('.add-to-plan-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const mealName = e.target.closest('.add-to-plan-btn').getAttribute('data-meal');
+                if (window.authManager?.getIsLoggedIn()) {
+                    this.showMealPlanDropdown(e.target, mealName);
+                } else {
+                    this.showLoginPrompt();
+                }
+            });
+        });
+    }
+
+    goToMealDetail(mealName) {
+        localStorage.setItem('currentMeal', mealName);
+        this.navigateTo('individual-meal');
+    }
+
+    showMealPlanDropdown(button, mealName) {
+        const dropdown = document.getElementById('meal-plan-dropdown');
+        const rect = button.getBoundingClientRect();
+        
+        dropdown.style.display = 'block';
+        dropdown.style.left = `${rect.left}px`;
+        dropdown.style.top = `${rect.bottom + 10}px`;
+        
+        // Store meal name for when option is selected
+        dropdown.setAttribute('data-meal', mealName);
+        
+        // Set up meal option listeners
+        document.querySelectorAll('.meal-option-btn').forEach(btn => {
+            btn.onclick = (e) => {
+                const mealType = e.target.closest('.meal-option-btn').getAttribute('data-meal');
+                this.addToMealPlan(mealName, mealType);
+                dropdown.style.display = 'none';
+            };
+        });
+        
+        document.querySelector('.close-dropdown').onclick = () => {
+            dropdown.style.display = 'none';
+        };
+    }
+
+    addToMealPlan(mealName, mealType) {
+        // Store in localStorage for now (would typically use backend)
+        const currentWeek = 0; // Current week
+        const today = new Date().getDay(); // 0 = Sunday, 1 = Monday, etc.
+        const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+        const targetDay = days[today];
+        
+        const weekKey = `week_${currentWeek}`;
+        let mealPlan = JSON.parse(localStorage.getItem(`nomnomn_mealplan_${weekKey}`) || '{}');
+        
+        if (!mealPlan[targetDay]) mealPlan[targetDay] = {};
+        mealPlan[targetDay][mealType] = {
+            name: mealName,
+            cookTime: '20'
+        };
+        
+        localStorage.setItem(`nomnomn_mealplan_${weekKey}`, JSON.stringify(mealPlan));
+        window.authManager?.showSuccessMessage(`${mealName} added to today's ${mealType}!`);
+    }
+
+    showLoginPrompt() {
+        const modal = document.getElementById('login-prompt-modal');
+        modal.style.display = 'flex';
+        
+        document.getElementById('go-to-login').onclick = () => {
+            modal.style.display = 'none';
+            window.authManager?.showSignInPage();
+        };
+        
+        document.getElementById('close-login-modal').onclick = () => {
+            modal.style.display = 'none';
+        };
+        
+        // Close on backdrop click
+        modal.onclick = (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        };
+    }
+
+    setupRecipesFunctionality() {
+        // Individual meal mode toggle
+        const individualModeToggle = document.getElementById('individual-meal-mode');
+        if (individualModeToggle) {
+            individualModeToggle.addEventListener('change', (e) => {
+                // Could add different behavior for individual meal mode
+                if (e.target.checked) {
+                    console.log('Individual meal mode enabled');
+                } else {
+                    console.log('Regular mode enabled');
+                }
+            });
+        }
+    }
+
+    setupResizableDivider() {
+        const divider = document.getElementById('chat-divider');
+        const chatColumn = document.getElementById('chat-column');
+        const recipesColumn = document.getElementById('recipes-column');
+        let isResizing = false;
+        let isMobile = window.innerWidth <= 768;
+
+        // Check if mobile and adjust behavior
+        window.addEventListener('resize', () => {
+            isMobile = window.innerWidth <= 768;
+            if (!isMobile) {
+                // Reset to side-by-side layout
+                chatColumn.style.width = '40%';
+                recipesColumn.style.width = '60%';
+                chatColumn.style.height = 'auto';
+                recipesColumn.style.height = 'auto';
+            }
+        });
+
+        // Desktop resizing (horizontal)
+        divider.addEventListener('mousedown', (e) => {
+            if (isMobile) return;
+            isResizing = true;
+            document.addEventListener('mousemove', handleDesktopResize);
+            document.addEventListener('mouseup', stopResize);
+            e.preventDefault();
+        });
+
+        // Mobile resizing (vertical) - touch events
+        divider.addEventListener('touchstart', (e) => {
+            if (!isMobile) return;
+            isResizing = true;
+            document.addEventListener('touchmove', handleMobileResize);
+            document.addEventListener('touchend', stopResize);
+            e.preventDefault();
+        }, { passive: false });
+
+        function handleDesktopResize(e) {
+            if (!isResizing || isMobile) return;
+            
+            const containerWidth = divider.parentElement.offsetWidth;
+            const newLeftWidth = (e.clientX / containerWidth) * 100;
+            
+            // Enforce constraints: chat column 25-75%, recipes column 25-75%
+            const constrainedLeft = Math.max(25, Math.min(75, newLeftWidth));
+            const constrainedRight = 100 - constrainedLeft;
+            
+            chatColumn.style.width = `${constrainedLeft}%`;
+            recipesColumn.style.width = `${constrainedRight}%`;
+        }
+
+        function handleMobileResize(e) {
+            if (!isResizing || !isMobile) return;
+            
+            const touch = e.touches[0];
+            const containerHeight = divider.parentElement.offsetHeight;
+            const newTopHeight = (touch.clientY / containerHeight) * 100;
+            
+            // Enforce constraints: each section 25-75%
+            const constrainedTop = Math.max(25, Math.min(75, newTopHeight));
+            const constrainedBottom = 100 - constrainedTop;
+            
+            chatColumn.style.height = `${constrainedTop}vh`;
+            recipesColumn.style.height = `${constrainedBottom}vh`;
+        }
+
+        function stopResize() {
+            isResizing = false;
+            document.removeEventListener('mousemove', handleDesktopResize);
+            document.removeEventListener('touchmove', handleMobileResize);
+            document.removeEventListener('mouseup', stopResize);
+            document.removeEventListener('touchend', stopResize);
+        }
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', (e) => {
+            const dropdown = document.getElementById('meal-plan-dropdown');
+            if (dropdown && !dropdown.contains(e.target) && !e.target.closest('.add-to-plan-btn')) {
+                dropdown.style.display = 'none';
+            }
+        });
+    }
+
+    loadInitialRecipes() {
+        // Display some sample recipes so users can see the interface working
+        const sampleRecipes = [
+            {
+                name: "Quick Pasta with Tomato Sauce",
+                cook_time_minutes: 15,
+                ingredients: [
+                    { ingredient_name: "pasta", quantity: 2 },
+                    { ingredient_name: "tomato sauce", quantity: 1 },
+                    { ingredient_name: "onion", quantity: 0.5 }
+                ]
+            },
+            {
+                name: "Scrambled Eggs & Toast",
+                cook_time_minutes: 10,
+                ingredients: [
+                    { ingredient_name: "eggs", quantity: 3 },
+                    { ingredient_name: "bread", quantity: 2 },
+                    { ingredient_name: "butter", quantity: 1 }
+                ]
+            },
+            {
+                name: "Rice Bowl with Vegetables",
+                cook_time_minutes: 20,
+                ingredients: [
+                    { ingredient_name: "rice", quantity: 1 },
+                    { ingredient_name: "mixed vegetables", quantity: 1 },
+                    { ingredient_name: "soy sauce", quantity: 0.5 }
+                ]
+            },
+            {
+                name: "Simple Chicken Sandwich",
+                cook_time_minutes: 12,
+                ingredients: [
+                    { ingredient_name: "chicken breast", quantity: 1 },
+                    { ingredient_name: "bread", quantity: 2 },
+                    { ingredient_name: "lettuce", quantity: 1 }
+                ]
+            }
+        ];
+        
+        this.displayRecipeResults(sampleRecipes);
     }
 
     loadMealsPage() {

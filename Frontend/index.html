@@ -55,24 +55,34 @@
                 </div>
                 <div class="user-actions">
                     <div class="location-inputs">
-                        <input type="text" id="zip-input" placeholder="ZIP" value="97331" maxlength="5" style="width: 70px; padding: 6px; margin-right: 8px; border: 2px solid #e0e0e0; border-radius: 4px; font-size: 12px;">
-                        <select id="mile-range" style="width: 80px; padding: 6px; margin-right: 15px; border: 2px solid #e0e0e0; border-radius: 4px; font-size: 12px;">
-                            <option value="5">5 mi</option>
-                            <option value="10" selected>10 mi</option>
-                            <option value="15">15 mi</option>
-                            <option value="25">25 mi</option>
-                        </select>
+                        <div class="input-group">
+                            <label for="zip-input" class="input-label">ZIP Code</label>
+                            <input type="text" id="zip-input" placeholder="ZIP" value="97331" maxlength="5" style="width: 70px; padding: 6px; margin-right: 8px; border: 2px solid #e0e0e0; border-radius: 4px; font-size: 12px;">
+                        </div>
+                        <div class="input-group">
+                            <label for="mile-range" class="input-label">Mile Range</label>
+                            <select id="mile-range" style="width: 80px; padding: 6px; margin-right: 15px; border: 2px solid #e0e0e0; border-radius: 4px; font-size: 12px;">
+                                <option value="5">5 mi</option>
+                                <option value="10" selected>10 mi</option>
+                                <option value="15">15 mi</option>
+                                <option value="25">25 mi</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="language-selector">
-                        <select id="language-select" style="padding: 6px; margin-right: 15px; border: 2px solid #e0e0e0; border-radius: 4px; font-size: 12px;">
-                            <option value="en">🇺🇸 EN</option>
-                            <option value="es">🇪🇸 ES</option>
-                            <option value="zh">🇨🇳 中文</option>
-                            <option value="zh-hk">🇭🇰 粵語</option>
-                            <option value="vi">🇻🇳 VI</option>
-                        </select>
+                        <div class="input-group">
+                            <label for="language-select" class="input-label">Language</label>
+                            <select id="language-select" style="padding: 6px; margin-right: 15px; border: 2px solid #e0e0e0; border-radius: 4px; font-size: 12px;">
+                                <option value="en">🇺🇸 EN</option>
+                                <option value="es">🇪🇸 ES</option>
+                                <option value="zh">🇨🇳 中文</option>
+                                <option value="zh-hk">🇭🇰 粵語</option>
+                                <option value="vi">🇻🇳 VI</option>
+                            </select>
+                        </div>
                     </div>
-                    <span id="user-info" class="hidden">
+                    <div class="auth-buttons">
+                        <span id="user-info" class="hidden">
                         <i class="fas fa-user-circle"></i> 
                         <span id="user-name">Welcome</span>
                     </span>
