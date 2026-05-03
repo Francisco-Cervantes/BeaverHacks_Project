@@ -208,16 +208,16 @@ class AuthManager {
 
     // Storage methods
     saveUserToStorage(user) {
-        localStorage.setItem('beavereats_user', JSON.stringify(user));
+        localStorage.setItem('nomnomn_user', JSON.stringify(user));
     }
 
     loadUserFromStorage() {
-        const userStr = localStorage.getItem('beavereats_user');
+        const userStr = localStorage.getItem('nomnomn_user');
         return userStr ? JSON.parse(userStr) : null;
     }
 
     clearUserStorage() {
-        localStorage.removeItem('beavereats_user');
+        localStorage.removeItem('nomnomn_user');
     }
 
     // Utility methods
@@ -268,7 +268,7 @@ class AuthManager {
                 }
                 .notification-error { background-color: #dc3545; }
                 .notification-success { background-color: #28a745; }
-                .notification-info { background-color: #17a2b8; }
+                .notification-info { background-color: #76b900; }
                 .notification-close {
                     background: none;
                     border: none;

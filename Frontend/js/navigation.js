@@ -139,12 +139,12 @@ class NavigationManager {
                 <div class="chat-container">
                     <div style="width: 100%; display: flex; flex-direction: column; height: 100%;">
                         <div class="chat-header">
-                            <h2><i class="fas fa-robot"></i> BeaverEats Assistant</h2>
+                            <h2><i class="fas fa-robot"></i> NomNomNomotron AI Assistant</h2>
                             <p>Ask me about recipes, meal planning, or grocery shopping tips!</p>
                         </div>
                         <div class="chat-messages" id="chat-messages">
                             <div class="message bot">
-                                <p>Hi! I'm your BeaverEats assistant. I can help you:</p>
+                                <p>Hi! I'm your NomNomNomotron AI assistant powered by NVIDIA technology. I can help you:</p>
                                 <ul style="margin: 10px 0; padding-left: 20px;">
                                     <li>Find budget-friendly recipes</li>
                                     <li>Plan your weekly meals</li>

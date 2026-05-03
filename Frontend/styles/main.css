@@ -37,12 +37,12 @@ body {
 }
 
 .btn-primary {
-    background-color: #007bff;
+    background-color: #76b900;
     color: white;
 }
 
 .btn-primary:hover {
-    background-color: #0056b3;
+    background-color: #5e9400;
 }
 
 .btn-secondary {
@@ -88,7 +88,7 @@ body {
 }
 
 .nav-brand h2 {
-    color: #007bff;
+    color: #76b900;
     font-size: 24px;
 }
 
@@ -114,14 +114,34 @@ body {
 
 .nav-link:hover,
 .nav-link.active {
-    color: #007bff;
-    background-color: #f8f9ff;
+    color: #76b900;
+    background-color: #f0f8e8;
 }
 
 .user-actions {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 10px;
+}
+
+.location-inputs {
+    display: flex;
+    align-items: center;
+}
+
+.location-inputs input:focus,
+.location-inputs select:focus {
+    border-color: #76b900 !important;
+    outline: none;
+}
+
+.language-selector select {
+    cursor: pointer;
+}
+
+.language-selector select:focus {
+    border-color: #76b900 !important;
+    outline: none;
 }
 
 #user-info {
@@ -210,7 +230,7 @@ body {
 
 .auth-form input:focus {
     outline: none;
-    border-color: #007bff;
+    border-color: #76b900;
 }
 
 .auth-divider {
@@ -246,7 +266,7 @@ body {
 
 /* Home Page */
 .hero-section {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #76b900 0%, #5e9400 100%);
     color: white;
     padding: 80px 0;
     text-align: center;
@@ -315,7 +335,7 @@ body {
 
 .feature-card i {
     font-size: 3rem;
-    color: #007bff;
+    color: #76b900;
     margin-bottom: 20px;
 }
 
@@ -360,7 +380,7 @@ body {
 
 .message.user {
     align-self: flex-end;
-    background-color: #007bff;
+    background-color: #76b900;
     color: white;
 }
 
@@ -390,11 +410,11 @@ body {
 }
 
 .chat-input:focus {
-    border-color: #007bff;
+    border-color: #76b900;
 }
 
 .send-btn {
-    background-color: #007bff;
+    background-color: #76b900;
     color: white;
     border: none;
     width: 50px;
@@ -408,7 +428,7 @@ body {
 }
 
 .send-btn:hover {
-    background-color: #0056b3;
+    background-color: #5e9400;
 }
 
 /* Individual Meal Page */
@@ -478,12 +498,12 @@ body {
     padding: 20px;
     background: #f8f9fa;
     border-radius: 8px;
-    border-left: 4px solid #007bff;
+    border-left: 4px solid #76b900;
 }
 
 .step-number {
     font-weight: bold;
-    color: #007bff;
+    color: #76b900;
     margin-bottom: 10px;
 }
 
@@ -531,8 +551,8 @@ body {
 }
 
 .meal-slot:hover {
-    border-color: #007bff;
-    background-color: #f8f9ff;
+    border-color: #76b900;
+    background-color: #f0f8e8;
 }
 
 .meal-slot.filled {
@@ -602,7 +622,7 @@ body {
 .form-group select:focus,
 .form-group textarea:focus {
     outline: none;
-    border-color: #007bff;
+    border-color: #76b900;
 }
 
 .checkbox-group {

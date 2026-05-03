@@ -342,7 +342,7 @@ function updateWeekDisplay() {
 
 function loadMealPlanData() {
     const weekKey = `week_${currentWeekOffset}`;
-    const savedPlan = localStorage.getItem(`beavereats_mealplan_${weekKey}`);
+    const savedPlan = localStorage.getItem(`nomnomn_mealplan_${weekKey}`);
     
     if (savedPlan) {
         mealPlanData = JSON.parse(savedPlan);
@@ -357,7 +357,7 @@ function loadMealPlanData() {
 
 function saveMealPlanData() {
     const weekKey = `week_${currentWeekOffset}`;
-    localStorage.setItem(`beavereats_mealplan_${weekKey}`, JSON.stringify(mealPlanData));
+    localStorage.setItem(`nomnomn_mealplan_${weekKey}`, JSON.stringify(mealPlanData));
     updateWeeklySummary();
 }
 

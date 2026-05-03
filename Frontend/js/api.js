@@ -2,7 +2,7 @@
 class APIManager {
     constructor() {
         // Update this URL to match your FastAPI backend
-        this.baseURL = 'http://localhost:8000';
+        this.baseURL = 'http://localhost:8001';
         this.init();
     }
 

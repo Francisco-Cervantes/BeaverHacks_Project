@@ -7,7 +7,7 @@ class BeaverEatsApp {
 
     async init() {
         try {
-            console.log('Initializing BeaverEats App...');
+            console.log('Initializing NomNomNomotron App...');
             
             // Wait for DOM to be ready
             if (document.readyState === 'loading') {
@@ -47,7 +47,7 @@ class BeaverEatsApp {
             // Initialize service worker for offline support (optional)
             this.initializeServiceWorker();
             
-            console.log('BeaverEats App initialized successfully!');
+            console.log('NomNomNomotron App initialized successfully!');
             this.isInitialized = true;
             
             // Show welcome message for first-time users
@@ -199,9 +199,9 @@ class BeaverEatsApp {
     }
 
     checkFirstTimeUser() {
-        const hasVisited = localStorage.getItem('beavereats_visited');
+        const hasVisited = localStorage.getItem('nomnomn_visited');
         if (!hasVisited) {
-            localStorage.setItem('beavereats_visited', 'true');
+            localStorage.setItem('nomnomn_visited', 'true');
             this.showWelcomeMessage();
         }
     }
@@ -210,7 +210,7 @@ class BeaverEatsApp {
         setTimeout(() => {
             if (window.authManager) {
                 window.authManager.showInfoMessage(
-                    'Welcome to BeaverEats! Your smart meal planning companion for students. 🍽️'
+                    'Welcome to NomNomNomotron! Your AI-powered meal planning companion for busy families and students. \ud83e\udd16'
                 );
             }
         }, 1000);
@@ -231,13 +231,13 @@ class BeaverEatsApp {
         console.error('Logged error:', errorData);
         
         // Store locally for debugging
-        const errors = JSON.parse(localStorage.getItem('beavereats_errors') || '[]');
+        const errors = JSON.parse(localStorage.getItem('nomnomn_errors') || '[]');
         errors.push(errorData);
         // Keep only last 10 errors
         if (errors.length > 10) {
             errors.shift();
         }
-        localStorage.setItem('beavereats_errors', JSON.stringify(errors));
+        localStorage.setItem('nomnomn_errors', JSON.stringify(errors));
     }
 
     handleAPIError(error) {
@@ -312,7 +312,7 @@ class BeaverEatsApp {
                 firstPaint: performance.getEntriesByName('first-paint')[0]?.startTime || 0
             };
             
-            localStorage.setItem('beavereats_perf', JSON.stringify(perfData));
+            localStorage.setItem('nomnomn_perf', JSON.stringify(perfData));
         }
     }
 
@@ -322,14 +322,14 @@ class BeaverEatsApp {
             initialized: this.isInitialized,
             currentUser: window.authManager?.getCurrentUser(),
             currentPage: window.navigationManager?.currentPage,
-            errors: JSON.parse(localStorage.getItem('beavereats_errors') || '[]'),
-            performance: JSON.parse(localStorage.getItem('beavereats_perf') || '{}')
+            errors: JSON.parse(localStorage.getItem('nomnomn_errors') || '[]'),
+            performance: JSON.parse(localStorage.getItem('nomnomn_perf') || '{}')
         };
     }
 
     // Cleanup on page unload
     destroy() {
-        console.log('Cleaning up BeaverEats App...');
+        console.log('Cleaning up NomNomNomotron App...');
         // Remove event listeners
         // Clear timers
         // Save state if needed
@@ -337,7 +337,7 @@ class BeaverEatsApp {
 }
 
 // Initialize the app
-console.log('Loading BeaverEats...');
+console.log('Loading NomNomNomotron...');
 const app = new BeaverEatsApp();
 
 // Handle page unload
