@@ -6,7 +6,7 @@
         "keywords": {
             "diet": "normal",
             "dieting": "no",
-            "calorie_target": 1000,
+            "calorie_target": 3000,
             "protein_goal": "normal"
         },
         "guest_mode": false

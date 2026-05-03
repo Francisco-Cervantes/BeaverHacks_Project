@@ -255,17 +255,25 @@ class NavigationManager {
             }
 
             const sendMessage = () => {
-                const message = chatInput.value.trim();
-                if (message) {
-                    this.addMessage(message, 'user');
-                    chatInput.value = '';
-                    
-                    // Simulate bot response
-                    setTimeout(() => {
-                        this.getBotResponse(message);
-                    }, 1000);
-                }
-            };
+    const message = chatInput.value.trim();
+
+    // ⭐ REQUIRED FIX — read ZIP + radius from navbar
+    const zip = document.getElementById('zip-input')?.value.trim();
+    const radius = document.getElementById('mile-range')?.value.trim();
+
+    if (!zip || !radius) {
+        alert("Please enter ZIP and radius before chatting.");
+        return;
+    }
+
+    if (!message) return;
+
+    this.addMessage(message, 'user');
+    chatInput.value = '';
+
+    this.getBotResponse(message);
+    };
+
 
             sendBtn.addEventListener('click', sendMessage);
             chatInput.addEventListener('keypress', (e) => {
