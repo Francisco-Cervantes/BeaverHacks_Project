@@ -162,16 +162,32 @@ class APIManager {
         return data;
     }
 
-    // Register a new user
-    async registerUser(username, password, zip = '00000', radius = 10) {
+    // Register a new user with full profile data
+    async registerUser(username, profileData) {
         const response = await fetch(`${this.chatBaseURL}/register`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username, password, zip, radius })
+            body: JSON.stringify({ username, ...profileData })
         });
         const data = await response.json();
         if (!data.success) throw new Error(data.error || 'Registration failed');
         return data;
+    }
+
+    async saveUserProfile(username, profileData) {
+        try {
+            const response = await fetch(`${this.chatBaseURL}/save-profile`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, ...profileData })
+            });
+            const data = await response.json();
+            if (!data.success) throw new Error(data.error || 'Save failed');
+            return data;
+        } catch (error) {
+            console.warn('Could not save profile to server, saved locally only:', error);
+            return { success: true, local: true };
+        }
     }
 
     // Mock data for development/offline mode

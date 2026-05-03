@@ -264,10 +264,15 @@ async function saveProfile(e) {
         const currentUser = window.authManager.getCurrentUser();
         const updatedUser = { ...currentUser, ...profileData };
         
-        // Save to localStorage (in real app, would save to backend)
+        // Save to localStorage
         window.authManager.saveUserToStorage(updatedUser);
         window.authManager.currentUser = updatedUser;
         window.authManager.updateAuthUI();
+
+        // Save to Flask backend (persists to logged_in.json)
+        if (currentUser?.name) {
+            await window.apiManager.saveUserProfile(currentUser.name, profileData);
+        }
 
         window.authManager.showSuccessMessage('Profile saved successfully!');
         
