@@ -1,8 +1,10 @@
 // API communication manager for backend integration
 class APIManager {
     constructor() {
-        // Update this URL to match your FastAPI backend
+        // FastAPI backend (meals, pricing)
         this.baseURL = 'http://localhost:8001';
+        // Flask AI chat server
+        this.chatBaseURL = 'http://localhost:5000';
         this.init();
     }
 
@@ -122,11 +124,41 @@ class APIManager {
         }
     }
 
-    // Chat API (if you plan to integrate with AI services)
+    // Chat API - integrates with Flask AI server on port 5000
     async sendChatMessage(message, context = {}) {
-        // This could integrate with OpenAI, Claude, or your own AI service
-        // For now, return mock responses
-        return this.getMockChatResponse(message, context);
+        try {
+            const username = window.authManager?.currentUser?.name || null;
+            const zip = document.getElementById('zip-input')?.value || '00000';
+            const radius = parseInt(document.getElementById('mile-range')?.value || '10');
+
+            const payload = { message, zip, radius };
+            if (username) payload.username = username;
+
+            const response = await fetch(`${this.chatBaseURL}/chat`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            const data = await response.json();
+            return data.response || 'Sorry, I could not process that request.';
+        } catch (error) {
+            console.error('Error sending chat message:', error);
+            return this.getMockChatResponse(message, context);
+        }
+    }
+
+    // Login via Flask AI server
+    async loginUser(username, password) {
+        const response = await fetch(`${this.chatBaseURL}/login`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, password })
+        });
+        const data = await response.json();
+        if (!data.success) throw new Error(data.error || 'Login failed');
+        return data;
     }
 
     // Mock data for development/offline mode

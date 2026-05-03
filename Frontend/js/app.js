@@ -186,15 +186,11 @@ class BeaverEatsApp {
     }
 
     initializeServiceWorker() {
-        // Register service worker for offline support
+        // Service worker disabled — causes stale cache issues during development
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/sw.js')
-                .then((registration) => {
-                    console.log('ServiceWorker registered:', registration);
-                })
-                .catch((error) => {
-                    console.log('ServiceWorker registration failed:', error);
-                });
+            navigator.serviceWorker.getRegistrations().then((registrations) => {
+                for (const reg of registrations) reg.unregister();
+            });
         }
     }
 

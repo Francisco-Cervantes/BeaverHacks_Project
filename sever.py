@@ -1,10 +1,12 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 from user_chat import extract_keywords, wizard_confirmation, normalize
 from memory_manager import MemoryManager
 from Model import ask_model
 import json
 
 app = Flask(__name__)
+CORS(app)  # Allow frontend on port 8000 to call this server
 
 # Global memory manager instance
 mm = MemoryManager()

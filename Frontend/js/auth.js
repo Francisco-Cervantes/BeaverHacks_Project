@@ -131,35 +131,13 @@ class AuthManager {
     }
 
     updateNavigationForAuth() {
-        const profileLink = document.querySelector('[data-page="profile"]');
-        const mealPlanLink = document.querySelector('[data-page="meal-plan"]');
-        
-        if (!this.isLoggedIn) {
-            // Add click handlers to show sign-in prompt for restricted features
-            if (profileLink) {
-                profileLink.addEventListener('click', (e) => {
-                    if (!this.isLoggedIn) {
-                        e.preventDefault();
-                        this.showAuthRequiredMessage('Profile');
-                    }
-                });
-            }
-            
-            if (mealPlanLink) {
-                mealPlanLink.addEventListener('click', (e) => {
-                    if (!this.isLoggedIn) {
-                        e.preventDefault();
-                        this.showAuthRequiredMessage('Meal Planning');
-                    }
-                });
-            }
-        }
+        // Auth guards are handled centrally in navigation.js navigateTo()
     }
 
     showAuthRequiredMessage(feature) {
         this.showInfoMessage(
-            `${feature} requires an account. Please sign in to access this feature.`,
-            () => this.showSignInPage()
+            `${feature} requires an account. Please sign in to access this feature.`
+            // No callback — notification just dismisses, doesn't redirect
         );
     }
 

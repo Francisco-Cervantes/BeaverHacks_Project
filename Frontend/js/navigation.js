@@ -53,10 +53,9 @@ class NavigationManager {
     }
 
     navigateTo(page) {
-        // Check authentication requirements
-        const authRequiredPages = ['profile', 'meal-plan'];
-        if (authRequiredPages.includes(page) && !window.authManager.getIsLoggedIn()) {
-            window.authManager.showAuthRequiredMessage(this.getPageTitle(page));
+        // Profile requires login
+        if (page === 'profile' && !window.authManager.getIsLoggedIn()) {
+            window.authManager.showAuthRequiredMessage('Profile');
             return;
         }
 
@@ -77,6 +76,7 @@ class NavigationManager {
         // Show target page
         const targetPage = document.getElementById(`${page}-page`);
         if (targetPage) {
+            targetPage.classList.remove('hidden');
             targetPage.classList.add('active');
         }
 
@@ -119,7 +119,6 @@ class NavigationManager {
         this.pages.set('chat', () => this.loadChatPage());
         this.pages.set('meals', () => this.loadMealsPage());
         this.pages.set('profile', () => this.loadProfilePage());
-        this.pages.set('meal-plan', () => this.loadMealPlanPage());
         this.pages.set('recipes', () => this.loadRecipesPage());
         this.pages.set('individual-meal', () => this.loadIndividualMealPage());
     }
@@ -287,13 +286,32 @@ class NavigationManager {
     }
 
     async getBotResponse(userMessage) {
+        try {
+            // Use real API if available
+            const response = await window.apiManager.sendChatMessage(userMessage, {
+                current_page: 'chat',
+                user_location: document.getElementById('zip-input')?.value || '97331'
+            });
+            this.addMessage(response, 'bot');
+        } catch (error) {
+            console.error('Chat API error:', error);
+            // Fallback to local responses
+            const localResponse = this.getLocalChatResponse(userMessage);
+            this.addMessage(localResponse, 'bot');
+        }
+        
+        // Trigger recipe search based on message
+        await this.searchRecipes(userMessage);
+    }
+
+    getLocalChatResponse(userMessage) {
         const responses = {
             'budget': 'For budget-friendly meals, try our pasta dishes and rice bowls. They typically cost under $3 per serving!',
             'recipe': 'I can suggest recipes based on your preferences. What ingredients do you have available?',
             'meal plan': 'Meal planning saves time and money! Would you like me to help you create a weekly plan?',
             'grocery': 'Check our price comparison feature to find the best deals at nearby stores.',
             'cheap': 'Our cheapest meals include pasta with tomato sauce ($2.50) and scrambled eggs ($1.80).',
-            'hello': 'Hello! How can I help you with your meal planning today?',
+            'hello': 'Hello! I\'m your NomNomNomotron AI assistant. How can I help you with meal planning today?',
             'chicken': 'I found some great chicken recipes for you!',
             'pasta': 'Here are some delicious pasta recipes!',
             'quick': 'Here are some quick meal options for busy days!',
@@ -310,11 +328,8 @@ class NavigationManager {
                 break;
             }
         }
-
-        this.addMessage(response, 'bot');
         
-        // Trigger recipe search based on message
-        await this.searchRecipes(userMessage);
+        return response;
     }
 
     async searchRecipes(query) {
